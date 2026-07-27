@@ -1,5 +1,5 @@
 # System-Overview
 
-> Draft document.
+> Draft document
 >
 > This document will be developed as Project Meadowlark evolves.
