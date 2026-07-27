@@ -1,4 +1,4 @@
-## Subsystem Breakdown
+# Subsystem Breakdown
 
 Define the major systems:
 

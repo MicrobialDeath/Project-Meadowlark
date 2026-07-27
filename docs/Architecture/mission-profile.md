@@ -1,4 +1,4 @@
-## Mission Profile
+# Mission Profile
 
 This is one of the most important engineering documents.
 

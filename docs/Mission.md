@@ -1,33 +1,9 @@
 # Mission
 
-Project Meadowlark's mission is to create an open, affordable, and modular autonomous aerial observation platform that advances computer vision, autonomous flight, and systems engineering through transparent development, reproducible design, and comprehensive documentation.
+The current mission of Project Meadowlark is to design, develop, document, and validate MP-1 as the first aircraft platform within the Meadowlark engineering program.
 
-By making both the technology and the engineering process accessible, Meadowlark empowers others to build, learn, and innovate on a shared foundation.
+MP-1 serves as the foundational reference implementation used to establish engineering processes, repository organization, documentation standards, software architecture, hardware integration, testing methodology, and operational procedures.
 
----
+Every subsystem developed for MP-1 should contribute not only to a functioning aircraft, but also to a reusable engineering framework capable of supporting future Meadowlark platforms.
 
-# Motto
-
-> Engineering over everything.
-
----
-
-# Vision
-
-Project Meadowlark is more than an aircraft. It is an engineering program dedicated to developing accessible autonomous aerial systems through disciplined systems engineering, iterative development, and open knowledge sharing.
-
-Every design decision should support affordability, reproducibility, modularity, and long-term maintainability, ensuring that others can follow the same engineering process and build upon the work that came before.
-
----
-
-# Core Principles
-
-- Engineering before implementation.
-- Open documentation.
-- Affordable by design.
-- Reproducible by others.
-- Modular architecture.
-- Incremental development.
-- Transparent decision making.
-- Community contribution.
-- Safety through disciplined engineering.
+The objective is to build a platform that demonstrates disciplined engineering practices as much as technical capability.
