@@ -1,8 +1,8 @@
 # Project Meadowlark
 
-Project Meadowlark is an open engineering project focused on the design, development, verification, and documentation of autonomous fixed-wing aerial systems.
+Project Meadowlark is an open engineering project dedicated to the design, development, verification, and documentation of autonomous fixed-wing aerial systems.
 
-The project applies systems engineering principles to produce aircraft that are modular, maintainable, and thoroughly documented. Rather than focusing solely on building an aircraft, Meadowlark emphasizes creating a complete engineering record that supports repeatability, traceability, verification, and future platform evolution.
+The project applies systems engineering principles to create aircraft that are modular, maintainable, extensible, and supported by complete engineering documentation. Rather than focusing solely on building an aircraft, Meadowlark emphasizes developing a comprehensive engineering record that supports repeatability, traceability, verification, and long-term evolution.
 
 ---
 
@@ -10,11 +10,11 @@ The project applies systems engineering principles to produce aircraft that are 
 
 Project Meadowlark aims to:
 
-- Develop autonomous fixed-wing aircraft using sound engineering practices.
+- Develop autonomous fixed-wing aircraft using disciplined systems engineering.
 - Produce complete engineering documentation alongside implementation.
 - Maintain traceability between requirements, architecture, analysis, verification, and engineering decisions.
-- Design systems that can evolve across multiple aircraft platforms.
-- Publish original engineering work as an open reference for others.
+- Create modular systems that can evolve across multiple aircraft platforms.
+- Publish original engineering work as an open reference for others to learn from and build upon.
 
 ---
 
@@ -24,22 +24,24 @@ The initial development platform is:
 
 **Meadowlark Platform 1 (MP-1)**
 
-MP-1 uses the Flightory LARK airframe as its physical reference platform while Meadowlark develops its own:
+MP-1 uses the Flightory LARK airframe as the initial reference aircraft while Project Meadowlark develops its own:
 
 - Electrical architecture
 - Avionics architecture
+- Mechanical integration
 - Software architecture
+- Autonomous capabilities
 - Verification procedures
 - Engineering documentation
 - System integration
 
-The Flightory LARK serves only as the initial hardware platform and does not define the long-term architecture of Project Meadowlark.
+The Flightory LARK serves as the physical development platform and does not define the long-term architecture of Project Meadowlark.
 
 ---
 
 # Repository Organization
 
-The repository is organized into several major areas.
+The repository is organized into major engineering domains.
 
 | Directory | Purpose |
 |-----------|---------|
@@ -47,8 +49,8 @@ The repository is organized into several major areas.
 | `docs/` | Engineering documentation |
 | `hardware/` | Original hardware designs and manufacturing files |
 | `references/` | Third-party reference documentation |
-| `software/` | Source code and software tools |
-| `tools/` | Templates and engineering utilities |
+| `software/` | Source code and supporting software |
+| `tools/` | Engineering templates and utilities |
 
 ---
 
@@ -60,55 +62,45 @@ Example:
 
 ```text
 docs/
-    program/
-    platforms/
-        mp-1/
+├── program/
+└── platforms/
+    └── mp-1/
 ```
 
 Platform documentation includes:
 
-- Architecture
-- Requirements
 - Analysis
+- Architecture
+- Drawings
+- Engineering Decision Records (EDRs)
 - Interfaces
 - Procurement
+- References
+- Requirements
 - Verification
-- Engineering Decision Records (EDRs)
 
----
-
-# Engineering Philosophy
-
-Project Meadowlark follows several guiding principles.
-
-- Engineering over documentation.
-- Documentation supports engineering.
-- Define before building whenever practical.
-- Build capability in layers.
-- Prefer evolution over replacement.
-- Optimize for clarity.
-- Record significant engineering decisions.
-- Verify assumptions whenever practical.
-- Design for future platforms without compromising the current platform.
-
----
-
-# Engineering Standards
-
-Project engineering standards are maintained separately under:
+Project-wide engineering governance and standards are maintained separately under:
 
 ```text
 docs/program/
 ```
 
-These standards define:
+---
 
-- Documentation requirements
-- Repository conventions
-- Engineering workflow
-- Evidence levels
-- Source classifications
-- Engineering Decision Record (EDR) process
+# Engineering Philosophy
+
+Project Meadowlark is guided by the following principles:
+
+- Engineering rigor takes priority over process for its own sake.
+- Documentation is part of the engineering deliverable.
+- Define before building whenever practical.
+- Requirements drive design.
+- Significant engineering decisions are documented.
+- Verification demonstrates compliance.
+- Build capability in layers.
+- Prefer evolution over replacement.
+- Design for future platforms without compromising the current platform.
+- Maintain one authoritative source for every engineering artifact.
 
 ---
 
@@ -116,13 +108,14 @@ These standards define:
 
 Project Meadowlark is currently in active early-stage engineering.
 
-Current activities include:
+Current efforts include:
 
-- Repository establishment
+- Repository governance
 - Engineering documentation
 - MP-1 systems architecture
 - Component evaluation
 - Electrical system design
+- Software framework planning
 
 ---
 
@@ -130,14 +123,27 @@ Current activities include:
 
 Unless otherwise noted, original Project Meadowlark documentation and software are released under the repository license.
 
-Third-party documentation remains the property of its respective owners.
+Third-party documentation, trademarks, aircraft designs, CAD models, and other intellectual property remain the property of their respective owners.
 
-Project Meadowlark does **not** redistribute proprietary aircraft designs, CAD models, printable files, or other protected intellectual property belonging to third parties.
+Project Meadowlark references third-party products only for engineering evaluation and interoperability.
+
+---
+
+# Contributing
+
+Contributors are encouraged to review:
+
+- `CONTRIBUTING.md`
+- `docs/program/engineering-standards.md`
+
+before submitting changes.
+
+These documents define repository conventions, engineering workflow, documentation standards, and contribution expectations.
 
 ---
 
 # Acknowledgements
 
-Project Meadowlark recognizes and appreciates the work of the open-source and maker communities whose tools, documentation, and research make projects such as this possible.
+Project Meadowlark recognizes the many individuals, organizations, and open-source communities whose research, tools, documentation, and software make projects like this possible.
 
-Third-party products and documentation referenced within this repository remain the intellectual property of their respective owners.
+Their work provides the foundation upon which new engineering knowledge can be developed and shared.
