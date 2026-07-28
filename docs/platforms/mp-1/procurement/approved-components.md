@@ -23,3 +23,27 @@ Approved servos should meet the following minimum requirements:
 | Stall Current | ≤1.5 A |
 | Connector | Standard JR/Futaba compatible |
 | Intended Use | Primary flight control surfaces |
+
+## Brushless Motor
+
+### Propulsion Motor
+
+| Classification | Component | Status | Notes |
+|---------------|-----------|--------|-------|
+| Best Candidate | T-Motor F90 1300KV | Provisional | Direct Flightory LARK reference motor. Strongest current fit for weight, documented use, and 4S endurance operation. |
+| Better Candidate | EMAX ECO II 2807 1300KV | Provisional | Strong value alternative with comparable geometry and Flightory use on related aircraft. |
+| Okay Candidate | FlyFishRC Flash 2806.5 1350KV | Provisional | Plausible 4S 7-inch alternative, but currently supported by weaker fixed-wing and LARK-specific evidence. |
+
+### Engineering Requirements
+
+| Requirement | Target |
+|-------------|--------|
+| Motor Class | Approximately 2806.5–2807 |
+| KV | Approximately 1300–1350KV |
+| Battery Compatibility | 4S required; 3S compatibility desirable |
+| Propeller Compatibility | 7×4 through 7×6 |
+| Weight | Approximately 45–55 g preferred |
+| Peak Current | Compatible with a 40–45 A ESC envelope |
+| Intended Use | Long-endurance fixed-wing propulsion |
+| Documentation | Published manufacturer specifications required |
+| Independent Evidence | Published thrust or comparable-aircraft data strongly preferred |
