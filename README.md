@@ -4,7 +4,7 @@ Project Meadowlark currently uses the Flightory LARK as Meadowlark Platform 1 (M
 
 ## Mission
 
-Project Meadowlark's mission is to create an open, affordable, and modular autonomous aerial observation platform that advances computer vision, autonomous flight, and systems engineering through transparent development, reproducible design, and comprehensive documentation. By making both the technology and the engineering process accessible, Meadowlark empowers others to build, learn, and innovate on a shared foundation.
+Project Meadowlark's mission is to create an open, affordable, and modular autonomous aerial observation platform that advances computer vision, autonomous flight, and systems engineering through transparent development, reproducible design, and comprehensive documentation. By making both the technology and the engineering process accessible, Meadowlark empowers others to build, learn, and innovate on a shared foundation. 
 
 ## Motto
 
@@ -36,3 +36,4 @@ Every design decision should prioritize sound engineering, maintainability, docu
 4. Roadmap
 5. Target Platform
 6. System Architecture
+
