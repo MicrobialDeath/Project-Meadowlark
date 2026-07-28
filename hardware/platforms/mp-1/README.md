@@ -1,1 +1,0 @@
-Meadowlark Platform 1 (MP-1) is the Flightory LARK-based reference platform used for initial development.
