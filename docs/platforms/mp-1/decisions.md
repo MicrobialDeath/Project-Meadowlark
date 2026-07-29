@@ -1,176 +1,259 @@
-
 # MP-1 Engineering Decisions
 
 **Status:** Active
 
 ## Purpose
 
-This document records significant engineering decisions for Meadowlark Platform 1 (MP-1).
+This document records the significant engineering decisions made during the development of Meadowlark Platform 1 (MP-1).
+
+It answers **why the aircraft is built the way it is**.
+
+It does **not** duplicate:
+
+- System architecture (see [design.md](design.md))
+- Hardware selection (see [components.md](components.md))
+- Assembly procedures (see [build.md](build.md))
+- Test procedures (see [testing.md](testing.md))
+
+Each entry captures the reasoning behind a decision so future contributors understand the trade-offs without having to reconstruct the project's history.
 
 ---
 
-# Decision 001
+## Decision Format
 
-## Use the Flightory LARK as the MP-1 reference airframe
+Each decision should include:
 
-**Reason**
+- Decision
+- Status
+- Date (when known)
+- Rationale
+- Consequences
+- Reconsider When
 
-Provides a proven, modular fixed-wing platform suitable for validating the Meadowlark engineering process.
-
-**Consequences**
-
-- Third-party design files are not redistributed.
-- MP-1 remains transferable to future airframes.
-
-**Revisit When**
-
-A new reference platform is selected.
+Not every field needs to be lengthy, but every decision should explain *why* it exists.
 
 ---
 
-# Decision 002
+# D-001 — Establish a Minimal Baseline Aircraft
 
-## Establish a minimum viable flight baseline
+**Status:** Accepted
 
-**Reason**
+### Decision
 
-Validate the core aircraft before adding advanced capabilities.
+Develop MP-1 as a simple, reproducible baseline aircraft before introducing advanced capabilities.
 
-**Consequences**
+### Rationale
 
-- Manual takeoff
-- Manual landing
-- Autonomous waypoint navigation
-- Return-to-launch
+A smaller project scope reduces integration risk, shortens development time, and produces a platform that can be tested and understood before adding complexity.
 
-**Revisit When**
+### Consequences
 
-Baseline flight testing is complete.
+The initial aircraft intentionally excludes advanced features such as payloads, companion computing, and autonomous takeoff or landing.
 
----
+### Reconsider When
 
-# Decision 003
-
-## Use ArduPlane on a Holybro Pixhawk 6C Mini
-
-**Reason**
-
-Mature, well-supported autopilot ecosystem.
-
-**Consequences**
-
-Future hardware should remain compatible where practical.
-
-**Revisit When**
-
-Requirements exceed platform capability.
+The baseline aircraft has demonstrated reliable and repeatable autonomous flight.
 
 ---
 
-# Decision 004
+# D-002 — Use the Flightory LARK as the Reference Airframe
 
-## Use a single 4S battery architecture
+**Status:** Accepted
 
-**Reason**
+### Decision
 
-Reduce complexity and improve reproducibility.
+Use the Flightory LARK as the reference airframe for MP-1.
 
-**Consequences**
+### Rationale
 
-No separate payload power during the initial phase.
+The airframe is well documented, widely available, and appropriate for developing an autonomous fixed-wing test platform.
 
-**Revisit When**
+### Consequences
 
-Mission equipment requires independent power.
+Project documentation references the LARK as the baseline airframe but does not redistribute proprietary design files.
 
----
+### Reconsider When
 
-# Decision 005
-
-## Use the ESC integrated BEC for initial servo power
-
-**Reason**
-
-Simplest architecture for baseline verification.
-
-**Consequences**
-
-Must be validated during testing before becoming permanent.
-
-**Revisit When**
-
-Testing identifies inadequate performance.
+A different airframe provides a clear engineering advantage or future project requirements change.
 
 ---
 
-# Decision 006
+# D-003 — Use ArduPlane as the Flight Stack
 
-## Separate flight-controller logic power from the servo rail
+**Status:** Accepted
 
-**Reason**
+### Decision
 
-Improve resilience against servo power disturbances.
+Adopt ArduPlane as the flight-control firmware.
 
-**Consequences**
+### Rationale
 
-External power module required.
+ArduPlane provides mature autonomous flight capabilities, extensive documentation, active community support, and compatibility with Pixhawk-class hardware.
 
-**Revisit When**
+### Consequences
 
-Flight-controller architecture changes.
+Configuration, testing, and documentation follow ArduPlane terminology and workflows.
 
----
+### Reconsider When
 
-# Decision 007
-
-## Telemetry is not a mission dependency
-
-**Reason**
-
-Waypoint missions execute onboard the flight controller.
-
-**Consequences**
-
-Loss of telemetry alone should not terminate a mission.
-
-**Revisit When**
-
-Mission architecture changes.
+A future flight stack offers measurable advantages that justify migration.
 
 ---
 
-# Decision 008
+# D-004 — Single-Battery Electrical Architecture
 
-## Adopt a simplified documentation structure
+**Status:** Accepted
 
-**Reason**
+### Decision
 
-Reduce duplication and maintain one authoritative document for each topic.
+Power the baseline aircraft from a single removable 4S LiPo battery.
 
-**Consequences**
+### Rationale
 
-- README
-- design
-- components
-- build
-- testing
-- decisions
+A single-battery architecture simplifies assembly, maintenance, troubleshooting, and field operations while reducing weight and component count.
 
-serve as the primary engineering documentation.
+### Consequences
 
-**Revisit When**
+Future redundant or payload power systems remain outside the baseline aircraft.
 
-The project grows beyond the scope of the current structure.
+### Reconsider When
+
+Testing demonstrates that a second power source is necessary for safety or mission requirements.
 
 ---
 
-# Decision Template
+# D-005 — Manual Takeoff and Landing
 
-```text
-Decision:
-Reason:
-Consequences:
-Revisit When:
-Date:
-Reference:
-```
+**Status:** Accepted
+
+### Decision
+
+The pilot performs takeoff and landing manually.
+
+### Rationale
+
+Manual launch and recovery reduce early project complexity while allowing autonomous navigation to be developed independently.
+
+### Consequences
+
+Autonomous flight begins only after a safe manual launch and ends before landing.
+
+### Reconsider When
+
+The baseline aircraft has accumulated sufficient flight experience to justify automated launch or recovery.
+
+---
+
+# D-006 — No Companion Computer
+
+**Status:** Accepted
+
+### Decision
+
+Do not include a companion computer in the baseline aircraft.
+
+### Rationale
+
+Mission execution can be accomplished entirely by the flight controller. Eliminating a companion computer reduces software complexity, wiring, power consumption, and maintenance.
+
+### Consequences
+
+Advanced perception, computer vision, and onboard mission processing are deferred.
+
+### Reconsider When
+
+A future mission requires onboard processing beyond the capabilities of the flight controller.
+
+---
+
+# D-007 — Documentation Owns One Topic
+
+**Status:** Accepted
+
+### Decision
+
+Maintain one authoritative source for each engineering topic.
+
+### Rationale
+
+Duplicated documentation inevitably diverges over time and creates uncertainty regarding which document is correct.
+
+### Consequences
+
+- Architecture belongs in [design.md](design.md).
+- Hardware selection belongs in [components.md](components.md).
+- Assembly belongs in [build.md](build.md).
+- Verification belongs in [testing.md](testing.md).
+- Engineering rationale belongs in this document.
+
+### Reconsider When
+
+The documentation structure no longer supports the project effectively.
+
+---
+
+# D-008 — Verify Before Expanding Scope
+
+**Status:** Accepted
+
+### Decision
+
+Validate the baseline aircraft before introducing new hardware or capabilities.
+
+### Rationale
+
+Engineering confidence comes from verified performance rather than planned features.
+
+### Consequences
+
+Major additions such as payloads, companion computing, redundant systems, and alternative airframes are postponed until the baseline platform has been demonstrated.
+
+### Reconsider When
+
+The current platform consistently satisfies its design objectives.
+
+---
+
+# Open Decisions
+
+The following engineering questions remain unresolved:
+
+- Final propulsion configuration
+- Flight-controller power module
+- GPS and compass selection
+- RC receiver selection
+- Telemetry radio selection
+- Final connector standard
+- Final wiring practices
+
+Open hardware selections should be tracked in [components.md](components.md) until a decision has been made.
+
+---
+
+# Superseded Decisions
+
+When a decision changes:
+
+1. Do not delete the original entry.
+2. Mark it as **Superseded**.
+3. Reference the replacing decision.
+4. Record why the change occurred.
+
+Maintaining historical context is more valuable than rewriting project history.
+
+---
+
+# Revision Policy
+
+Create a new decision only when the change affects:
+
+- System architecture
+- Hardware philosophy
+- Safety
+- Documentation structure
+- Development strategy
+- Long-term maintainability
+
+Routine implementation updates belong in the relevant technical document rather than the engineering decision log.
+
+The decision log should explain **why** the aircraft evolved, not simply **what** changed.

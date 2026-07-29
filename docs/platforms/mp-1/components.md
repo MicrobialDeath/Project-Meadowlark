@@ -1,144 +1,147 @@
-
 # MP-1 Components
 
 **Status:** Draft
 
 ## Purpose
 
-This document identifies the hardware used for Meadowlark Platform 1 (MP-1), records why it was selected, identifies acceptable alternatives, and tracks outstanding procurement decisions.
+This document defines the hardware selected for Meadowlark Platform 1 (MP-1), records alternatives that were evaluated, and identifies remaining procurement and verification work.
 
-Design intent is documented in `design.md`.
+It answers **what hardware the aircraft uses**.
 
-Assembly procedures belong in `build.md`.
+It does **not** describe:
 
-Verification belongs in `testing.md`.
-
----
-
-# Component Status
-
-| Category | Status |
-|-----------|--------|
-| Airframe | Selected |
-| Flight Controller | Selected |
-| Battery | Selected |
-| Motor | Selected |
-| ESC | Selected |
-| Servos | Selected |
-| Power Module | Open |
-| GPS / Compass | Open |
-| RC Receiver | Open |
-| Telemetry Radio | Open |
-| Propeller | Open |
+- System architecture (see [design.md](design.md))
+- Assembly and configuration (see [build.md](build.md))
+- Test procedures (see [testing.md](testing.md))
+- Engineering rationale (see [decisions.md](decisions.md))
 
 ---
 
-# Selected Components
+# Component Selection Philosophy
 
-## Airframe
+MP-1 is intended to establish a reliable, reproducible baseline aircraft.
 
-**Selected:** Flightory LARK
+Components are selected according to the following priorities:
 
-Reason:
-- Proven fixed-wing platform
-- Modular construction
-- Good fit for MP-1 objectives
+1. Compatibility with ArduPlane
+2. Proven reliability
+3. Ease of replacement
+4. Availability
+5. Cost
+6. Future expandability
 
----
-
-## Flight Controller
-
-**Selected:** Holybro Pixhawk 6C Mini
-
-Reason:
-- Mature ArduPlane support
-- Reliable navigation hardware
-- Well documented ecosystem
+The baseline aircraft favors mature, well-understood hardware over maximum performance.
 
 ---
 
-## Battery
+# Current Reference Configuration
 
-**Selected:** Tattu G-Tech 4S 5200 mAh XT60
+| System | Selected Component | Status |
+|---------|--------------------|--------|
+| Airframe | Flightory LARK | Reference |
+| Flight Controller | Holybro Pixhawk 6C Mini | Selected |
+| Firmware | ArduPlane | Selected |
+| Motor | T-Motor F90 2806.5 1300KV | Baseline |
+| ESC | Hobbywing Skywalker 50A V2 | Baseline |
+| Battery | Tattu G-Tech 4S 5200 mAh | Baseline |
+| Servos | Corona DS929MG | Baseline |
 
-Alternatives:
-
-- Admiral 5000 mAh
-- SMC 5200 mAh
-- Ovonic 6000 mAh (research)
-
-Selection Criteria:
-
-- 4S LiPo
-- XT60 connector
-- Approximately 5000–6000 mAh
-- Suitable aircraft mass
+The remaining systems are still under evaluation.
 
 ---
 
-## Motor
+# Flight Controller
 
-**Selected:** T-Motor F90 2806.5 1300KV
+## Selected
 
-Alternatives:
+- Holybro Pixhawk 6C Mini
+
+Selection criteria:
+
+- Full ArduPilot support
+- Mature hardware
+- Integrated vibration isolation
+- Reliable documentation
+- Sufficient I/O for future expansion
+
+No companion computer is required for MP-1.
+
+---
+
+# Propulsion
+
+## Selected Motor
+
+- T-Motor F90 2806.5 1300KV
+
+### Alternatives Evaluated
 
 - EMAX ECO II 2807
-- FlyFishRC Flash 2806.5
+- FlyFishRC Flash
 
-Selection Criteria:
-
-- Efficient cruise
-- Reliable thermal performance
-- Compatible with 4S operation
+Motor verification remains part of propulsion testing.
 
 ---
 
-## ESC
+# Electronic Speed Controller
 
-**Selected:** Hobbywing Skywalker 50A V2
+## Selected
 
-Alternatives:
+- Hobbywing Skywalker 50A V2
+
+### Alternatives Evaluated
 
 - Hobbywing Skywalker 40A V2
 - ZTW Beatles 40A
-- T-Motor AT40A (research)
+- T-Motor AT40A
 
-Selection Criteria:
-
-- Integrated switching BEC
-- Adequate current capacity
-- Proven fixed-wing use
+Selection may be revisited if testing identifies a clear requirement.
 
 ---
 
-## Servos
+# Servos
 
-**Selected:** Corona DS929MG
+## Selected
 
-Alternatives:
+- Corona DS929MG
+
+### Alternatives Evaluated
 
 - Hitec HS-82MG
 - EMAX ES08MD II
 
-Selection Criteria:
-
-- Metal gears
-- Suitable torque
-- Good reliability
+Servo performance will be verified during ground and flight testing.
 
 ---
 
-# Remaining Selections
+# Battery
 
-The following hardware remains under evaluation:
+## Selected
 
+- Tattu G-Tech 4S 5200 mAh
+
+### Alternatives Evaluated
+
+- Admiral 5000
+- SMC 5200
+
+The baseline aircraft uses a single removable 4S battery.
+
+---
+
+# Remaining Component Selection
+
+The following items remain open:
+
+- Propeller
 - Flight-controller power module
-- GPS / Compass
+- GPS and compass
 - RC receiver
 - Telemetry radio
-- Propeller
+- Connectors
+- Wiring materials
 
-Selection should prioritize compatibility with the chosen flight controller and documented reliability over feature count.
+These items should be selected only after confirming compatibility with the baseline configuration.
 
 ---
 
@@ -146,66 +149,73 @@ Selection should prioritize compatibility with the chosen flight controller and 
 
 All selected hardware should support:
 
-- One 4S battery architecture
 - ArduPlane
-- Pixhawk 6C Mini
-- Manual flight
-- Autonomous waypoint navigation
-- Return-to-launch
-- Manual landing
+- 4S electrical system
+- Pixhawk-compatible interfaces
+- Standard PWM servo outputs
+- Standard RC protocols
+- GPS with integrated compass
+- MAVLink telemetry
 
 ---
 
-# Purchase Checklist
+# Procurement Checklist
 
-Before purchasing a component confirm:
+Before purchasing hardware, verify:
 
-- Correct model number
-- Connector compatibility
-- Voltage compatibility
+- Model number
+- Current manufacturer specifications
+- Electrical compatibility
 - Physical fit
-- Manufacturer documentation
+- Connector compatibility
 - Availability of replacement parts
+- Documentation availability
+
+Avoid substituting components solely because they appear similar.
 
 ---
 
 # Verification Required
 
-Selection alone does not approve a component.
-
-Each installed component should be verified through inspection and testing.
+Component selection is not considered complete until each subsystem has been verified.
 
 Verification includes:
 
-- Physical inspection
-- Correct installation
-- Functional operation
-- Integration with adjacent systems
-- Flight validation where applicable
+- Mechanical fit
+- Electrical compatibility
+- Configuration
+- Ground operation
+- Flight performance
+- Reliability
 
-Testing procedures are defined in `testing.md`.
-
----
-
-# Configuration Control
-
-Whenever a selected component changes:
-
-1. Update this document.
-2. Record the reason in `decisions.md` if the change is significant.
-3. Update build documentation if assembly changes.
-4. Re-test affected systems.
+Verification procedures are defined in [testing.md](testing.md).
 
 ---
 
-# Relationship to Other Documents
+# Future Hardware
 
-| Document | Purpose |
-|----------|---------|
-| design.md | System architecture |
-| components.md | Hardware selection |
-| build.md | Installation |
-| testing.md | Verification |
-| decisions.md | Engineering rationale |
+Future hardware may include:
 
-This document is the authoritative source for the MP-1 hardware baseline.
+- Companion computer
+- Payload systems
+- Vision hardware
+- Additional sensors
+- Redundant power
+- Alternative propulsion
+
+These additions should not change the baseline aircraft until the initial platform has been fully validated.
+
+---
+
+# Revision Policy
+
+This document records the current hardware baseline for MP-1.
+
+When hardware changes:
+
+- Update the selected component.
+- Move replaced hardware to the alternatives list if still relevant.
+- Record significant engineering decisions in [decisions.md](decisions.md).
+- Verify the updated configuration using the procedures in [testing.md](testing.md).
+
+Specific build records and test results belong in the future `docs/platforms/mp-1/evidence/` directory once evidence is produced.

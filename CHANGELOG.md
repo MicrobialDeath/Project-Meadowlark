@@ -2,60 +2,63 @@
 
 All notable changes to Project Meadowlark are documented in this file.
 
-The format is based on *Keep a Changelog* and adapted for engineering development. This changelog records significant project milestones rather than individual source control commits.
+The project follows a simple philosophy: record meaningful engineering and documentation milestones rather than every minor edit.
 
 ---
 
-## [Unreleased]
+## Unreleased
+
+### Documentation
+
+- Continue development of the MP-1 engineering documentation.
+- Continue hardware selection and verification.
+- Prepare the repository for the first physical aircraft build.
+
+---
+
+## 2026-07 — Documentation Restructure
 
 ### Added
 
--
+- Established a dedicated documentation structure for Meadowlark Platform 1 (MP-1).
+- Defined clear ownership for architecture, hardware, build procedures, testing, and engineering decisions.
+- Added repository-wide documentation principles emphasizing reproducibility and maintainability.
+- Added a third-party reference section for the Flightory LARK airframe.
 
 ### Changed
 
--
-
-### Fixed
-
--
+- Simplified the repository structure to reflect the current state of the project.
+- Reorganized MP-1 documentation into focused documents:
+  - `README.md`
+  - `design.md`
+  - `components.md`
+  - `build.md`
+  - `testing.md`
+  - `decisions.md`
+- Converted internal document references to Markdown links.
+- Clarified the boundary between project documentation and third-party material.
+- Standardized document formatting, terminology, and cross-references.
 
 ### Removed
 
--
+- Duplicate documentation across multiple files.
+- Placeholder-only directories that did not yet contain project artifacts.
+- Obsolete documentation structure and legacy organizational content.
+
+### Documentation Philosophy
+
+The repository now follows these principles:
+
+- One authoritative source for each topic.
+- Architecture, hardware, assembly, testing, and decisions are documented separately.
+- Evidence is recorded independently from primary documentation.
+- Documentation describes the aircraft that exists rather than planned future implementations.
+- New directories and documents are introduced only when justified by project needs.
 
 ---
 
-## [0.1.0] - 2026-07-28
+## Earlier Development
 
-### Added
+Before the July 2026 documentation restructure, the repository was in active planning and organization while the initial MP-1 baseline architecture and component evaluation were being established.
 
-- Initial Project Meadowlark repository.
-- Repository engineering structure.
-- MP-1 platform documentation framework.
-- Engineering Decision Record (EDR) framework.
-- Hardware, software, documentation, and asset directory organization.
-- Repository governance documents.
-- Initial engineering philosophy.
-- Contribution guidelines.
-- Repository README.
-
-### Changed
-
-- Established repository organization as the authoritative engineering structure.
-
-### Notes
-
-This release establishes the engineering foundation of Project Meadowlark. While implementation work is only beginning, the repository structure, documentation framework, and engineering governance have been defined to support disciplined development moving forward.
-
----
-
-## Versioning
-
-Project Meadowlark uses semantic versioning for public engineering releases.
-
-- **Major** versions represent significant architectural or project milestones.
-- **Minor** versions introduce new capabilities or major engineering work.
-- **Patch** versions record corrections, refinements, or documentation improvements that do not fundamentally change project capabilities.
-
-Development between releases is tracked through Git history and Engineering Decision Records (EDRs).
+Historical details prior to the restructuring were intentionally consolidated into the entries above to keep the changelog focused on significant milestones rather than incremental editing activity.

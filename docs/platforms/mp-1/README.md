@@ -6,7 +6,7 @@ It uses the Flightory LARK as a reference airframe to develop a reproducible aut
 
 ---
 
-# Current Objective
+## Current Objective
 
 The current objective is intentionally limited:
 
@@ -23,7 +23,7 @@ Companion computers, payloads, and advanced autonomy are intentionally deferred 
 
 ---
 
-# Current Project Status
+## Current Project Status
 
 **Phase:** Design and Integration
 
@@ -39,7 +39,7 @@ Open work:
 
 - Propeller selection
 - Power-module selection
-- GPS/Compass selection
+- GPS and compass selection
 - RC receiver selection
 - Telemetry radio selection
 - First physical build
@@ -48,72 +48,19 @@ Open work:
 
 ---
 
-# Documentation Map
+## Documentation Map
 
-```text
-docs/platforms/mp-1/
-├── README.md
-├── design.md
-├── components.md
-├── build.md
-├── testing.md
-├── decisions.md
-└── evidence/
-```
+- [Design](design.md) — mission, system boundary, architecture, fault behavior, and deferred capabilities
+- [Components](components.md) — selected hardware, alternatives, procurement guidance, and remaining selections
+- [Build](build.md) — assembly, wiring, configuration, firmware, and build records
+- [Testing](testing.md) — inspection, bench testing, ground testing, flight testing, acceptance criteria, and evidence requirements
+- [Engineering decisions](decisions.md) — significant decisions and their rationale
 
-## design.md
-
-Defines:
-
-- Mission
-- System boundary
-- Flight architecture
-- Electrical architecture
-- Fault behavior
-- Deferred capabilities
-
-## components.md
-
-Defines:
-
-- Selected hardware
-- Alternatives
-- Procurement guidance
-- Remaining selections
-- Component verification
-
-## build.md
-
-Defines:
-
-- Assembly
-- Wiring
-- Configuration
-- Firmware
-- Build records
-
-## testing.md
-
-Defines:
-
-- Inspection
-- Bench testing
-- Ground testing
-- Flight testing
-- Acceptance criteria
-- Evidence requirements
-
-## decisions.md
-
-Records significant engineering decisions and why they were made.
-
-## evidence/
-
-Contains build records, measurements, logs, photographs, inspection reports, and flight-test evidence.
+Build and test evidence will be stored under `docs/platforms/mp-1/evidence/` once records exist.
 
 ---
 
-# Engineering Workflow
+## Engineering Workflow
 
 The normal workflow is:
 
@@ -129,80 +76,38 @@ Only move to the next stage after the current stage is understood.
 
 ---
 
-# Current Reference Configuration
+## Current Hardware Baseline
 
-Current reference hardware:
-
-- Flightory LARK airframe
-- Holybro Pixhawk 6C Mini
-- ArduPlane
-- T-Motor F90 2806.5 1300KV
-- Hobbywing Skywalker 50A V2
-- Corona DS929MG servos
-- Tattu G-Tech 4S 5200 mAh battery
-
-Additional hardware is documented in `components.md`.
+The authoritative MP-1 hardware baseline is maintained in [components.md](components.md).
 
 ---
 
-# Evidence
+## Reading Order
 
-Evidence should be stored under:
+For a general review:
 
-```text
-docs/platforms/mp-1/evidence/
-```
+1. [README.md](README.md)
+2. [design.md](design.md)
+3. [components.md](components.md)
+4. [build.md](build.md)
+5. [testing.md](testing.md)
+6. [decisions.md](decisions.md)
 
-Typical evidence includes:
+For building an aircraft:
 
-- Build records
-- Inspection reports
-- Ground-test reports
-- Flight-test reports
-- Flight logs
-- Parameter files
-- Mission files
-- Measurements
-- Photographs
+1. [components.md](components.md)
+2. [build.md](build.md)
+3. [testing.md](testing.md)
 
-Engineering conclusions should reference evidence whenever practical.
+For reviewing engineering history:
 
----
-
-# Reading Order
-
-If you are new to MP-1:
-
-1. README.md
-2. design.md
-3. components.md
-4. build.md
-5. testing.md
-6. decisions.md
-
-If you are building an aircraft:
-
-1. components.md
-2. build.md
-3. testing.md
-
-If you are reviewing engineering history:
-
-1. decisions.md
-2. evidence/
+1. [decisions.md](decisions.md)
+2. Review the applicable build and test evidence once records exist.
 
 ---
 
-# Future Development
+## Future Development
 
-After the baseline aircraft is proven, future work may include:
+Future capabilities and deferred scope are maintained in [design.md](design.md).
 
-- Companion computing
-- Vision systems
-- Payload integration
-- Longer endurance
-- Advanced navigation
-- Additional sensors
-- New airframes
-
-Those capabilities should be layered onto a verified flight platform rather than developed simultaneously with it.
+New capabilities should be layered onto a verified flight platform rather than developed simultaneously with it.

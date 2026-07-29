@@ -8,7 +8,7 @@ The project values clear documentation and repeatable engineering over unnecessa
 
 ---
 
-# Guiding Principles
+## Guiding Principles
 
 Every contribution should improve at least one of the following:
 
@@ -23,37 +23,37 @@ If a change does not improve one of those areas, reconsider whether it belongs i
 
 ---
 
-# Before You Make Changes
+## Before You Make Changes
 
 Before making significant changes:
 
-1. Read the repository `README.md`.
+1. Read the repository [README.md](README.md).
 2. Read the relevant platform documentation.
 3. Understand the current design before proposing a new one.
 4. Search for existing documentation to avoid duplication.
 
 ---
 
-# One Authoritative Source
+## One Authoritative Source
 
 Each topic should have one authoritative home.
 
 | Topic | Primary Document |
-|-------|------------------|
-| Project overview | `README.md` |
-| Platform overview | `docs/platforms/mp-1/README.md` |
-| System design | `design.md` |
-| Component selection | `components.md` |
-| Assembly and configuration | `build.md` |
-| Verification | `testing.md` |
-| Major engineering decisions | `decisions.md` |
-| Test records and logs | `evidence/` |
+|---|---|
+| Project overview | [README.md](README.md) |
+| Platform overview | [docs/platforms/mp-1/README.md](docs/platforms/mp-1/README.md) |
+| System design | [docs/platforms/mp-1/design.md](docs/platforms/mp-1/design.md) |
+| Component selection | [docs/platforms/mp-1/components.md](docs/platforms/mp-1/components.md) |
+| Assembly and configuration | [docs/platforms/mp-1/build.md](docs/platforms/mp-1/build.md) |
+| Verification | [docs/platforms/mp-1/testing.md](docs/platforms/mp-1/testing.md) |
+| Major engineering decisions | [docs/platforms/mp-1/decisions.md](docs/platforms/mp-1/decisions.md) |
+| Test records and logs | `docs/platforms/mp-1/evidence/` once records exist |
 
 Avoid copying the same information into multiple files.
 
 ---
 
-# Documentation Style
+## Documentation Style
 
 Write for the next engineer.
 
@@ -77,13 +77,9 @@ When information is uncertain, say so.
 
 ---
 
-# Engineering Decisions
+## Engineering Decisions
 
-Record significant architectural or project decisions in:
-
-```text
-docs/platforms/mp-1/decisions.md
-```
+Record significant architectural or project decisions in [docs/platforms/mp-1/decisions.md](docs/platforms/mp-1/decisions.md).
 
 Each decision should briefly describe:
 
@@ -96,13 +92,9 @@ Do not create a new document for routine decisions.
 
 ---
 
-# Components
+## Components
 
-Component selection belongs in:
-
-```text
-docs/platforms/mp-1/components.md
-```
+Component selection belongs in [docs/platforms/mp-1/components.md](docs/platforms/mp-1/components.md).
 
 Record:
 
@@ -116,41 +108,25 @@ Do not duplicate component information in build or testing documents unless requ
 
 ---
 
-# Building
+## Building
 
-Assembly, wiring, firmware installation, and configuration belong in:
+Assembly, wiring, firmware installation, and configuration belong in [docs/platforms/mp-1/build.md](docs/platforms/mp-1/build.md).
 
-```text
-docs/platforms/mp-1/build.md
-```
-
-Build records for a specific aircraft belong under:
-
-```text
-docs/platforms/mp-1/evidence/
-```
+Build records for a specific aircraft will be stored under `docs/platforms/mp-1/evidence/` once the first records exist.
 
 ---
 
-# Testing
+## Testing
 
-Testing belongs in:
+Testing belongs in [docs/platforms/mp-1/testing.md](docs/platforms/mp-1/testing.md).
 
-```text
-docs/platforms/mp-1/testing.md
-```
-
-Record actual test results under:
-
-```text
-docs/platforms/mp-1/evidence/
-```
+Actual test results will be stored under `docs/platforms/mp-1/evidence/` once records exist.
 
 Do not place raw logs or photographs inside the primary documentation files.
 
 ---
 
-# Evidence
+## Evidence
 
 Engineering claims should be supported by evidence whenever practical.
 
@@ -170,7 +146,7 @@ Keep evidence organized so another person can understand what configuration prod
 
 ---
 
-# Repository Organization
+## Repository Organization
 
 Add new top-level folders only when they solve a real organizational problem.
 
@@ -180,7 +156,7 @@ If a document becomes too large or covers multiple unrelated subjects, split it 
 
 ---
 
-# Third-Party Material
+## Third-Party Material
 
 Respect the licenses of third-party work.
 
@@ -201,7 +177,7 @@ Instead, document where the material can be obtained.
 
 ---
 
-# Commit Messages
+## Commit Messages
 
 Use short, descriptive commit messages.
 
@@ -225,7 +201,7 @@ Misc
 
 ---
 
-# Pull Requests
+## Pull Requests
 
 A good pull request should explain:
 
@@ -238,7 +214,7 @@ Include screenshots or photographs when they help explain hardware changes.
 
 ---
 
-# Questions
+## Questions
 
 If documentation and implementation disagree:
 
