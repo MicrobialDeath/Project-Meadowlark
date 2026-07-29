@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document identifies the current procurement candidates for the MP-1 platform. Components are ranked according to available engineering evidence collected before procurement. Rankings guide purchasing decisions and remain provisional until validated through MP-1 integration and verification testing.
+This document identifies the current procurement candidates for the MP-1 platform. Components are ranked using the available engineering evidence collected before procurement. Rankings guide purchasing decisions and remain provisional until the selected hardware is validated through MP-1 integration and verification testing.
 
 ## Procurement Classification
 
@@ -12,23 +12,25 @@ This document identifies the current procurement candidates for the MP-1 platfor
 |------|---------|
 | Best | Current reference recommendation for MP-1. |
 | Better | Strong alternative with minor trade-offs. |
-| Okay | Acceptable alternative with lower engineering confidence or reduced capability. |
+| Okay | Acceptable alternative with reduced capability, weaker evidence, or lower engineering confidence. |
 
 ### Status
 
 | Status | Meaning |
 |--------|---------|
-| Research | Candidate remains under investigation because important evidence is incomplete. |
-| Future Evaluation | Candidate is not part of the current procurement baseline but may be reconsidered later. |
+| Research | Important technical, dimensional, sourcing, or compatibility evidence remains incomplete. |
+| Future Evaluation | Candidate is outside the current procurement baseline but may be reconsidered later. |
 | Provisional | Research is complete enough to support procurement, but the component has not yet been validated in MP-1. |
 | Approved | Component has passed procurement, integration, and verification testing. |
+| Rejected | Candidate does not meet the current MP-1 requirements. |
 
 ### Design Role
 
 | Design Role | Meaning |
 |-------------|---------|
 | Reference | Preferred baseline component for the current MP-1 configuration. |
-| Alternative | Substitute candidate that may be procured if the reference component is unavailable or unsuitable. |
+| Alternative | Substitute candidate if the reference component is unavailable or unsuitable. |
+| Extended-Capacity Alternative | Optional higher-capacity candidate requiring additional weight, center-of-gravity, and flight validation. |
 
 ---
 
@@ -107,10 +109,88 @@ This document identifies the current procurement candidates for the MP-1 platfor
 
 ---
 
+# Main Flight Batteries
+
+## Battery Architecture Decision
+
+MP-1 will use a removable **4S soft-pack LiPo battery**. Li-ion endurance packs and 5S LiPo packs are outside the current MP-1 procurement baseline.
+
+The battery must be exchangeable without changing the motor, ESC, propeller, wiring, avionics, or aircraft configuration hardware.
+
+## Flight Battery Candidates
+
+| Rank | Component | Status | Design Role | Notes |
+|------|-----------|--------|-------------|-------|
+| Best | Tattu G-Tech 4S 5200 mAh 35C LiPo with XT60 | Provisional | Reference | Best current balance of energy, mass, dimensions, documentation, connector compatibility, and discharge capability. |
+| Better | Admiral 4S 5000 mAh 40C LiPo with XT60 | Provisional | Alternative | Credible aircraft pack with good retailer support and documentation, but heavier and longer while storing slightly less energy. |
+| Okay | SMC HCL-HP 4S 5200 mAh 80C Flight Pack with factory XT60 | Provisional | Alternative | Strong documentation and configurable factory connector, but materially heavier than the reference pack for the same nominal energy. |
+| Okay | Ovonic 4S 6000 mAh 120C LiPo with XT60 | Research | Extended-Capacity Alternative | Provides additional nominal energy with competitive specific energy, but requires center-of-gravity, launch, landing, and cruise-power validation. |
+
+## Candidate Comparison
+
+| Attribute | Tattu G-Tech 5200 35C | Admiral 5000 40C | SMC HCL-HP 5200 80C | Ovonic 6000 120C |
+|----------|------------------------|------------------|------------------------|-------------------|
+| Nominal Voltage | 14.8 V | 14.8 V | 14.8 V | 14.8 V |
+| Capacity | 5,200 mAh | 5,000 mAh | 5,200 mAh | 6,000 mAh |
+| Nominal Energy | 76.96 Wh | 74.0 Wh | 76.96 Wh | 88.8 Wh |
+| Published Weight | 436.5 g | 476 g | 517 g | 510 g |
+| Calculated Specific Energy | ~176 Wh/kg | ~155 Wh/kg | ~149 Wh/kg | ~174 Wh/kg |
+| Published Dimensions | 133 × 45 × 33.5 mm | 158 × 46 × 30 mm | 150 × 51 × 30 mm | 155 × 46 × 35 mm |
+| Main Connector | XT60 | XT60 | Factory XT60 option | XT60 |
+| Balance Connector | JST-XH-compatible | JST-XH | JST-XH | JST-XH |
+| Documentation Confidence | High | High | High | Medium |
+| MP-1 Assessment | Reference | Conventional alternative | Heavier high-power alternative | Extended-capacity research candidate |
+
+## Engineering Requirements
+
+| Requirement | Target |
+|-------------|--------|
+| Chemistry | Conventional LiPo, 4.20 V maximum per cell |
+| Cell Count | 4S only |
+| Nominal Voltage | 14.8 V |
+| Fully Charged Voltage | 16.8 V |
+| Construction | Soft pack; hardcase packs rejected |
+| Reference Capacity | Approximately 5,200 mAh |
+| Supported Evaluation Range | 5,000–6,000 mAh |
+| Preferred Pack Weight | ≤450 g |
+| Experimental Pack Weight Ceiling | Approximately 525 g, subject to flight validation |
+| Main Connector | XT60 |
+| Balance Connector | JST-XH |
+| Continuous Current Capability | Must exceed the verified propulsion current with engineering margin |
+| Mechanical Installation | Common battery tray, straps, and connector location |
+| Hardware Changes During Swap | None permitted |
+| Adapter Cables | Not permitted for normal operation |
+| Charging | Balance charging with a LiPo-specific charge profile |
+| Documentation | Published mass, dimensions, capacity, voltage, connector, and discharge specifications required |
+
+## Rejected Battery Architectures
+
+| Architecture | Status | Reason |
+|--------------|--------|--------|
+| 3S LiPo | Rejected | Does not match the selected 4S propulsion baseline. |
+| 5S LiPo | Rejected | Exceeds the documented 3S–4S input range of the selected Hobbywing Skywalker 50A V2 and would require propulsion revalidation. |
+| 4S Li-ion | Rejected for MP-1 | Not required for the MP-1 validation mission and adds pack-design, sourcing, and integration complexity. |
+| Hardcase LiPo | Rejected | Adds unnecessary mass and volume for an aircraft application. |
+| Packs requiring connector adapters | Rejected | Conflicts with the common, directly exchangeable battery interface requirement. |
+
+## Procurement Recommendation
+
+Purchase the following as the MP-1 reference flight battery:
+
+> **Tattu G-Tech 4S 5200 mAh 35C soft-pack LiPo with XT60**
+
+The Ovonic 4S 6000 mAh pack may be evaluated later as an extended-capacity option after the aircraft has completed baseline flight testing with the reference battery.
+
+---
+
 ## Revision History
 
 - Initial flight-servo evaluation completed.
 - Brushless propulsion motor evaluation completed.
 - Electronic speed controller evaluation completed.
 - Procurement terminology standardized so rank, status, and design role are distinct fields.
-- Main battery evaluation pending.
+- MP-1 battery architecture standardized on removable 4S soft-pack LiPo batteries.
+- Tattu G-Tech 4S 5200 mAh 35C with XT60 selected as the provisional reference battery.
+- Admiral 5000, SMC HCL-HP 5200, and Ovonic 6000 retained as alternatives with defined trade-offs.
+- 3S, 5S, Li-ion, hardcase, and adapter-dependent battery configurations rejected for the MP-1 baseline.
+- Flight controller evaluation pending.

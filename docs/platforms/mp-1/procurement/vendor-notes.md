@@ -33,10 +33,11 @@ Verification testing is used to validate procurement decisions after purchase, n
 
 | Status | Meaning |
 |--------|---------|
-| Research | Important technical or sourcing evidence remains incomplete. |
+| Research | Important technical, dimensional, sourcing, or compatibility evidence remains incomplete. |
 | Future Evaluation | Candidate is outside the current procurement baseline but may be reconsidered later. |
 | Provisional | Research is complete enough to support procurement, but MP-1 validation is pending. |
 | Approved | Component has passed procurement, integration, and verification testing. |
+| Rejected | Candidate does not meet the current MP-1 requirements. |
 
 ## Design Role
 
@@ -44,6 +45,7 @@ Verification testing is used to validate procurement decisions after purchase, n
 |-------------|---------|
 | Reference | Preferred baseline component for the current MP-1 configuration. |
 | Alternative | Substitute candidate if the reference component is unavailable or unsuitable. |
+| Extended-Capacity Alternative | Optional higher-capacity candidate requiring additional mass, center-of-gravity, and flight validation. |
 
 ---
 
@@ -426,27 +428,276 @@ Design Role: **Alternative**
 
 ---
 
+# Main Flight Batteries
+
+## Battery Architecture Decision
+
+MP-1 will use a removable 4S soft-pack LiPo battery as the baseline energy-storage system.
+
+The selected battery must be directly exchangeable without changing:
+
+- Motor
+- ESC
+- Propeller
+- Wiring
+- Avionics
+- Connectors
+- Mounting hardware
+- Aircraft configuration
+
+The aircraft-side interface is standardized on XT60 for the main power connection and JST-XH for balance charging.
+
+The current battery evaluation range is 5,000–6,000 mAh. The preferred pack mass is no more than 450 g, with heavier packs up to approximately 525 g treated as experimental or alternative configurations requiring additional flight validation.
+
+---
+
+## Tattu G-Tech 4S 5200 mAh 35C with XT60
+
+### Summary
+
+The Tattu G-Tech 4S 5200 mAh 35C pack is the current MP-1 reference battery. It offers the strongest balance of stored energy, pack mass, physical dimensions, connector compatibility, and published specifications among the evaluated candidates.
+
+### Strengths
+
+- 4S LiPo architecture directly matches the selected propulsion baseline
+- 5,200 mAh capacity
+- 76.96 Wh nominal energy
+- 436.5 g published mass
+- Approximately 176 Wh/kg calculated specific energy
+- Compact 133 × 45 × 33.5 mm published dimensions
+- Factory XT60 main connector
+- JST-XH-compatible balance connection
+- Claimed current capability substantially exceeds MP-1 requirements
+- Only evaluated candidate that meets the preferred 450 g mass target
+
+### Weaknesses
+
+- Availability should be confirmed before purchase
+- Claimed C-rating is not independently treated as a primary decision metric
+- Actual installed endurance, voltage sag, and thermal behavior require verification testing
+
+Documentation Quality: **Good**
+
+Engineering Confidence: **High**
+
+Procurement Rank: **Best**
+
+Status: **Provisional**
+
+Design Role: **Reference**
+
+Recommendation:
+
+Use the Tattu G-Tech 4S 5200 mAh 35C soft-pack LiPo with XT60 as the MP-1 reference flight battery.
+
+---
+
+## Admiral 4S 5000 mAh 40C with XT60
+
+### Summary
+
+The Admiral 4S 5000 mAh 40C pack is the strongest conventional alternative. It is a credible aircraft-oriented product with useful retailer support and complete published specifications.
+
+### Strengths
+
+- Aircraft-oriented product positioning
+- Factory XT60 connector
+- 5,000 mAh capacity
+- Strong retailer support and availability
+- Complete published mass and dimensional data
+- Adequate current capability for MP-1
+
+### Weaknesses
+
+- 476 g published mass
+- Heavier than the Tattu reference
+- Longer physical footprint
+- Slightly lower stored energy at 74 Wh
+- Lower calculated specific energy at approximately 155 Wh/kg
+
+Documentation Quality: **Good**
+
+Engineering Confidence: **High**
+
+Procurement Rank: **Better**
+
+Status: **Provisional**
+
+Design Role: **Alternative**
+
+---
+
+## SMC HCL-HP 4S 5200 mAh 80C Flight Pack with Factory XT60
+
+### Summary
+
+The SMC HCL-HP 4S 5200 mAh pack is a technically well-documented alternative with configurable factory connectors. It is acceptable for MP-1 but carries a substantial mass penalty for the same nominal energy as the Tattu reference.
+
+### Strengths
+
+- Strong technical documentation
+- Factory XT60 option
+- Published construction and dimensional information
+- 5,200 mAh capacity
+- High claimed current capability
+- Competitive procurement cost
+
+### Weaknesses
+
+- 517 g published mass
+- Approximately 80.5 g heavier than the Tattu reference
+- Same nominal energy as the Tattu
+- Lower calculated specific energy at approximately 149 Wh/kg
+- High C-rating provides little practical benefit for the MP-1 endurance mission
+
+Documentation Quality: **Excellent**
+
+Engineering Confidence: **Medium–High**
+
+Procurement Rank: **Okay**
+
+Status: **Provisional**
+
+Design Role: **Alternative**
+
+---
+
+## Ovonic 4S 6000 mAh 120C with XT60
+
+### Summary
+
+The Ovonic 4S 6000 mAh pack is the extended-capacity research candidate. It provides the highest nominal energy among the evaluated packs while retaining competitive calculated specific energy.
+
+### Strengths
+
+- 6,000 mAh capacity
+- 88.8 Wh nominal energy
+- Approximately 174 Wh/kg calculated specific energy
+- Factory XT60 connector
+- Soft-pack construction
+- Approximately ten additional calculated cruise minutes relative to the 5,200 mAh reference under the same sizing assumptions
+
+### Weaknesses
+
+- 510 g published mass
+- Greater center-of-gravity influence
+- Increased wing loading and landing energy
+- Larger physical dimensions
+- Documentation quality is weaker than Tattu, Admiral, or SMC
+- Availability may be inconsistent
+- Requires dedicated launch, climb, cruise-current, CG, landing, and endurance validation
+
+Documentation Quality: **Fair–Good**
+
+Engineering Confidence: **Medium**
+
+Procurement Rank: **Okay**
+
+Status: **Research**
+
+Design Role: **Extended-Capacity Alternative**
+
+---
+
+## Rejected Battery Architectures
+
+### 3S LiPo
+
+Status: **Rejected**
+
+Reason:
+
+Does not match the selected 4S propulsion baseline and would reduce available propulsion performance.
+
+### 5S LiPo
+
+Status: **Rejected**
+
+Reason:
+
+Exceeds the documented 3S–4S input range of the selected Hobbywing Skywalker 50A V2 and would require ESC replacement and propulsion revalidation.
+
+### 4S Li-ion
+
+Status: **Rejected for MP-1**
+
+Reason:
+
+Not required for the MP-1 validation mission and introduces pack-design, sourcing, assembly, protection, and charging complexity without sufficient project benefit.
+
+### Hardcase LiPo
+
+Status: **Rejected**
+
+Reason:
+
+Adds unnecessary mass and volume for an aircraft application.
+
+### Adapter-Dependent Battery Packs
+
+Status: **Rejected**
+
+Reason:
+
+Conflicts with the requirement for direct battery interchangeability using a standardized aircraft-side connector.
+
+### Packs Above Approximately 525 g
+
+Status: **Research Only**
+
+Reason:
+
+May be physically possible within the LARK airframe, but require separate center-of-gravity, launch, landing, structural, and endurance analysis.
+
+---
+
+# Battery Verification Requirements
+
+The reference battery must complete the following verification steps after procurement:
+
+1. Confirm actual pack mass.
+2. Confirm physical dimensions.
+3. Confirm connector polarity.
+4. Confirm battery-tray and hatch fit.
+5. Confirm strap retention.
+6. Confirm center-of-gravity adjustment range.
+7. Measure resting cell voltages.
+8. Measure cell internal resistance with the project charger.
+9. Perform a low-power ground-system test.
+10. Measure static propulsion current with the selected propeller.
+11. Confirm ESC, wiring, and connector temperature.
+12. Conduct short-duration flight validation.
+13. Measure post-flight cell balance and remaining capacity.
+14. Establish a practical reserve threshold.
+15. Record actual cruise current and endurance.
+
+The Ovonic extended-capacity candidate requires all standard tests plus dedicated launch, climb, landing, and center-of-gravity validation.
+
+---
+
 # Upcoming Procurement Categories
 
 The remaining MP-1 procurement evaluations should proceed in this order:
 
-1. Main Battery
-2. Flight Controller
-3. Power Module / External BEC
-4. GPS / Compass
-5. RC Receiver
-6. Telemetry Radio
-7. Propeller
-8. Companion Computer
+1. Flight Controller
+2. Power Module / External BEC
+3. GPS / Compass
+4. RC Receiver
+5. Telemetry Radio
+6. Propeller
+7. Companion Computer
 
 ---
 
 # Revision History
 
 - Initial servo vendor assessments completed.
-- Brushless motor vendor assessments completed.
+- Brushless propulsion motor vendor assessments completed.
 - Electronic speed controller vendor assessments completed.
 - Procurement rank, status, and design role standardized as separate fields.
-- T-Motor AT40A classified as Rank **Okay**, Status **Research**.
-- AM32 / BLHeli32 ESCs classified as Rank **Okay**, Status **Future Evaluation**.
-- Main battery evaluation pending.
+- MP-1 battery architecture standardized on removable 4S soft-pack LiPo batteries.
+- Tattu G-Tech 4S 5200 mAh 35C with XT60 selected as the provisional reference battery.
+- Admiral 5000, SMC HCL-HP 5200, and Ovonic 6000 retained as ranked alternatives.
+- Rejected battery architectures and common-interface requirements documented.
+- Battery verification requirements added.
+- Flight controller evaluation pending.
