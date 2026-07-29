@@ -145,7 +145,7 @@ These items should be selected only after confirming compatibility with the base
 
 ---
 
-# Compatibility Requirements
+## Compatibility Requirements
 
 All selected hardware should support:
 
@@ -159,7 +159,7 @@ All selected hardware should support:
 
 ---
 
-# Procurement Checklist
+## Procurement Checklist
 
 Before purchasing hardware, verify:
 
@@ -175,7 +175,7 @@ Avoid substituting components solely because they appear similar.
 
 ---
 
-# Verification Required
+## Verification Required
 
 Component selection is not considered complete until each subsystem has been verified.
 
@@ -192,7 +192,7 @@ Verification procedures are defined in [testing.md](testing.md).
 
 ---
 
-# Future Hardware
+## Future Hardware
 
 Future hardware may include:
 
@@ -207,7 +207,7 @@ These additions should not change the baseline aircraft until the initial platfo
 
 ---
 
-# Revision Policy
+## Revision Policy
 
 This document records the current hardware baseline for MP-1.
 

@@ -17,7 +17,7 @@ It does **not** define:
 
 ---
 
-# Build Philosophy
+## Build Philosophy
 
 The objective is to produce a reliable, reproducible aircraft that another builder can assemble using the documented procedures.
 
@@ -32,7 +32,7 @@ If assembly requires undocumented knowledge, the documentation is incomplete.
 
 ---
 
-# Prerequisites
+## Prerequisites
 
 Before beginning assembly:
 
@@ -45,7 +45,7 @@ Do not begin assembly with unresolved hardware selections.
 
 ---
 
-# Airframe Preparation
+## Airframe Preparation
 
 Prepare the airframe according to the manufacturer's instructions.
 
@@ -61,7 +61,7 @@ Any structural defects should be corrected before continuing.
 
 ---
 
-# Component Installation
+## Component Installation
 
 Install components in the following general order:
 
@@ -79,7 +79,7 @@ Temporary installation is acceptable until component placement has been validate
 
 ---
 
-# Wiring
+## Wiring
 
 General wiring principles:
 
@@ -94,7 +94,7 @@ The completed wiring should be understandable without tracing every conductor in
 
 ---
 
-# Power System
+## Power System
 
 The baseline aircraft uses:
 
@@ -106,7 +106,7 @@ Future power-system changes should be evaluated only after the baseline aircraft
 
 ---
 
-# Flight Controller Installation
+## Flight Controller Installation
 
 Install the flight controller:
 
@@ -119,7 +119,7 @@ Record any mounting deviations from the reference configuration.
 
 ---
 
-# GPS Installation
+## GPS Installation
 
 Install the GPS and compass:
 
@@ -132,7 +132,7 @@ Verify orientation during flight-controller configuration.
 
 ---
 
-# Firmware
+## Firmware
 
 Install the current approved release of ArduPlane.
 
@@ -146,7 +146,7 @@ Firmware updates should follow normal verification procedures before flight.
 
 ---
 
-# Flight Controller Configuration
+## Flight Controller Configuration
 
 Configure at minimum:
 
@@ -164,7 +164,7 @@ Configuration should remain as close as practical to documented defaults.
 
 ---
 
-# Mission Configuration
+## Mission Configuration
 
 Before autonomous flight:
 
@@ -177,7 +177,7 @@ Mission files should be retained for future reference.
 
 ---
 
-# Weight and Balance
+## Weight and Balance
 
 Record:
 
@@ -189,7 +189,7 @@ Verify the center of gravity before every first flight following configuration c
 
 ---
 
-# Pre-Flight Inspection
+## Pre-Flight Inspection
 
 Before initial power-up:
 
@@ -206,7 +206,7 @@ Inspection procedures are defined in [testing.md](testing.md).
 
 ---
 
-# Build Records
+## Build Records
 
 Record at minimum:
 
@@ -222,7 +222,7 @@ Build records should be stored under `docs/platforms/mp-1/evidence/` once eviden
 
 ---
 
-# Configuration Management
+## Configuration Management
 
 Retain copies of:
 
@@ -234,7 +234,7 @@ Configuration files should match the aircraft that was actually flown.
 
 ---
 
-# Revision Policy
+## Revision Policy
 
 Whenever the aircraft configuration changes:
 
