@@ -1,111 +1,282 @@
 # Meadowlark Platform 1 (MP-1)
 
-Meadowlark Platform 1 (MP-1) is the first engineering platform developed under Project Meadowlark.
+MP-1 is the first aircraft platform developed under Project Meadowlark.
 
-MP-1 uses the Flightory LARK airframe as the initial reference aircraft for developing and validating the project's systems engineering methodology, autonomous flight architecture, and supporting engineering documentation.
+It uses the Flightory LARK airframe as a practical starting point for building, documenting, and validating a reproducible autonomous fixed-wing aircraft.
 
-The platform serves as an engineering testbed rather than a final aircraft design. Lessons learned during MP-1 development are intended to inform future Meadowlark platforms while maintaining complete engineering traceability.
+The current goal is deliberately narrow:
 
----
+> Build a simple aircraft that can take off manually, fly safely, execute a pre-programmed waypoint mission onboard, return to launch, allow immediate pilot takeover, land manually, and preserve enough evidence for another person to reproduce the result.
 
-# Platform Summary
-
-| Item | Value |
-|------|-------|
-| Platform | Meadowlark Platform 1 (MP-1) |
-| Reference Airframe | Flightory LARK |
-| Primary Purpose | Engineering Reference Platform |
-| Project | Project Meadowlark |
-| Status | Active Engineering Development |
+MP-1 is an engineering testbed, not a final production aircraft.
 
 ---
 
-# Platform Objectives
+# Current Status
 
-MP-1 exists to:
+MP-1 is in active design and component-selection work.
 
-- Establish the Project Meadowlark engineering workflow.
-- Develop the initial aircraft electrical architecture.
-- Develop the initial avionics architecture.
-- Develop the software architecture supporting autonomous operation.
-- Produce complete engineering documentation alongside implementation.
-- Validate engineering processes before future platform development.
+The current reference configuration includes:
 
----
+- Flightory LARK airframe
+- Holybro Pixhawk 6C Mini
+- ArduPlane
+- T-Motor F90 2806.5 1300KV motor
+- Hobbywing Skywalker 50A V2 ESC
+- Corona DS929MG servos
+- Tattu G-Tech 4S 5200 mAh battery
+- ESC-integrated 5 V/5 A BEC for servo power
+- External flight-controller power module, still under evaluation
+- GPS and compass, still to be selected
+- RC receiver, still to be selected
+- Telemetry radio, still to be selected
+- Propeller, still to be selected
 
-# Documentation Organization
-
-Engineering documentation for MP-1 is organized into the following areas.
-
-| Directory | Purpose |
-|-----------|---------|
-| `analysis/` | Engineering analyses, trade studies, calculations, and evaluations |
-| `architecture/` | System architecture and subsystem design documentation |
-| `drawings/` | Original engineering drawings, diagrams, and schematics |
-| `edr/` | Engineering Decision Records documenting significant technical decisions |
-| `interfaces/` | Mechanical, electrical, and software interface definitions |
-| `procurement/` | Component selection, vendor information, and procurement records |
-| `references/` | Platform-specific reference material and supporting documentation |
-| `requirements/` | System, subsystem, and component requirements |
-| `verification/` | Verification plans, procedures, results, and evidence |
-
-Each directory represents a distinct engineering discipline and should remain the authoritative location for its respective documentation.
+The initial aircraft does not include a companion computer, payload battery, payload regulator, redundant avionics power, or mission payload.
 
 ---
 
-# Engineering Philosophy
+# Initial Flight Objective
 
-Development of MP-1 follows the engineering standards established for Project Meadowlark.
+The initial MP-1 flight program is intended to demonstrate:
 
-Engineering work emphasizes:
+1. Safe manual takeoff
+2. Safe manual and stabilized flight
+3. Onboard waypoint mission storage
+4. Autonomous waypoint navigation
+5. Return-to-launch
+6. Immediate RC pilot takeover
+7. Manual landing
+8. Reliable flight logging
+9. Reproducible configuration and test records
 
-- Requirements-driven design.
-- Documented engineering decisions.
-- Verification through analysis, inspection, demonstration, or test.
-- Modular system architecture.
-- Traceability between requirements, design, implementation, and verification.
+Autonomous takeoff and autonomous landing are deferred.
 
----
-
-# Current Engineering Focus
-
-Current engineering activities include:
-
-- Repository establishment
-- Platform architecture definition
-- Electrical system design
-- Avionics integration planning
-- Component evaluation
-- Engineering documentation development
-
-As development progresses, this document will remain the primary entry point into the MP-1 engineering documentation.
+Telemetry is required for setup and test monitoring, but an already loaded mission must continue without an active telemetry link.
 
 ---
 
-# Related Documentation
+# Documentation
 
-Repository Overview
+MP-1 documentation is intentionally compact.
+
+```text
+docs/platforms/mp-1/
+├── README.md
+├── design.md
+├── components.md
+├── build.md
+├── testing.md
+├── decisions.md
+└── evidence/
+```
+
+## `design.md`
+
+Defines:
+
+- What MP-1 is intended to do
+- Initial system boundary
+- Flight-control design
+- Power architecture
+- Fault behavior
+- Open design items
+
+## `components.md`
+
+Records:
+
+- Selected hardware
+- Alternatives
+- Open selections
+- Purchase checks
+- Verification still required
+
+## `build.md`
+
+Explains:
+
+- Airframe preparation
+- Mechanical assembly
+- Wiring
+- Flight-controller installation
+- Firmware and configuration
+- Build records
+- Reproducibility expectations
+
+## `testing.md`
+
+Defines:
+
+- Ground-test stages
+- Power and load testing
+- Propulsion testing
+- Manual flight
+- Stabilized flight
+- Return-to-launch
+- Autonomous waypoint testing
+- Evidence and acceptance criteria
+
+## `decisions.md`
+
+Records significant project decisions and the reasons behind them.
+
+## `evidence/`
+
+Stores or indexes:
+
+- Build records
+- Inspection records
+- Ground-test records
+- Flight-test records
+- Logs
+- Photographs
+- Measurements
+- Configuration exports
+
+---
+
+# Recommended Reading Order
+
+For a new reader:
+
+1. `README.md`
+2. `design.md`
+3. `components.md`
+4. `build.md`
+5. `testing.md`
+6. `decisions.md`
+
+For someone reproducing the aircraft:
+
+1. `components.md`
+2. `build.md`
+3. `testing.md`
+4. Relevant files under `evidence/`
+
+---
+
+# Design Principles
+
+MP-1 follows a few practical rules:
+
+- Keep the first aircraft simple.
+- Add capability only when a clear requirement exists.
+- Prefer onboard mission execution over unnecessary extra computers.
+- Keep pilot takeover available.
+- Separate flight-controller power from servo power.
+- Avoid adapter-dependent battery wiring.
+- Record exact hardware, firmware, parameters, and mission files.
+- Verify one stage before moving to the next.
+- Preserve enough evidence for another person to repeat the work.
+- Use process only where it improves clarity, safety, or reproducibility.
+
+---
+
+# Current Open Items
+
+The main unresolved items are:
+
+1. Propeller selection
+2. Flight-controller power-module selection
+3. GPS and compass selection
+4. RC receiver selection
+5. Telemetry radio selection
+6. Airspeed-sensor decision
+7. Final wiring and connector details
+8. Final component placement
+9. Final center-of-gravity target
+10. Final test limits and procedures
+
+The propeller should be selected before the power module is finalized because the propeller determines the actual propulsion current.
+
+---
+
+# Repository Locations
+
+Project overview:
 
 ```text
 README.md
 ```
 
-Contribution Guidelines
+MP-1 documentation:
 
 ```text
-CONTRIBUTING.md
+docs/platforms/mp-1/
 ```
 
-Project Engineering Standards
+Original Meadowlark hardware:
 
 ```text
-docs/program/engineering-standards.md
+hardware/
+```
+
+Software and configuration:
+
+```text
+software/
+```
+
+Third-party reference material:
+
+```text
+references/
+```
+
+Project utilities and templates:
+
+```text
+tools/
 ```
 
 ---
 
-# Document Maintenance
+# Reproducibility
 
-This document provides a high-level overview of Meadowlark Platform 1.
+A future builder should be able to identify:
 
-Detailed engineering information should reside within the appropriate engineering documents rather than being duplicated here. Significant changes to the platform architecture should be documented through Engineering Decision Records (EDRs) where appropriate.
+- Exact airframe reference
+- Exact component models
+- Hardware revisions
+- Wiring and connector details
+- Firmware version
+- Parameter file
+- Mission file
+- Aircraft mass
+- Center of gravity
+- Battery identifier
+- Test conditions
+- Test results
+- Known limitations
+
+If any of those cannot be determined from the repository, the documentation is incomplete.
+
+---
+
+# Contributing
+
+Changes should improve at least one of the following:
+
+- Technical accuracy
+- Safety
+- Reproducibility
+- Clarity
+- Maintainability
+- Test evidence
+
+Avoid adding process or document layers unless they solve a real problem.
+
+Significant architecture or scope changes should be recorded in:
+
+```text
+docs/platforms/mp-1/decisions.md
+```
+
+---
+
+# Acknowledgement
+
+MP-1 uses the Flightory LARK as its initial reference airframe.
+
+Flightory reference material remains the property of its original creators. Project Meadowlark documents its own component selection, integration, configuration, testing, and engineering conclusions.
