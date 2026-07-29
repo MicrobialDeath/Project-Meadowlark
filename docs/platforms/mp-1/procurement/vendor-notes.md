@@ -1,64 +1,89 @@
-# Vendor Notes
+# MP-1 Vendor Notes
+
+**Document ID:** MP1-PROC-VENDOR-NOTES  
+**Revision:** 3  
+**Status:** Draft  
+**Author:** Project Meadowlark  
+**Last Updated:** 2026-07-29  
 
 ## Purpose
 
-This document records the engineering rationale behind MP-1 procurement decisions. It complements the procurement matrix by documenting manufacturer quality, source confidence, product-family observations, long-term support considerations, and unresolved risks.
+This document records procurement-oriented vendor notes for the MP-1 initial-flight configuration.
 
-Engineering decisions follow this order:
+It supplements:
 
-1. Requirements
-2. Manufacturer documentation
-3. Original Flightory design references
-4. Independent engineering testing
-5. Community operational experience
-6. Engineering evaluation
-7. Procurement
-8. Verification testing
+```text
+docs/platforms/mp-1/procurement/approved-components.md
+docs/platforms/mp-1/procurement/procurement-matrix.md
+```
 
-Verification testing is used to validate procurement decisions after purchase, not to discover whether an undocumented component is acceptable.
+This document does not replace manufacturer documentation, purchase records, incoming inspection records, interface definitions, or verification evidence.
 
----
+The initial MP-1 configuration is governed by:
 
-# Procurement Classification
+```text
+docs/platforms/mp-1/requirements/initial-flight-requirements.md
+docs/platforms/mp-1/edr/edr-0001-initial-flight-baseline.md
+docs/platforms/mp-1/architecture/electrical-power-architecture.md
+```
 
-## Rank
-
-| Rank | Meaning |
-|------|---------|
-| Best | Current reference recommendation for MP-1. |
-| Better | Strong alternative with minor trade-offs. |
-| Okay | Acceptable alternative with reduced capability, weaker evidence, or lower engineering confidence. |
-
-## Status
-
-| Status | Meaning |
-|--------|---------|
-| Research | Important technical, dimensional, sourcing, or compatibility evidence remains incomplete. |
-| Future Evaluation | Candidate is outside the current procurement baseline but may be reconsidered later. |
-| Provisional | Research is complete enough to support procurement, but MP-1 validation is pending. |
-| Approved | Component has passed procurement, integration, and verification testing. |
-| Rejected | Candidate does not meet the current MP-1 requirements. |
-
-## Design Role
-
-| Design Role | Meaning |
-|-------------|---------|
-| Reference | Preferred baseline component for the current MP-1 configuration. |
-| Alternative | Substitute candidate if the reference component is unavailable or unsuitable. |
-| Extended-Capacity Alternative | Optional higher-capacity candidate requiring additional mass, center-of-gravity, and flight validation. |
-| Premium Alternative | Higher-cost candidate offering additional redundancy, power-input resilience, or expansion capability. |
-| Integrated Alternative | Fixed-wing-oriented candidate that consolidates power distribution and servo power at the cost of reduced modularity. |
+The initial build shall support manual takeoff, onboard waypoint navigation, return-to-launch, RC pilot takeover, manual landing, telemetry, and flight logging without requiring a companion computer or payload-power system.
 
 ---
 
-# Source Confidence
+# Procurement Practice
 
-| Confidence | Meaning |
-|------------|---------|
-| Verified | Manufacturer documentation and MP-1 engineering validation are both available. |
-| High | Strong manufacturer documentation supported by reputable independent evidence. |
-| Medium | Useful evidence exists, but manufacturer data or independent validation is incomplete. |
-| Low | Evidence is primarily community-based, indirect, or insufficiently documented. |
+For each purchased component:
+
+1. Confirm the exact manufacturer and model.
+2. Confirm the hardware revision.
+3. Confirm the advertised voltage and current ratings.
+4. Confirm physical dimensions and mass.
+5. Confirm connector type, gender, polarity, and pinout.
+6. Confirm included cables and accessories.
+7. Confirm firmware or programming compatibility.
+8. Record the vendor, product page, order date, quantity, price, and order identifier.
+9. Save a copy of the applicable manufacturer documentation.
+10. Photograph the received component and packaging.
+11. Record any discrepancy between the listing and received hardware.
+12. Do not move a component from Provisional to Approved until integration and verification are complete.
+
+Marketplace titles, reseller descriptions, and search-result snippets shall not override manufacturer documentation.
+
+Where vendor listings conflict, the most conservative technically credible value shall be used until the exact received hardware is inspected.
+
+---
+
+# Initial Flight-Critical Procurement Boundary
+
+The initial procurement baseline includes:
+
+- Main flight battery
+- Propulsion motor
+- Propeller
+- Electronic speed controller
+- Flight-controller power module
+- Flight controller
+- Control-surface servos
+- RC receiver
+- GPS and compass
+- Telemetry radio
+- Required flight sensors
+- Required wiring, connectors, and mounts
+
+The following shall not be procured for the initial build unless a later approved decision changes the baseline:
+
+- Companion computer
+- Payload computer
+- Payload battery
+- Payload regulator
+- Mission-equipment power distribution
+- Redundant flight-controller power
+- Redundant servo-power system
+- Camera payload
+- Experimental mission sensors
+- Autonomous takeoff hardware
+- Autonomous landing hardware
 
 ---
 
@@ -68,31 +93,53 @@ Verification testing is used to validate procurement decisions after purchase, n
 
 ### Summary
 
-The Corona DS929MG is the current MP-1 reference servo because it is the closest documented match to the Flightory LARK baseline while remaining within the preferred weight and torque envelope.
+The Corona DS929MG is the current MP-1 reference servo because it most closely matches the Flightory LARK baseline while remaining within the preferred mass and torque range.
 
-### Strengths
+### Procurement Requirements
 
-- Closest match to the Flightory reference configuration
-- Lightweight
+Confirm before ordering:
+
+- Exact model: DS929MG
+- Digital operation
 - Metal gears
-- Suitable operating voltage
-- Adequate torque for the current airframe class
-- Strong value
+- Operating voltage: 4.8–6.0 V
+- Published mass near 12.5 g
+- JR/Futaba-compatible three-wire connector
+- Quantity sufficient for the intended control-surface layout
+- No substitute plastic-gear variant
+- No similarly named analog or high-voltage variant
 
-### Weaknesses
+### Vendor Risks
 
-- Manufacturer documentation is less complete than Hitec documentation
-- Long-term product availability should be monitored
-- Published stall-current data should be confirmed during verification testing
+- Some listings omit the exact operating-current data.
+- Stall current may not be published.
+- Older stock or rebranded stock may use different packaging.
+- Servo lead length may vary.
+- Connector housing style may vary while remaining electrically compatible.
+- Counterfeit or relabeled micro servos are possible on general marketplaces.
 
-Documentation Quality: **Good**
+### Incoming Inspection
 
-Engineering Confidence: **High**
+Record:
 
-Procurement Rank: **Best**
+- Mass
+- Case dimensions
+- Connector type
+- Wire order
+- Lead length
+- Centering behavior
+- Direction of travel
+- Gear play
+- Current under no-load movement
+- Current under controlled mechanical loading
+- Temperature during repeated movement
 
-Status: **Provisional**
+### Verification Consequence
 
+Because published stall current is incomplete, the selected servo-power architecture shall be accepted through loaded simultaneous-servo testing rather than an unsupported calculated stall-current total.
+
+Procurement Rank: **Best**  
+Status: **Provisional**  
 Design Role: **Reference**
 
 ---
@@ -101,29 +148,28 @@ Design Role: **Reference**
 
 ### Summary
 
-The Hitec HS-82MG is the documentation and support benchmark among the evaluated micro aviation servos. It offers strong torque and established aviation use, but its higher mass is a meaningful MP-1 trade-off.
+The Hitec HS-82MG is the strongest well-documented alternative.
 
-### Strengths
+### Procurement Requirements
 
-- Excellent manufacturer documentation
-- Established aviation use
-- Strong torque
-- Metal gears
-- Long-term product and replacement support
+Confirm:
 
-### Weaknesses
+- Exact HS-82MG metal-gear model
+- Operating voltage compatible with 5 V servo power
+- Authentic Hitec packaging
+- Published dimensions and mass
+- Standard three-wire servo connector
+- Included servo arms and mounting hardware
+
+### Vendor Risks
 
 - Heavier than the preferred MP-1 servo target
-- Higher cost than the Corona reference candidate
+- Higher cost
+- Listings may mix HS-82MG and HS-82MG+ nomenclature
+- Hardware and packaging may differ by production period
 
-Documentation Quality: **Excellent**
-
-Engineering Confidence: **High**
-
-Procurement Rank: **Better**
-
-Status: **Provisional**
-
+Procurement Rank: **Better**  
+Status: **Provisional**  
 Design Role: **Alternative**
 
 ---
@@ -132,29 +178,27 @@ Design Role: **Alternative**
 
 ### Summary
 
-The EMAX ES08MD II is a mechanically suitable digital-servo alternative, but incomplete electrical characterization limits confidence relative to the Corona and Hitec candidates.
+The EMAX ES08MD II is a lower-cost alternative with incomplete electrical characterization.
 
-### Strengths
+### Procurement Requirements
 
-- Lightweight
+Confirm:
+
+- Exact ES08MD II model
+- Digital operation
 - Metal gears
-- Digital control
-- Competitive price
+- 4.8–6.0 V compatibility
+- Connector and lead length
+- Published mass and dimensions
 
-### Weaknesses
+### Vendor Risks
 
-- Incomplete published current data
-- Less complete aviation-specific documentation
-- Long-term consistency between production revisions should be verified
+- Listings may confuse ES08MD, ES08MD II, and other ES08-series variants.
+- Electrical specifications may be incomplete or inconsistent.
+- Packaging and included hardware may vary.
 
-Documentation Quality: **Fair**
-
-Engineering Confidence: **Medium**
-
-Procurement Rank: **Okay**
-
-Status: **Provisional**
-
+Procurement Rank: **Okay**  
+Status: **Provisional**  
 Design Role: **Alternative**
 
 ---
@@ -165,30 +209,54 @@ Design Role: **Alternative**
 
 ### Summary
 
-The T-Motor F90 2806.5 1300KV is the current MP-1 propulsion reference because it is the motor used in the Flightory LARK and has the strongest available published engineering data.
+The T-Motor F90 2806.5 1300KV is the MP-1 reference propulsion motor and the strongest documented match to the original Flightory design.
 
-### Strengths
+### Procurement Requirements
 
-- Direct Flightory reference
-- Excellent manufacturer documentation
-- Published thrust and current data
-- Suitable geometry for the MP-1 airframe
-- Strong efficiency and build quality
+Confirm:
 
-### Weaknesses
+- Exact manufacturer: T-Motor
+- Exact model: F90 2806.5
+- Exact winding: 1300KV
+- Current-production or verifiable new-old-stock condition
+- Shaft condition
+- Mounting-hole pattern
+- Included screws
+- Motor-wire length
+- Connector condition
+- Published mass near the expected value
+- No higher-KV substitute
 
-- Manufacturer material emphasizes higher-voltage operation even though the Flightory configuration uses 4S
-- Final propeller and current limits must be validated on the MP-1 installation
-- Availability and price may be less favorable than the EMAX alternative
+### Vendor Risks
 
-Documentation Quality: **Excellent**
+- F90 product listings may include multiple KV variants.
+- Some listings may be old or discontinued stock.
+- Mounting screws may be too long for the motor windings.
+- Motor-wire termination may differ.
+- Resellers may omit complete test data.
+- Marketplace listings may use photographs from a different KV version.
 
-Engineering Confidence: **High**
+### Incoming Inspection
 
-Procurement Rank: **Best**
+Record:
 
-Status: **Provisional**
+- Mass
+- KV label
+- Bell and bearing condition
+- Shaft runout
+- Phase resistance consistency
+- Mounting-hole geometry
+- Wire length and termination
+- No-load current
+- Rotation direction
+- Vibration during low-power operation
 
+### Verification Consequence
+
+Static current shall be measured with the selected 4S battery, ESC, and final propeller before approving the power-module current path.
+
+Procurement Rank: **Best**  
+Status: **Provisional**  
 Design Role: **Reference**
 
 ---
@@ -197,30 +265,27 @@ Design Role: **Reference**
 
 ### Summary
 
-The EMAX ECO II 2807 1300KV is the strongest value-oriented alternative. Its geometry and KV are suitable, and useful independent testing exists, but the total evidence set remains weaker than for the T-Motor reference.
+The EMAX ECO II 2807 1300KV is the strongest value-oriented motor alternative.
 
-### Strengths
+### Procurement Requirements
 
-- Competitive price
-- Suitable motor class and KV
-- Good community availability
-- Useful independent test evidence
-- Broad replacement availability
+Confirm:
 
-### Weaknesses
+- Exact 2807 size
+- Exact 1300KV winding
+- Mounting pattern
+- Shaft geometry
+- Included hardware
+- Wire length and termination
 
-- Manufacturer data is less complete than T-Motor documentation
-- Exact MP-1 propeller and current behavior requires validation
-- Production revisions should be checked before purchase
+### Vendor Risks
 
-Documentation Quality: **Good**
+- The ECO II line includes many sizes and KV values.
+- Product titles may truncate important variant information.
+- Published fixed-wing performance evidence is weaker than for the reference motor.
 
-Engineering Confidence: **Medium**
-
-Procurement Rank: **Better**
-
-Status: **Provisional**
-
+Procurement Rank: **Better**  
+Status: **Provisional**  
 Design Role: **Alternative**
 
 ---
@@ -229,29 +294,27 @@ Design Role: **Alternative**
 
 ### Summary
 
-The FlyFishRC Flash 2806.5 1350KV is mechanically plausible for MP-1 but is supported by less fixed-wing-specific evidence than the preferred candidates.
+The FlyFishRC Flash 2806.5 1350KV is a mechanically plausible alternative with less fixed-wing evidence.
 
-### Strengths
+### Procurement Requirements
 
-- Suitable motor geometry
-- KV close to the MP-1 target
-- Modern construction
-- Competitive mass
+Confirm:
 
-### Weaknesses
+- Exact 2806.5 size
+- Exact 1350KV winding
+- Mounting-hole pattern
+- Shaft and propeller attachment
+- Included hardware
+- Wire length and termination
 
-- Primarily marketed toward FPV and multirotor use
-- Limited fixed-wing endurance evidence
-- Less complete independent data for the intended MP-1 propeller range
+### Vendor Risks
 
-Documentation Quality: **Fair**
+- Product listings may emphasize multirotor use.
+- Fixed-wing propeller data may be limited.
+- Similar model names may exist across production revisions.
 
-Engineering Confidence: **Low–Medium**
-
-Procurement Rank: **Okay**
-
-Status: **Provisional**
-
+Procurement Rank: **Okay**  
+Status: **Provisional**  
 Design Role: **Alternative**
 
 ---
@@ -262,42 +325,68 @@ Design Role: **Alternative**
 
 ### Summary
 
-The Hobbywing Skywalker 50A V2 is the current MP-1 reference ESC. It provides the strongest combination of current margin, fixed-wing-specific firmware, BEC capability, documentation quality, and protection features.
+The Hobbywing Skywalker 50A V2 is the MP-1 reference ESC.
 
-### Strengths
+It is selected for its fixed-wing firmware, 4S compatibility, current margin, 5 V/5 A switching BEC, and strong manufacturer documentation.
 
-- Fixed-wing-specific product family
-- 50 A continuous current rating
-- 70 A peak current rating
-- 5 V/5 A switching BEC
-- Active Freewheeling / DEO
-- Search Mode
-- Configurable brake, timing, startup, and low-voltage behavior
-- Comprehensive thermal, overload, low-voltage, and signal-loss protection
-- Excellent documentation
-- Same published dimensions and mass as the 40 A model
+### Procurement Requirements
 
-### Weaknesses
+Confirm:
 
-- No native telemetry
-- Final thermal margin depends on installation airflow
-- BEC loading must still be verified with the complete avionics suite
-- Battery-input connector must be installed during aircraft assembly
-- Motor connector compatibility must be confirmed during harness design
+- Exact model: Skywalker 50A V2
+- Fixed-wing product, not a surface or multirotor ESC
+- 3S–4S LiPo compatibility
+- 50 A continuous rating
+- 70 A peak rating
+- Integrated 5 V/5 A switching BEC
+- Standard PWM throttle input
+- Included motor and battery leads
+- Connector type supplied by the vendor
+- Programming instructions
+- Current-production packaging where possible
 
-Documentation Quality: **Excellent**
+### Vendor Risks
 
-Engineering Confidence: **High**
+- Listings may mix V1 and V2 hardware.
+- Connector installation may vary by vendor.
+- Some units may be sold without battery or motor connectors.
+- The supplied battery connector may not be XT60.
+- Product images may show a different current rating.
+- Resellers may omit the firmware-feature distinction.
 
-Procurement Rank: **Best**
+### Incoming Inspection
 
-Status: **Provisional**
+Record:
 
+- Exact label and revision
+- Mass
+- Battery-wire gauge
+- Battery-wire length
+- Motor-wire gauge and length
+- Installed connector type
+- Servo lead wire order
+- BEC output voltage
+- Programming response
+- Motor startup behavior
+- Brake behavior
+- Temperature during static propulsion testing
+
+### Servo-Power Role
+
+The integrated 5 V/5 A BEC is the baseline MP-1 servo-power source.
+
+It shall not be treated as Approved until loaded testing confirms:
+
+- Stable servo-rail voltage
+- No flight-controller reset
+- No receiver reset
+- No unacceptable jitter
+- Acceptable temperature
+- Acceptable performance during rapid throttle changes
+
+Procurement Rank: **Best**  
+Status: **Provisional**  
 Design Role: **Reference**
-
-Recommendation:
-
-Use the Hobbywing Skywalker 50A V2 as the MP-1 reference ESC.
 
 ---
 
@@ -305,32 +394,26 @@ Use the Hobbywing Skywalker 50A V2 as the MP-1 reference ESC.
 
 ### Summary
 
-The Skywalker 40A V2 is a strong lower-current alternative. It retains the same product-family features and BEC capability as the 50 A model but provides less propulsion-current margin.
+The Skywalker 40A V2 is the strongest direct ESC alternative.
 
-### Strengths
+### Procurement Requirements
 
-- Fixed-wing-specific firmware
-- 5 V/5 A switching BEC
-- Excellent documentation
-- Active Freewheeling / DEO
-- Search Mode
-- Comprehensive protection features
-- Same published dimensions and mass as the 50 A model
+Confirm:
 
-### Weaknesses
+- Exact 40A V2 model
+- 3S–4S compatibility
+- Integrated 5 V/5 A switching BEC
+- Fixed-wing programming support
+- Connector configuration
 
-- Reduced continuous-current margin
-- Reduced peak-current margin
-- Less tolerant of aggressive propeller or motor combinations
+### Vendor Risks
 
-Documentation Quality: **Excellent**
+- Same physical appearance as the 50A model
+- Reduced propulsion-current margin
+- Listings may confuse the 40A and 50A variants
 
-Engineering Confidence: **High**
-
-Procurement Rank: **Better**
-
-Status: **Provisional**
-
+Procurement Rank: **Better**  
+Status: **Provisional**  
 Design Role: **Alternative**
 
 ---
@@ -339,30 +422,28 @@ Design Role: **Alternative**
 
 ### Summary
 
-The ZTW Beatles 40A is a credible budget-oriented fixed-wing ESC. It is acceptable for MP-1 but provides less BEC capability, lower burst-current margin, and fewer advanced features than the Hobbywing reference.
+The ZTW Beatles 40A is a credible lower-margin fixed-wing ESC alternative.
 
-### Strengths
+### Procurement Requirements
 
-- Established fixed-wing product family
-- Competitive pricing
-- Adequate manufacturer documentation
-- Standard fixed-wing programming functions
+Confirm:
 
-### Weaknesses
-
+- Exact 40A model
+- 4S compatibility
 - 5 V/3 A BEC
-- Lower peak-current capability
-- Fewer advanced firmware features
-- Reduced engineering margin relative to the Hobbywing 50 A reference
+- PWM control
+- Brake and cutoff programming
+- Connector configuration
 
-Documentation Quality: **Good**
+### Vendor Risks
 
-Engineering Confidence: **Medium–High**
+- Product revisions may differ.
+- Documentation may be less complete than Hobbywing.
+- The smaller BEC provides less servo-power margin.
+- Burst-current capability is lower.
 
-Procurement Rank: **Okay**
-
-Status: **Provisional**
-
+Procurement Rank: **Okay**  
+Status: **Provisional**  
 Design Role: **Alternative**
 
 ---
@@ -371,87 +452,98 @@ Design Role: **Alternative**
 
 ### Summary
 
-The T-Motor AT40A appears technically suitable as a conventional fixed-wing ESC, but the available manufacturer documentation is not yet complete enough to support a provisional procurement recommendation.
+The T-Motor AT40A remains under research.
 
-### Strengths
+### Procurement Hold
 
-- Established aviation manufacturer
-- Plausible current class for MP-1
-- Fixed-wing product positioning
+Do not procure until the following are confirmed from authoritative documentation:
 
-### Weaknesses
+- Exact battery-voltage range
+- Continuous and peak current
+- BEC voltage and current
+- Programming features
+- Weight
+- Dimensions
+- Connector configuration
+- Current lifecycle status
 
-- Incomplete public technical documentation
-- BEC specifications require confirmation
-- Peak-current, protection, programming, dimensions, and mass require confirmation
-- No clear advantage over the documented Hobbywing candidates
-
-Documentation Quality: **Fair**
-
-Engineering Confidence: **Medium**
-
-Procurement Rank: **Okay**
-
-Status: **Research**
-
+Procurement Rank: **Okay**  
+Status: **Research**  
 Design Role: **Alternative**
 
 ---
 
-## AM32 / BLHeli32 ESCs
+# Servo-Power Contingency
+
+## Hobbywing UBEC 5A
 
 ### Summary
 
-Modern firmware-based ESCs offer telemetry, RPM feedback, and advanced diagnostics. They remain outside the current MP-1 baseline because most are optimized for multirotors and often require additional power-system integration.
+The Hobbywing UBEC 5A is the retained contingency if the Skywalker integrated BEC fails verification or later flight-critical loads exceed the baseline margin.
 
-### Strengths
+### Procurement Position
 
-- Digital throttle protocols
-- RPM feedback
-- Telemetry
-- Advanced configuration and diagnostics
-- Strong future potential for closed-loop propulsion monitoring
+Do not procure for the initial build unless bench testing or a later approved requirement justifies it.
 
-### Weaknesses
+### Required Configuration
 
-- Greater integration complexity
-- Often lack an integrated aviation-grade BEC
-- Product documentation varies substantially by hardware vendor
-- Limited benefit for the current simple endurance fixed-wing architecture
-- Greater firmware and configuration-management burden
+If introduced:
 
-Documentation Quality: **Variable**
+- Set output to 5.0 V
+- Isolate the ESC BEC positive lead
+- Retain ESC throttle signal and ground
+- Connect only one positive BEC source to the servo rail
+- Verify reverse-current and backfeed behavior
+- Document the revised wiring architecture
 
-Engineering Confidence: **Medium**
+### Vendor Risks
 
-Procurement Rank: **Okay**
+- Listings may show older or different UBEC versions.
+- Output-voltage jumper or switch arrangements may vary.
+- Similar 10 A or surface-vehicle products may be listed nearby.
+- Some products use output voltages unsuitable for the current servo baseline.
 
-Status: **Future Evaluation**
-
-Design Role: **Alternative**
+Procurement Rank: **Better**  
+Status: **Future Evaluation**  
+Design Role: **Contingency Alternative**
 
 ---
 
 # Main Flight Batteries
 
-## Battery Architecture Decision
+## Battery Procurement Rules
 
-MP-1 will use a removable 4S soft-pack LiPo battery as the baseline energy-storage system.
+All routine MP-1 flight batteries shall:
 
-The selected battery must be directly exchangeable without changing:
+- Be 4S conventional LiPo
+- Be soft-pack construction
+- Use XT60 as the main connector
+- Use JST-XH-compatible balance connection
+- Fit the common battery tray
+- Use the common restraint system
+- Require no adapter cable
+- Remain within the defined mass envelope
+- Include published dimensions and mass
+- Be balance-charged with an approved LiPo profile
 
-- Motor
-- ESC
-- Propeller
-- Wiring
-- Avionics
-- Connectors
-- Mounting hardware
-- Aircraft configuration
+Record a unique battery identifier for each pack.
 
-The aircraft-side interface is standardized on XT60 for the main power connection and JST-XH for balance charging.
+For each received battery, record:
 
-The current battery evaluation range is 5,000–6,000 mAh. The preferred pack mass is no more than 450 g, with heavier packs up to approximately 525 g treated as experimental or alternative configurations requiring additional flight validation.
+- Manufacturer
+- Model
+- Capacity
+- Cell count
+- Connector
+- Balance connector
+- Mass
+- Dimensions
+- Initial cell voltages
+- Internal resistance, if the charger supports measurement
+- Purchase date
+- Cycle count
+- Storage condition
+- Retirement reason
 
 ---
 
@@ -459,40 +551,35 @@ The current battery evaluation range is 5,000–6,000 mAh. The preferred pack ma
 
 ### Summary
 
-The Tattu G-Tech 4S 5200 mAh 35C pack is the current MP-1 reference battery. It offers the strongest balance of stored energy, pack mass, physical dimensions, connector compatibility, and published specifications among the evaluated candidates.
+This is the MP-1 reference battery.
 
-### Strengths
+### Procurement Requirements
 
-- 4S LiPo architecture directly matches the selected propulsion baseline
-- 5,200 mAh capacity
-- 76.96 Wh nominal energy
-- 436.5 g published mass
-- Approximately 176 Wh/kg calculated specific energy
-- Compact 133 × 45 × 33.5 mm published dimensions
-- Factory XT60 main connector
-- JST-XH-compatible balance connection
-- Claimed current capability substantially exceeds MP-1 requirements
-- Only evaluated candidate that meets the preferred 450 g mass target
+Confirm:
 
-### Weaknesses
+- 4S
+- 5200 mAh
+- 35C
+- Soft-pack construction
+- Factory XT60
+- JST-XH-compatible balance lead
+- Published mass near 436.5 g
+- Published dimensions near 133 × 45 × 33.5 mm
 
-- Availability should be confirmed before purchase
-- Claimed C-rating is not independently treated as a primary decision metric
-- Actual installed endurance, voltage sag, and thermal behavior require verification testing
+### Vendor Risks
 
-Documentation Quality: **Good**
+- Availability may vary.
+- G-Tech product listings may include smart-identification features that do not affect aircraft compatibility.
+- Connector options may vary.
+- Product dimensions or mass may change with revision.
 
-Engineering Confidence: **High**
-
-Procurement Rank: **Best**
-
-Status: **Provisional**
-
+Procurement Rank: **Best**  
+Status: **Provisional**  
 Design Role: **Reference**
 
 Recommendation:
 
-Use the Tattu G-Tech 4S 5200 mAh 35C soft-pack LiPo with XT60 as the MP-1 reference flight battery.
+> Use the Tattu G-Tech 4S 5200 mAh 35C soft-pack LiPo with XT60 as the MP-1 reference flight battery.
 
 ---
 
@@ -500,68 +587,38 @@ Use the Tattu G-Tech 4S 5200 mAh 35C soft-pack LiPo with XT60 as the MP-1 refere
 
 ### Summary
 
-The Admiral 4S 5000 mAh 40C pack is the strongest conventional alternative. It is a credible aircraft-oriented product with useful retailer support and complete published specifications.
+This is the strongest conventional battery alternative.
 
-### Strengths
+### Vendor Risks
 
-- Aircraft-oriented product positioning
-- Factory XT60 connector
-- 5,000 mAh capacity
-- Strong retailer support and availability
-- Complete published mass and dimensional data
-- Adequate current capability for MP-1
+- Heavier and longer than the reference pack
+- Slightly lower nominal energy
+- Retailer-specific availability
 
-### Weaknesses
-
-- 476 g published mass
-- Heavier than the Tattu reference
-- Longer physical footprint
-- Slightly lower stored energy at 74 Wh
-- Lower calculated specific energy at approximately 155 Wh/kg
-
-Documentation Quality: **Good**
-
-Engineering Confidence: **High**
-
-Procurement Rank: **Better**
-
-Status: **Provisional**
-
+Procurement Rank: **Better**  
+Status: **Provisional**  
 Design Role: **Alternative**
 
 ---
 
-## SMC HCL-HP 4S 5200 mAh 80C Flight Pack with Factory XT60
+## SMC HCL-HP 4S 5200 mAh 80C with Factory XT60
 
 ### Summary
 
-The SMC HCL-HP 4S 5200 mAh pack is a technically well-documented alternative with configurable factory connectors. It is acceptable for MP-1 but carries a substantial mass penalty for the same nominal energy as the Tattu reference.
+This is a well-documented but heavy alternative.
 
-### Strengths
+### Procurement Requirements
 
-- Strong technical documentation
-- Factory XT60 option
-- Published construction and dimensional information
-- 5,200 mAh capacity
-- High claimed current capability
-- Competitive procurement cost
+Order only with a factory XT60.
 
-### Weaknesses
+### Vendor Risks
 
-- 517 g published mass
-- Approximately 80.5 g heavier than the Tattu reference
-- Same nominal energy as the Tattu
-- Lower calculated specific energy at approximately 149 Wh/kg
-- High C-rating provides little practical benefit for the MP-1 endurance mission
+- Connector must be selected correctly at order time.
+- Mass is substantially higher than the reference pack.
+- High advertised C-rating provides little benefit to the MP-1 mission.
 
-Documentation Quality: **Excellent**
-
-Engineering Confidence: **Medium–High**
-
-Procurement Rank: **Okay**
-
-Status: **Provisional**
-
+Procurement Rank: **Okay**  
+Status: **Provisional**  
 Design Role: **Alternative**
 
 ---
@@ -570,157 +627,109 @@ Design Role: **Alternative**
 
 ### Summary
 
-The Ovonic 4S 6000 mAh pack is the extended-capacity research candidate. It provides the highest nominal energy among the evaluated packs while retaining competitive calculated specific energy.
+This is an extended-capacity research candidate.
 
-### Strengths
+### Procurement Hold
 
-- 6,000 mAh capacity
-- 88.8 Wh nominal energy
-- Approximately 174 Wh/kg calculated specific energy
-- Factory XT60 connector
-- Soft-pack construction
-- Approximately ten additional calculated cruise minutes relative to the 5,200 mAh reference under the same sizing assumptions
+Do not treat as a routine flight battery until the aircraft has completed baseline testing with the reference pack.
 
-### Weaknesses
+### Additional Verification
 
-- 510 g published mass
-- Greater center-of-gravity influence
-- Increased wing loading and landing energy
-- Larger physical dimensions
-- Documentation quality is weaker than Tattu, Admiral, or SMC
-- Availability may be inconsistent
-- Requires dedicated launch, climb, cruise-current, CG, landing, and endurance validation
+Required:
 
-Documentation Quality: **Fair–Good**
+- Battery-bay fit
+- Center of gravity
+- Restraint
+- Launch handling
+- Climb performance
+- Cruise current
+- Landing speed and energy
+- Endurance
+- Thermal behavior
 
-Engineering Confidence: **Medium**
-
-Procurement Rank: **Okay**
-
-Status: **Research**
-
+Procurement Rank: **Okay**  
+Status: **Research**  
 Design Role: **Extended-Capacity Alternative**
-
----
-
-## Rejected Battery Architectures
-
-### 3S LiPo
-
-Status: **Rejected**
-
-Reason:
-
-Does not match the selected 4S propulsion baseline and would reduce available propulsion performance.
-
-### 5S LiPo
-
-Status: **Rejected**
-
-Reason:
-
-Exceeds the documented 3S–4S input range of the selected Hobbywing Skywalker 50A V2 and would require ESC replacement and propulsion revalidation.
-
-### 4S Li-ion
-
-Status: **Rejected for MP-1**
-
-Reason:
-
-Not required for the MP-1 validation mission and introduces pack-design, sourcing, assembly, protection, and charging complexity without sufficient project benefit.
-
-### Hardcase LiPo
-
-Status: **Rejected**
-
-Reason:
-
-Adds unnecessary mass and volume for an aircraft application.
-
-### Adapter-Dependent Battery Packs
-
-Status: **Rejected**
-
-Reason:
-
-Conflicts with the requirement for direct battery interchangeability using a standardized aircraft-side connector.
-
-### Packs Above Approximately 525 g
-
-Status: **Research Only**
-
-Reason:
-
-May be physically possible within the LARK airframe, but require separate center-of-gravity, launch, landing, structural, and endurance analysis.
 
 ---
 
 # Flight Controllers
 
-## Flight Controller Architecture Decision
-
-MP-1 requires a current-production H7-class flight controller with full ArduPlane support.
-
-The reference architecture prioritizes:
-
-- Mature ArduPilot support
-- Redundant inertial sensing
-- Compact fixed-wing packaging
-- Standardized and replaceable harnesses
-- Sufficient PWM, serial, CAN, GPS, receiver, telemetry, and sensor interfaces
-- Removable flight logging
-- Separation between flight-controller logic power and servo power
-- A modular external power-monitoring path
-- Future companion-computer integration through MAVLink
-
-The final physical and electrical interface matrix will be created after the complete procurement set is selected.
-
----
-
 ## Holybro Pixhawk 6C Mini
 
 ### Summary
 
-The Holybro Pixhawk 6C Mini is the current MP-1 reference flight controller. It provides the best overall balance of H7 processing, sensor redundancy, interface capacity, connector standardization, compact packaging, and ecosystem maturity.
+The Holybro Pixhawk 6C Mini is the MP-1 reference flight controller.
 
-### Strengths
+It supports onboard ArduPlane waypoint mission execution and does not require a companion computer for the initial autonomous-flight objective.
 
+### Procurement Requirements
+
+Confirm:
+
+- Exact product: Pixhawk 6C Mini
+- Current hardware revision
 - STM32H743 processor
-- Full ArduPlane support
-- Dual IMUs
-- Temperature-controlled inertial sensors
-- Fourteen PWM outputs
-- Dual CAN buses
-- Two dedicated GPS interfaces
-- Dedicated receiver input
-- Sufficient serial connectivity for GPS, telemetry, receiver, and companion-computer integration
-- Removable microSD logging
-- Standardized JST-GH Pixhawk connector ecosystem
-- Compact installation compared with full-size Pixhawk or Cube systems
-- Conventional modular architecture that separates the autopilot from the power module
+- Included cable set
+- Included power cable
+- Included GPS cables, if any
+- Included telemetry cables, if any
+- Included microSD card, if any
+- Mounting hardware
+- Published dimensions
+- Published mass
+- Connector layout
+- Analog power-input compatibility
+- Current-production status
+- ArduPlane support for the exact board target
 
-### Weaknesses
+### Vendor Risks
 
-- Requires a separate compatible power module
-- Requires a separately defined servo-power bus
-- Only one primary analog power input
-- No Ethernet
-- Current documentation lists more than one physical hardware revision, so the exact model revision, dimensions, mass, and harness package must be confirmed before ordering
-- JST-GH avionics harnesses are not directly interchangeable with ordinary servo plugs
+- Holybro documentation may describe more than one physical revision.
+- Dimensions and mass may differ by revision.
+- Accessory bundles may vary.
+- Some listings may show the full-size Pixhawk 6C rather than the Mini.
+- Some bundles may include a digital power module intended for a different controller.
+- Cables shown in photographs may not be included.
 
-Documentation Quality: **Excellent**
+### Incoming Inspection
 
-Engineering Confidence: **High**
+Record:
 
-Procurement Rank: **Best**
+- Exact model
+- Hardware revision
+- Serial number
+- Mass
+- Dimensions
+- Connector labels
+- Included harnesses
+- microSD presence
+- Boot behavior
+- Firmware target
+- Detected IMUs
+- Detected barometer
+- PWM output operation
+- Power-input behavior
+- Logging behavior
 
-Status: **Provisional**
+### Initial Autonomous Role
 
+The Pixhawk 6C Mini shall provide:
+
+- Mission storage
+- Waypoint sequencing
+- GPS-guided navigation
+- Return-to-launch
+- Flight-mode control
+- RC pilot takeover
+- Failsafe logic
+- Flight logging
+
+A companion computer shall not be procured for the initial configuration.
+
+Procurement Rank: **Best**  
+Status: **Provisional**  
 Design Role: **Reference**
-
-Recommendation:
-
-Use the Holybro Pixhawk 6C Mini as the MP-1 reference flight controller.
 
 ---
 
@@ -728,39 +737,31 @@ Use the Holybro Pixhawk 6C Mini as the MP-1 reference flight controller.
 
 ### Summary
 
-The Cube Orange+ with a Mini Carrier Board is the strongest premium redundancy alternative. It offers a mature ArduPilot ecosystem, triple IMUs, dual barometers, modular carrier-board architecture, and strong environmental management.
+This is the strongest premium redundancy alternative.
 
-### Strengths
+### Procurement Requirements
 
-- STM32H757 processor
-- Triple IMUs
-- Dual barometers
-- Temperature-controlled sensors
-- Mature and widely supported ArduPilot platform
-- Modular flight module and carrier-board architecture
-- Multiple serial and CAN interfaces
-- Up to fourteen PWM outputs depending on carrier configuration
-- Removable microSD logging
-- Strong replacement and expansion flexibility
-- Carrier-board options can support redundant power paths
+The exact carrier board shall be part of the purchase decision.
 
-### Weaknesses
+Confirm:
 
-- Higher procurement cost
-- Larger installed assembly than the Pixhawk 6C Mini
-- Carrier-board selection becomes part of the procurement baseline
-- External power module and servo-power architecture still required
-- Wiring and mechanical integration are more complex
-- Some interface details depend on the specific carrier board rather than the flight module alone
+- Authentic Cube Orange+
+- Exact Mini Carrier Board
+- Included cables
+- Power-input architecture
+- PWM output availability
+- Mounting hardware
+- Accessory set
 
-Documentation Quality: **Excellent**
+### Vendor Risks
 
-Engineering Confidence: **High**
+- Counterfeit Cube hardware is a known general procurement concern.
+- Carrier-board details materially affect the interface architecture.
+- Bundles may omit required cables.
+- Cost and installed volume are higher.
 
-Procurement Rank: **Better**
-
-Status: **Provisional**
-
+Procurement Rank: **Better**  
+Status: **Provisional**  
 Design Role: **Premium Alternative**
 
 ---
@@ -769,41 +770,18 @@ Design Role: **Premium Alternative**
 
 ### Summary
 
-The Matek H743-WING V3 is the strongest integrated fixed-wing alternative. It combines the flight controller, battery input, voltage/current sensing, peripheral regulation, and servo-power regulation on a single fixed-wing-oriented board.
+This is the strongest integrated fixed-wing alternative.
 
-### Strengths
+### Vendor Risks
 
-- STM32H743 processor
-- Full ArduPlane support
-- Fixed-wing-specific layout
-- Direct 9–36 V battery input
-- Integrated voltage and current sensing
-- Integrated peripheral BEC
-- Integrated selectable servo BEC
-- Thirteen PWM outputs
-- Seven UARTs
-- CAN support
-- Removable microSD logging
-- Reduced requirement for a separate power module or servo-power regulator
-- Potentially lower total installed mass and wiring count
+- Board revisions may change pad layouts or ratings.
+- Integration requires soldering.
+- Replacement may require harness reconstruction.
+- More functions are concentrated on one board.
+- Documentation must match the exact V3 revision.
 
-### Weaknesses
-
-- Less sensor redundancy than Pixhawk 6C Mini, Cube Orange+, or Pixhawk 6X
-- More solder pads and mixed connector types
-- Replacement may require desoldering or harness reconstruction
-- More electrical functions are concentrated on one board
-- Integrated current sensing can be sensitive to switching noise and installation practices
-- Less standardized field-replacement ecosystem than Pixhawk hardware
-
-Documentation Quality: **Good**
-
-Engineering Confidence: **Medium–High**
-
-Procurement Rank: **Better**
-
-Status: **Provisional**
-
+Procurement Rank: **Better**  
+Status: **Provisional**  
 Design Role: **Integrated Alternative**
 
 ---
@@ -812,41 +790,18 @@ Design Role: **Integrated Alternative**
 
 ### Summary
 
-The Pixhawk 6X with Mini Baseboard is a technically excellent but oversized premium alternative. It exceeds the current MP-1 requirements and is better suited to a future platform that needs Ethernet, dual primary power inputs, or additional sensor redundancy.
+This is a technically strong but excessive premium alternative for MP-1.
 
-### Strengths
-
-- STM32H753 processor
-- Triple isolated IMU domains
-- Dual barometers
-- Temperature-controlled sensors
-- Sixteen PWM outputs
-- Dual CAN buses
-- Two GPS interfaces
-- Dual primary power inputs
-- Ethernet
-- Removable microSD logging
-- Excellent ArduPilot and PX4 ecosystem support
-- Strong expansion capability
-
-### Weaknesses
+### Vendor Risks
 
 - Higher cost
+- Higher mass
 - Larger installed volume
-- Greater mass
-- More capability than MP-1 currently needs
-- Requires an external compatible power module
-- Requires a separately defined servo-power system
-- Power-module choices may be constrained by the digital power-input architecture
+- Digital power-module requirements
+- Accessory bundle variability
 
-Documentation Quality: **Excellent**
-
-Engineering Confidence: **High**
-
-Procurement Rank: **Okay**
-
-Status: **Provisional**
-
+Procurement Rank: **Okay**  
+Status: **Provisional**  
 Design Role: **Premium Alternative**
 
 ---
@@ -855,114 +810,461 @@ Design Role: **Premium Alternative**
 
 ### Summary
 
-The SpeedyBee F405 Wing is a compact and economical fixed-wing integration package, but it does not meet the MP-1 reference-platform objective.
+This controller is not approved for the MP-1 reference role.
 
-### Strengths
+### Reason for Rejection
 
-- Low cost
-- Compact fixed-wing form factor
-- Integrated power distribution
-- Integrated current sensing
-- Integrated servo and peripheral power functions
-- Multiple PWM and serial interfaces
-- CAN support
-- Convenient configuration features
+The processor, memory limitations, reduced redundancy, and firmware-feature constraints do not meet the durable autonomous-flight reference-platform objective.
 
-### Weaknesses
-
-- STM32F405 processor rather than an H7-class processor
-- ArduPilot omits some features because of flash-memory limitations
-- Reduced long-term expansion headroom
-- Less sensor redundancy
-- Less appropriate as the durable autopilot foundation for Meadowlark autonomous-flight development
-
-Documentation Quality: **Good**
-
-Engineering Confidence: **Medium**
-
-Procurement Rank: **Okay**
-
-Status: **Rejected**
-
+Procurement Rank: **Okay**  
+Status: **Rejected**  
 Design Role: **Alternative**
 
-Reason for Rejection:
+---
 
-The controller is capable of useful fixed-wing operation, but its processor, memory constraints, and reduced redundancy conflict with the MP-1 goal of establishing a durable autonomous-flight reference architecture.
+# Flight-Controller Power Modules
+
+## Holybro PM02 V3
+
+### Summary
+
+The Holybro PM02 V3 is the leading power-module candidate for the Pixhawk 6C Mini.
+
+It offers the cleanest physical and electrical integration for the minimal initial-flight architecture.
+
+### Procurement Hold
+
+Do not procure until the complete stock current path is reconciled with measured propulsion current.
+
+The evaluation shall distinguish between:
+
+- Current-sensor measurement range
+- PCB current capability
+- Connector current capability
+- Wire current capability
+- Sustained operating current
+- Short-duration takeoff and climb current
+
+### Procurement Requirements
+
+Confirm:
+
+- Exact PM02 V3 model
+- Analog output
+- Pixhawk 6C Mini compatibility
+- Included six-pin JST-GH harness
+- XT60 connector orientation
+- Wire gauge
+- Wire length
+- Board dimensions
+- Installed mass
+- Voltage range
+- Current-sensor range
+- Published calibration values
+- Current production status
+
+### Vendor Risks
+
+- Listings may confuse PM02, PM02 V3, and PM02D.
+- Digital PM02D hardware is not suitable for the Pixhawk 6C Mini analog input.
+- Product pages may emphasize PCB current rating while the stock harness has a lower practical continuous rating.
+- Connector gender and cable orientation may be unclear.
+- Accessory cable inclusion may vary.
+
+### Incoming Inspection
+
+Record:
+
+- Exact label and revision
+- Connector gender
+- Wire gauge
+- Wire length
+- Harness pinout
+- Mass
+- Dimensions
+- Output voltage
+- Voltage-sense calibration
+- Current-sense calibration
+- Voltage drop under load
+- Connector and wire temperature under load
+
+Procurement Rank: **Best**  
+Status: **Research**  
+Design Role: **Reference**
 
 ---
 
-# Flight Controller Integration Consequences
+## Holybro PM06 V2
 
-Selecting the Pixhawk 6C Mini creates the following requirements for the remaining procurement evaluations:
+### Summary
 
-1. Select a compatible external power module.
-2. Define a separate servo-power bus.
-3. Determine whether the ESC BEC, an external BEC, or a dedicated servo regulator will power the servo rail.
-4. Confirm power-module voltage and current range for the 4S propulsion system.
-5. Confirm GPS and compass connector compatibility.
-6. Confirm receiver protocol and cable compatibility.
-7. Confirm telemetry-radio interface and power requirements.
-8. Confirm airspeed-sensor interface.
-9. Reserve at least one MAVLink serial interface for a future companion computer.
-10. Confirm exact Pixhawk 6C Mini hardware revision and supplied harness kit before purchase.
-11. Define vibration isolation, orientation, cooling, and service access.
-12. Complete the physical and electrical interface matrix after the full procurement set is selected.
+The PM06 V2 is a technically compatible alternative with integrated power distribution.
 
----
+### Procurement Concern
 
-# Flight Controller Verification Requirements
+Its distribution features are unnecessary for the single-motor initial MP-1 architecture and add hardware beyond the baseline need.
 
-The reference flight controller must complete the following verification steps after procurement:
+### Vendor Risks
 
-1. Confirm exact model and hardware revision.
-2. Confirm physical dimensions and mass.
-3. Confirm supplied cable and accessory set.
-4. Inspect connector keying and pin assignments.
-5. Load the approved ArduPlane firmware.
-6. Confirm boot, logging, and microSD operation.
-7. Confirm both IMUs and the barometer are detected.
-8. Confirm PWM output operation.
-9. Confirm receiver input.
-10. Confirm GPS and compass communication.
-11. Confirm telemetry communication.
-12. Confirm CAN communication.
-13. Confirm voltage and current monitoring with the selected power module.
-14. Confirm servo-rail isolation and voltage.
-15. Confirm failsafe behavior.
-16. Confirm vibration levels during propulsion ground testing.
-17. Confirm flight-controller temperature during operation.
-18. Perform manual stabilized flight testing.
-19. Perform return-to-launch and autonomous-mode verification.
-20. Archive parameters, logs, firmware version, and verification evidence.
+- Listings may confuse PM06 V2 and PM06D.
+- The complete stock current path still requires verification.
+- Distribution outputs may encourage unnecessary wiring complexity.
+
+Procurement Rank: **Better**  
+Status: **Research**  
+Design Role: **Alternative**
 
 ---
 
-# Upcoming Procurement Categories
+## Holybro PM07
 
-The remaining MP-1 procurement evaluations should proceed in this order:
+### Summary
 
-1. Power Module / External BEC
-2. GPS / Compass
-3. RC Receiver
-4. Telemetry Radio
+The PM07 is capable but oversized for MP-1.
+
+### Procurement Concern
+
+It adds distribution and PWM-header functions that are not needed for the minimal initial configuration.
+
+Procurement Rank: **Okay**  
+Status: **Research**  
+Design Role: **Alternative**
+
+---
+
+## Mauch 100 A Hall-Effect System
+
+### Summary
+
+The Mauch system is retained as a premium higher-current alternative.
+
+### Procurement Concern
+
+It requires:
+
+- Separate regulator selection
+- Connector installation
+- Harness adaptation
+- Calibration
+- Greater installation effort
+- More detailed interface documentation
+
+Procurement Rank: **Okay**  
+Status: **Future Evaluation**  
+Design Role: **Premium Alternative**
+
+---
+
+## Holybro PM02D and PM06D
+
+### Reason for Rejection
+
+These digital power modules are intended for a different flight-controller power-interface architecture and are not the correct baseline for the Pixhawk 6C Mini analog input.
+
+Procurement Rank: **Okay**  
+Status: **Rejected**  
+Design Role: **Alternative**
+
+---
+
+# GPS and Compass
+
+## Procurement Role
+
+GPS and compass are flight-critical for:
+
+- Home-position establishment
+- Waypoint navigation
+- Return-to-launch
+- Geofence operation
+- Navigation logging
+
+### Evaluation Requirements
+
+The selected unit shall have:
+
+- Current ArduPlane support
+- Direct Pixhawk 6C Mini compatibility
+- Documented GPS and compass interfaces
+- Appropriate update rate
+- Adequate cable length
+- Keyed connectors where practical
+- Suitable mounting provisions
+- Adequate electromagnetic separation from propulsion wiring
+- Current-production availability
+
+### Vendor Risks
+
+- Similar enclosures may contain different GNSS modules.
+- Compass inclusion may vary.
+- Connector type may vary by bundle.
+- Cable length may vary.
+- Some products may require CAN rather than serial integration.
+- Product revisions may change internal GNSS receivers.
+
+Status: **Evaluation Pending**
+
+---
+
+# RC Receiver
+
+## Procurement Role
+
+The RC receiver is flight-critical for:
+
+- Manual control
+- Stabilized control
+- Flight-mode selection
+- Pilot takeover
+- Link-loss failsafe
+
+### Evaluation Requirements
+
+The selected receiver shall have:
+
+- Direct Pixhawk-compatible signal protocol
+- Documented voltage range
+- Documented failsafe behavior
+- Adequate range
+- Antenna diversity where appropriate
+- Suitable telemetry behavior
+- No dependence on the ground telemetry radio
+- Current-production support
+
+### Vendor Risks
+
+- Regional frequency variants may differ.
+- Binding compatibility depends on the transmitter ecosystem.
+- Firmware versions may change protocol support.
+- Failsafe behavior may require receiver-specific configuration.
+- Connector pinout may not match Pixhawk harnesses directly.
+
+Status: **Evaluation Pending**
+
+---
+
+# Telemetry Radio
+
+## Procurement Role
+
+Telemetry supports:
+
+- Mission upload
+- Parameter review
+- Ground monitoring
+- Flight status
+- Battery status
+- Test observation
+
+Telemetry is not required for the flight controller to continue an already loaded onboard mission.
+
+### Evaluation Requirements
+
+Confirm:
+
+- Frequency band legal for the operating region
+- Pixhawk-compatible serial interface
+- Air and ground radio pair
+- Antennas
+- Power requirements
+- Connector type
+- Cable inclusion
+- Ground-station compatibility
+- Expected operating range
+- Current-production status
+
+### Vendor Risks
+
+- Regional frequency restrictions apply.
+- Air and ground units may be sold separately.
+- Antennas may be omitted.
+- Firmware compatibility may vary.
+- Connector pinouts may vary by vendor or revision.
+
+Status: **Evaluation Pending**
+
+---
+
+# Propeller
+
+## Procurement Role
+
+The propeller completes the propulsion load and determines the actual motor, ESC, battery, and power-module current requirement.
+
+### Procurement Requirements
+
+Confirm:
+
+- Diameter
+- Pitch
+- Hub thickness
+- Shaft or adapter compatibility
+- Rotation direction
+- Material
+- Balance quality
+- Manufacturer limits
+- Suitability for the selected motor and 4S battery
+
+### Vendor Risks
+
+- Nominal size may not reflect actual geometry.
+- Propeller direction may be mislabeled.
+- Hub bore and adapter requirements may vary.
+- Different materials can produce materially different current.
+- Folding and fixed propellers are not interchangeable without additional hardware.
+
+### Verification Consequence
+
+No power-module current-path decision shall be finalized until static current is measured with the selected propeller.
+
+Status: **Evaluation Pending**
+
+---
+
+# Airspeed Sensor
+
+## Procurement Position
+
+An airspeed sensor shall be procured only if required by the initial flight-test plan or by the selected autonomous-flight configuration.
+
+It is not automatically required merely because the flight controller supports it.
+
+### Evaluation Requirements
+
+If selected, confirm:
+
+- ArduPlane support
+- Pixhawk interface
+- Voltage range
+- Sensor range
+- Pitot-tube compatibility
+- Tubing
+- Mounting location
+- Calibration procedure
+- Moisture and blockage considerations
+
+Status: **Pending Test-Plan Decision**
+
+---
+
+# Deferred Equipment
+
+## Companion Computer
+
+Status: **Future Evaluation**
+
+Do not procure for the initial MP-1 build.
+
+ArduPlane onboard mission execution is sufficient for the initial waypoint-navigation requirement.
+
+## Payload Battery
+
+Status: **Future Evaluation**
+
+Do not procure for the initial build.
+
+## Payload Regulator
+
+Status: **Future Evaluation**
+
+Do not procure for the initial build.
+
+## Mission-Equipment Power Distribution
+
+Status: **Future Evaluation**
+
+Do not procure for the initial build.
+
+## Redundant Flight-Controller Power
+
+Status: **Future Evaluation**
+
+Do not procure for the initial build.
+
+## Redundant Servo Power
+
+Status: **Future Evaluation**
+
+Do not procure for the initial build.
+
+## Camera and Experimental Payload Sensors
+
+Status: **Future Evaluation**
+
+Do not procure for the initial build.
+
+---
+
+# Required Purchase Record
+
+For each procurement transaction, record:
+
+| Field | Required Entry |
+|------|----------------|
+| Component Category | Servo, motor, ESC, battery, flight controller, power module, GPS, receiver, telemetry, propeller, or sensor |
+| Manufacturer | Exact legal or marketed manufacturer name |
+| Model | Exact model and variant |
+| Hardware Revision | If identified |
+| Vendor | Seller or distributor |
+| Product Page | Archived reference or recorded URL |
+| Quantity | Number ordered |
+| Unit Price | Price at purchase |
+| Shipping and Tax | Recorded separately where practical |
+| Order Date | Date ordered |
+| Order Identifier | Vendor order number |
+| Expected Delivery | Date or range |
+| Received Date | Actual receipt date |
+| Condition | New, used, or new-old stock |
+| Included Accessories | Cables, connectors, mounts, antennas, manuals |
+| Discrepancies | Any mismatch from listing |
+| Incoming Inspection Record | Repository path or identifier |
+| Verification Record | Repository path or identifier |
+| Final Status | Provisional, Approved, Rejected, or returned |
+
+---
+
+# Initial Procurement Order
+
+The remaining initial-flight evaluations and purchases shall proceed in this order:
+
+1. Flight-controller power module
+2. GPS and compass
+3. RC receiver
+4. Telemetry radio
 5. Propeller
-6. Companion Computer
+6. Airspeed sensor, only if required by the test plan
+
+Companion-computer and payload-system procurement shall not be added to this sequence without a new approved decision.
 
 ---
 
 # Revision History
 
-- Initial servo vendor assessments completed.
-- Brushless propulsion motor vendor assessments completed.
-- Electronic speed controller vendor assessments completed.
-- Procurement rank, status, and design role standardized as separate fields.
-- MP-1 battery architecture standardized on removable 4S soft-pack LiPo batteries.
-- Tattu G-Tech 4S 5200 mAh 35C with XT60 selected as the provisional reference battery.
-- Admiral 5000, SMC HCL-HP 5200, and Ovonic 6000 retained as ranked alternatives.
-- Rejected battery architectures and common-interface requirements documented.
-- Holybro Pixhawk 6C Mini selected as the provisional reference flight controller.
-- Cube Orange+, Matek H743-WING V3, and Pixhawk 6X retained as ranked alternatives.
-- SpeedyBee F405 Wing rejected for the MP-1 reference role.
-- Flight-controller integration and verification requirements added.
-- Power module / external BEC evaluation pending.
+## Revision 3
+
+- Aligned vendor notes with EDR-0001 and the initial-flight requirements.
+- Defined the minimal flight-critical procurement boundary.
+- Removed companion-computer procurement from the initial build.
+- Removed payload power and redundant avionics power from the initial build.
+- Established the Skywalker integrated BEC as the baseline servo-power source subject to verification.
+- Retained the Hobbywing UBEC 5A only as a contingency.
+- Added detailed power-module vendor risks and procurement holds.
+- Added GPS/compass, RC receiver, telemetry, propeller, and airspeed-sensor procurement guidance.
+- Added required purchase-record fields.
+- Updated the remaining procurement order.
+
+## Revision 2
+
+- Added flight-controller vendor assessments.
+- Selected the Holybro Pixhawk 6C Mini as the reference controller.
+- Added integration and incoming-inspection notes for controller alternatives.
+
+## Revision 1
+
+- Added battery vendor assessments.
+- Selected the Tattu G-Tech 4S 5200 mAh battery as the reference.
+- Added battery procurement and inspection rules.
+
+## Revision 0
+
+- Initial servo, motor, and ESC vendor notes established.
