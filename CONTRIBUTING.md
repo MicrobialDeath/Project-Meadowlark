@@ -1,241 +1,250 @@
 # Contributing to Project Meadowlark
 
-Thank you for your interest in Project Meadowlark.
+Thank you for contributing to Project Meadowlark.
 
-Project Meadowlark is an engineering project first and an open-source software project second. Contributions are expected to meet the same standards of technical rigor, documentation quality, and traceability applied throughout the repository.
+The goal of this repository is to produce engineering work that another person can understand, reproduce, and improve.
 
-This document defines the engineering and repository conventions used by the project.
+The project values clear documentation and repeatable engineering over unnecessary process.
 
 ---
 
-# Engineering Principles
+# Guiding Principles
 
-All contributions should support the following principles:
+Every contribution should improve at least one of the following:
 
-- Engineering before implementation.
-- Documentation accompanies design.
-- Design decisions should be traceable.
-- Requirements drive implementation.
-- Verification demonstrates compliance.
-- Simplicity is preferred over unnecessary complexity.
-- Clear documentation is part of the engineering deliverable.
+- Technical accuracy
+- Safety
+- Reproducibility
+- Clarity
+- Maintainability
+- Test evidence
+
+If a change does not improve one of those areas, reconsider whether it belongs in the repository.
+
+---
+
+# Before You Make Changes
+
+Before making significant changes:
+
+1. Read the repository `README.md`.
+2. Read the relevant platform documentation.
+3. Understand the current design before proposing a new one.
+4. Search for existing documentation to avoid duplication.
+
+---
+
+# One Authoritative Source
+
+Each topic should have one authoritative home.
+
+| Topic | Primary Document |
+|-------|------------------|
+| Project overview | `README.md` |
+| Platform overview | `docs/platforms/mp-1/README.md` |
+| System design | `design.md` |
+| Component selection | `components.md` |
+| Assembly and configuration | `build.md` |
+| Verification | `testing.md` |
+| Major engineering decisions | `decisions.md` |
+| Test records and logs | `evidence/` |
+
+Avoid copying the same information into multiple files.
+
+---
+
+# Documentation Style
+
+Write for the next engineer.
+
+Prefer:
+
+- Clear language
+- Short sections
+- Descriptive headings
+- Tables where appropriate
+- Explicit assumptions
+- Measured values instead of estimates when available
+
+Avoid:
+
+- Marketing language
+- Unnecessary jargon
+- Repeating the same information
+- Process for its own sake
+
+When information is uncertain, say so.
+
+---
+
+# Engineering Decisions
+
+Record significant architectural or project decisions in:
+
+```text
+docs/platforms/mp-1/decisions.md
+```
+
+Each decision should briefly describe:
+
+- The decision
+- Why it was made
+- Important consequences
+- When it should be reconsidered
+
+Do not create a new document for routine decisions.
+
+---
+
+# Components
+
+Component selection belongs in:
+
+```text
+docs/platforms/mp-1/components.md
+```
+
+Record:
+
+- Selected hardware
+- Alternatives
+- Remaining questions
+- Compatibility concerns
+- Verification still required
+
+Do not duplicate component information in build or testing documents unless required for context.
+
+---
+
+# Building
+
+Assembly, wiring, firmware installation, and configuration belong in:
+
+```text
+docs/platforms/mp-1/build.md
+```
+
+Build records for a specific aircraft belong under:
+
+```text
+docs/platforms/mp-1/evidence/
+```
+
+---
+
+# Testing
+
+Testing belongs in:
+
+```text
+docs/platforms/mp-1/testing.md
+```
+
+Record actual test results under:
+
+```text
+docs/platforms/mp-1/evidence/
+```
+
+Do not place raw logs or photographs inside the primary documentation files.
+
+---
+
+# Evidence
+
+Engineering claims should be supported by evidence whenever practical.
+
+Evidence may include:
+
+- Flight logs
+- Photographs
+- Measurements
+- Parameter files
+- Mission files
+- Build records
+- Inspection records
+- Ground-test reports
+- Flight-test reports
+
+Keep evidence organized so another person can understand what configuration produced it.
 
 ---
 
 # Repository Organization
 
-The repository is organized into major engineering domains.
+Add new top-level folders only when they solve a real organizational problem.
 
-```text
-assets/
-docs/
-hardware/
-references/
-software/
-tools/
-```
+Prefer extending the existing structure before creating another one.
 
-Each directory has a specific purpose and should not be used as general storage.
+If a document becomes too large or covers multiple unrelated subjects, split it only after identifying clear ownership boundaries.
 
 ---
 
-# Documentation Standards
+# Third-Party Material
 
-Engineering documentation is written in Markdown unless another format is specifically required.
+Respect the licenses of third-party work.
 
-Documents should:
+Do not commit proprietary:
 
-- Use clear section headings.
-- Be technically precise.
-- Avoid unnecessary duplication.
-- Reference authoritative sources where appropriate.
-- Clearly distinguish facts, assumptions, and future work.
+- CAD
+- STL
+- 3MF
+- STEP
+- Manuals
+- Datasheets
+- Software
+- Design packages
 
-Whenever practical, documents should answer:
+unless redistribution is explicitly permitted.
 
-- What problem is being solved?
-- Why was this approach selected?
-- What alternatives were considered?
-- How can the decision be verified?
+Instead, document where the material can be obtained.
 
 ---
 
-# Naming Conventions
+# Commit Messages
 
-Use lowercase filenames.
-
-Separate words with hyphens.
+Use short, descriptive commit messages.
 
 Examples:
 
 ```text
-project-standards.md
-power-system-architecture.md
-edr-0004-flight-controller-selection.md
-```
-
-Avoid spaces in filenames.
-
----
-
-# Repository Structure
-
-Repository organization should remain stable.
-
-Major engineering information belongs in only one authoritative location.
-
-Avoid creating duplicate documentation covering the same subject.
-
----
-
-# Engineering Decision Records (EDRs)
-
-Significant engineering decisions should be documented as Engineering Decision Records.
-
-Each EDR should include:
-
-- Decision
-- Context
-- Alternatives Considered
-- Rationale
-- Consequences
-
-EDRs are immutable historical records.
-
-If a later decision supersedes an earlier one, create a new EDR rather than rewriting history.
-
----
-
-# Requirements
-
-Requirements should be:
-
-- Necessary
-- Testable
-- Verifiable
-- Unambiguous
-
-Avoid vague language such as:
-
-- Better
-- Faster
-- Improved
-- Reasonable
-
-Prefer measurable statements whenever possible.
-
----
-
-# Verification
-
-Engineering work should include a method of verification whenever practical.
-
-Verification may include:
-
-- Inspection
-- Analysis
-- Demonstration
-- Test
-
-Verification evidence should be retained whenever practical.
-
----
-
-# Source Classification
-
-Information used within the project should be distinguishable by origin.
-
-Examples include:
-
-- Original engineering work
-- Manufacturer documentation
-- Industry standards
-- Academic publications
-- Community references
-
-Third-party reference material should remain within the `references/` directory whenever possible.
-
----
-
-# Markdown Standards
-
-Use:
-
-- ATX headings (`#`)
-- Fenced code blocks
-- Tables where appropriate
-- Relative links within the repository
-
-Avoid excessive formatting that reduces readability.
-
----
-
-# Commit Message Conventions
-
-Commit messages should clearly describe the engineering change.
-
-Preferred examples:
-
-```text
-docs: establish MP-1 repository structure
-
-docs: add electrical architecture overview
-
-feat: implement telemetry parser
-
-fix: correct battery connector specification
-
-refactor: reorganize platform documentation
+Simplify MP-1 documentation
+Select reference propulsion system
+Add initial waypoint test procedure
+Document servo load testing
 ```
 
 Avoid vague messages such as:
 
 ```text
-Update
-
+Updates
 Changes
-
+Fix stuff
 Misc
-
-Stuff
 ```
 
 ---
 
 # Pull Requests
 
-Pull requests should:
+A good pull request should explain:
 
-- Have a clearly stated purpose.
-- Include supporting documentation where applicable.
-- Reference affected engineering documents.
-- Preserve repository organization.
-- Avoid unrelated changes.
+- What changed
+- Why it changed
+- Any assumptions made
+- Any remaining open questions
 
----
-
-# Licensing
-
-Contributors are responsible for ensuring they have the right to contribute any submitted material.
-
-Do not contribute proprietary documentation, copyrighted engineering drawings, or other protected material without permission.
-
----
-
-# Engineering Standards
-
-Detailed engineering standards are maintained separately under:
-
-```text
-docs/program/
-```
-
-Repository-wide engineering conventions should be updated there rather than duplicated across multiple documents.
+Include screenshots or photographs when they help explain hardware changes.
 
 ---
 
 # Questions
 
-If you are uncertain where new work belongs, or whether a proposed change aligns with the project's engineering philosophy, open a discussion before implementing significant structural changes.
+If documentation and implementation disagree:
 
-Maintaining a consistent engineering repository is considered part of the project's design process.
+1. Stop.
+2. Determine which is correct.
+3. Update the documentation or implementation.
+4. Record the change if it materially affects the project.
+
+The repository should describe the aircraft that actually exists—not the one we intended to build months ago.

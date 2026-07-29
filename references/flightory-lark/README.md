@@ -1,57 +1,57 @@
-# Flightory LARK Reference Platform
 
-Project Meadowlark uses the Flightory LARK as its initial physical development platform, designated Meadowlark Platform 1 (MP-1).
+# Flightory LARK Reference
 
-The LARK was selected because it aligns with Meadowlark's core requirements:
+## Purpose
 
-- Affordable entry cost
-- Printable on a consumer-grade 3D printer
-- Compatible with the Bambu Lab A1 build volume
-- Modular construction
-- Repairable through replacement printing
-- Suitable for autonomous aerial observation development
-- Capable of supporting future avionics, sensors, and computer vision payloads
-- Efficient enough to provide a path toward longer-endurance fixed-wing systems
+This directory contains reference information for the Flightory LARK airframe used by Meadowlark Platform 1 (MP-1).
 
-## Source
+The Flightory LARK is a third-party design and is **not** part of Project Meadowlark.
 
-The Flightory LARK aircraft design was obtained from Flightory.
+This directory exists to document how the reference airframe is used within the project without redistributing proprietary design files.
 
-Official product page:
+---
 
-https://flightory.com/product/lark/
+# Scope
 
-Builders who wish to reproduce Meadowlark Platform 1 must obtain the official design files directly from Flightory and comply with Flightory's current licensing terms.
+This directory may contain:
 
-## Licensing and Repository Policy
+- Publicly available specifications
+- Build notes relevant to MP-1
+- Compatibility notes
+- Reference dimensions
+- Links to official resources
+- Integration guidance
 
-The LARK airframe design, printable files, CAD models, documentation, and other proprietary design assets are the intellectual property of Flightory.
+This directory should **not** contain proprietary CAD models, manufacturing files, manuals, or other material that cannot be legally redistributed.
 
-Project Meadowlark does not redistribute those materials.
+---
 
-Accordingly, this repository does not include:
+# Relationship to MP-1
 
-- Flightory STL files
-- Flightory 3MF files
-- Flightory STEP or other CAD files
-- Flightory-provided packaged downloads
-- Derivative files that reproduce protected Flightory geometry
+The Flightory LARK serves as the baseline airframe for MP-1.
 
-This repository may include original Meadowlark-developed materials associated with the platform, such as:
+Project-specific engineering documentation is maintained under:
 
-- Systems engineering documentation
-- Flight-controller configuration
-- Wiring documentation
-- Software
-- Test procedures
-- Mission-planning resources
-- Original avionics trays
-- Original sensor mounts
-- Original camera mounts
-- Original interfaces that do not reproduce protected Flightory geometry
+```text
+docs/platforms/mp-1/
+```
 
-## Platform Role
+Changes made to the MP-1 implementation should be documented in the MP-1 documentation, not here.
 
-The Flightory LARK is the first reference aircraft used by Project Meadowlark. It is not the complete project and does not define the project's long-term architecture.
+---
 
-Project Meadowlark's software, avionics, documentation, and engineering practices are intended to remain transferable to future long-range and endurance platforms.
+# Third-Party Ownership
+
+The Flightory LARK design, trademarks, documentation, and associated intellectual property remain the property of their respective owners.
+
+Nothing in this repository grants ownership or redistribution rights for third-party material.
+
+Where possible, reference official sources rather than copying content into this repository.
+
+---
+
+# Future Airframes
+
+Project Meadowlark is intended to support additional airframes over time.
+
+Keeping reference material separate from platform documentation allows future aircraft to adopt the same engineering workflow without inheriting airframe-specific documentation.
