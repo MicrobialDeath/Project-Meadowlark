@@ -35,6 +35,8 @@ All rankings remain provisional until the selected component is procured, integr
 | Reference | Preferred baseline component for the current MP-1 configuration. |
 | Alternative | Substitute candidate if the reference component is unavailable or unsuitable. |
 | Extended-Capacity Alternative | Optional higher-capacity candidate requiring additional mass, center-of-gravity, and flight validation. |
+| Premium Alternative | Higher-cost candidate offering additional redundancy, power-input resilience, or expansion capability. |
+| Integrated Alternative | Fixed-wing-oriented candidate that consolidates power distribution and servo power at the cost of reduced modularity. |
 
 ---
 
@@ -108,7 +110,7 @@ The T-Motor F90 2806.5 1300KV remains the reference propulsion motor because it 
 
 The Hobbywing Skywalker 50A V2 remains the MP-1 reference ESC. It provides the strongest combination of current margin, documentation quality, switching-BEC capability, fixed-wing features, and protection functions.
 
-The 40A V2 remains the strongest direct substitute. The ZTW Beatles 40A is an acceptable lower-margin alternative. The T-Motor AT40A remains under research pending complete manufacturer documentation.
+The Skywalker 40A V2 remains the strongest direct substitute. The ZTW Beatles 40A is an acceptable lower-margin alternative. The T-Motor AT40A remains under research pending complete manufacturer documentation.
 
 ---
 
@@ -146,7 +148,6 @@ Li-ion, 3S LiPo, 5S LiPo, hardcase LiPo, and adapter-dependent configurations ar
 | Calculated Specific Energy | ~176 Wh/kg | ~155 Wh/kg | ~149 Wh/kg | ~174 Wh/kg |
 | Published Dimensions | 133 × 45 × 33.5 mm | 158 × 46 × 30 mm | 150 × 51 × 30 mm | 155 × 46 × 35 mm |
 | Published C-Rating | 35C | 40C | 80C | 120C |
-| Theoretical Claimed Continuous Current | 182 A | 200 A | 416 A | 720 A |
 | Main Connector | XT60 | XT60 | Factory XT60 option | XT60 |
 | Balance Connector | JST-XH-compatible | JST-XH | JST-XH | JST-XH |
 | Construction | Soft pack | Soft pack | Soft pack | Soft pack |
@@ -213,6 +214,170 @@ This pack offers the most nominal energy and competitive calculated specific ene
 
 ---
 
+# Flight Controller Evaluation
+
+## Flight Controller Requirements
+
+The MP-1 flight controller must support the complete autonomous fixed-wing architecture rather than only basic stabilization.
+
+| Requirement | Target |
+|-------------|--------|
+| Firmware | Full ArduPlane support |
+| Processor | STM32H7 class |
+| PWM Outputs | ≥8 required; ≥12 preferred |
+| IMU Redundancy | At least two IMUs preferred |
+| Barometer | At least one; dual barometers desirable |
+| Serial Connectivity | GPS, receiver, telemetry, companion computer, and expansion interfaces |
+| CAN | At least one; two preferred |
+| GPS/Compass | Dedicated or clearly documented integration path |
+| Airspeed Sensor | I²C or CAN support |
+| Receiver Support | S.Bus and UART-based receiver support |
+| Power Monitoring | Voltage and current sensing required |
+| Servo Power | Defined independently from flight-controller logic power |
+| Logging | Removable microSD preferred |
+| Companion Computer | MAVLink serial required; Ethernet desirable but not required |
+| Connector System | Keyed, documented, replaceable harnesses preferred |
+| Mechanical Installation | Must fit the LARK avionics area with vibration isolation and service access |
+| Lifecycle | Current production hardware |
+| Documentation | Manufacturer and ArduPilot documentation required |
+
+## Candidate Comparison
+
+| Attribute | Holybro Pixhawk 6C Mini | CubePilot Cube Orange+ with Mini Carrier | Matek H743-WING V3 | Holybro Pixhawk 6X with Mini Baseboard | SpeedyBee F405 Wing |
+|----------|--------------------------|------------------------------------------|----------------------|------------------------------------------|----------------------|
+| Rank | Best | Better | Better | Okay | Okay |
+| Status | Provisional | Provisional | Provisional | Provisional | Rejected |
+| Design Role | Reference | Premium Alternative | Integrated Alternative | Premium Alternative | Alternative |
+| Processor | STM32H743 | STM32H757 | STM32H743 | STM32H753 | STM32F405 |
+| IMUs | 2 | 3 | 2 | 3 | 1 primary IMU architecture |
+| Barometers | 1 | 2 | 1 | 2 | 1 |
+| Sensor Temperature Control | Yes | Yes | Not documented as active temperature control | Yes | No |
+| PWM Outputs | 14 | Up to 14 | 13 | 16 | 12 |
+| Serial Interfaces | Dedicated GPS/RC plus general serial ports | Multiple carrier-board serial interfaces | 7 UARTs | Dedicated GPS/RC plus 4 general serial ports | Multiple UARTs |
+| CAN | 2 | 2 | 1 | 2 | 1 |
+| GPS Interfaces | 2 dedicated | Carrier-dependent | UART/I²C integration | 2 dedicated | UART/I²C integration |
+| Primary Power Input | External analog power module | Carrier-dependent external power module | Direct battery input with integrated sensing | Dual SMBus power inputs | Direct battery input with integrated sensing |
+| Servo Power | External servo-rail supply required | External servo-rail supply required | Integrated selectable servo BEC | External servo-rail supply required | Integrated fixed-wing power board |
+| Current Monitoring | External compatible power module | External compatible power module | Integrated current sensor | External SMBus-compatible module | Integrated current sensor |
+| Logging | microSD | microSD | microSD | microSD | microSD |
+| Ethernet | No | No | No | Yes | No |
+| Connector Style | JST-GH plus PWM headers | Carrier-board connectors plus PWM headers | Mixed connectors and solder pads | JST-GH/baseboard connectors plus PWM headers | Mixed connectors and solder pads |
+| Mechanical Size | Compact Pixhawk form | Module plus carrier board | Fixed-wing board format | Larger mini-baseboard assembly | Compact fixed-wing board |
+| Documentation | Excellent | Excellent | Good | Excellent | Good |
+| ArduPlane Suitability | Excellent | Excellent | Excellent | Excellent | Functional but feature-limited |
+| Engineering Confidence | High | High | Medium–High | High | Medium |
+| Primary Strength | Best balance of capability, redundancy, size, and standardized integration | Highest mature redundancy and modular carrier architecture | Lowest external power-distribution burden | Maximum expansion, Ethernet, and dual primary power inputs | Low cost and compact fixed-wing integration |
+| Primary Trade-off | External power module and separate servo-power design required | Higher cost, size, and carrier-board complexity | More soldering, lower modularity, and fewer redundant sensors | Larger, heavier, more expensive, and excessive for MP-1 | F405 memory constraints and omitted ArduPilot features |
+
+## Functional Compliance
+
+| Requirement | Pixhawk 6C Mini | Cube Orange+ Mini | Matek H743-WING V3 | Pixhawk 6X Mini | SpeedyBee F405 Wing |
+|-------------|-----------------|-------------------|----------------------|-----------------|----------------------|
+| Full ArduPlane Support | Pass | Pass | Pass | Pass | Partial |
+| H7-Class Processor | Pass | Pass | Pass | Pass | Fail |
+| At Least 8 PWM Outputs | Pass | Pass | Pass | Pass | Pass |
+| Redundant IMUs | Pass | Pass | Pass | Pass | Fail |
+| CAN Support | Pass | Pass | Pass | Pass | Pass |
+| GPS/Compass Integration | Pass | Pass | Pass | Pass | Pass |
+| Airspeed Sensor Integration | Pass | Pass | Pass | Pass | Pass |
+| Receiver Integration | Pass | Pass | Pass | Pass | Pass |
+| Telemetry Integration | Pass | Pass | Pass | Pass | Pass |
+| Companion-Computer MAVLink | Pass | Pass | Pass | Pass | Pass |
+| Removable Logging Media | Pass | Pass | Pass | Pass | Pass |
+| Keyed Modular Harnesses Preferred | Pass | Pass | Partial | Pass | Partial |
+| External Power Module Required | Yes | Yes | No | Yes | No |
+| Separate Servo-Power Design Required | Yes | Yes | No | Yes | No |
+| Appropriate for MP-1 Baseline | Pass | Pass | Pass | Pass with overcapacity concern | Fail |
+
+## Engineering Evaluation
+
+### Best — Holybro Pixhawk 6C Mini
+
+The Pixhawk 6C Mini offers the best overall balance for MP-1:
+
+- H7-class processing
+- Redundant temperature-controlled IMUs
+- Fourteen PWM outputs
+- Dual CAN
+- Dual GPS interfaces
+- Conventional Pixhawk connector ecosystem
+- Compact packaging
+- Sufficient serial connectivity for the planned avionics architecture
+- Lower integration burden than solder-pad-oriented wing controllers
+- Lower cost, mass, and complexity than Cube Orange+ or Pixhawk 6X
+
+Its main architectural consequence is that MP-1 will require a separate compatible power module and a defined servo-power bus.
+
+### Better — CubePilot Cube Orange+ with Mini Carrier Board
+
+The Cube Orange+ is the strongest premium alternative. It offers:
+
+- Triple IMUs
+- Dual barometers
+- Mature ArduPilot support
+- Modular carrier-board architecture
+- Strong environmental and vibration management
+- Good long-term replacement flexibility
+
+Its disadvantages are higher cost, larger installed volume, and the need to select and document a specific carrier-board and power-module combination.
+
+### Better — Matek H743-WING V3
+
+The Matek H743-WING V3 is the strongest integrated fixed-wing alternative. It reduces the need for a separate power module and servo BEC by combining:
+
+- Direct battery input
+- Voltage and current sensing
+- Peripheral power regulation
+- Servo-rail regulation
+- Thirteen PWM outputs
+- Seven UARTs
+- CAN
+
+It is less attractive as the reference because its architecture concentrates more electrical functions on one board, uses more solder pads, provides less sensor redundancy, and makes replacement more likely to require rewiring.
+
+### Okay — Holybro Pixhawk 6X with Mini Baseboard
+
+The Pixhawk 6X is technically excellent and exceeds all identified MP-1 functional requirements. It adds:
+
+- Triple isolated sensor domains
+- Dual barometers
+- Ethernet
+- Dual primary power inputs
+- Sixteen PWM outputs
+
+Those features are not currently required by MP-1. The additional cost, installed size, mass, and power-module constraints make it less appropriate than the 6C Mini for the first platform.
+
+### Rejected — SpeedyBee F405 Wing
+
+The SpeedyBee F405 Wing provides a useful low-cost fixed-wing integration package, but it does not meet the MP-1 reference-platform requirement because:
+
+- It uses the older STM32F405 processor.
+- ArduPilot omits some features because of flash-memory limitations.
+- It offers less sensor redundancy.
+- Its architecture is less suitable as the long-term foundation for Meadowlark autonomous-flight development.
+
+## Procurement Recommendation
+
+Purchase the following as the MP-1 reference flight controller:
+
+> **Holybro Pixhawk 6C Mini**
+
+The exact hardware revision and supplied accessory set must be confirmed before ordering.
+
+Retain the following alternatives:
+
+| Candidate | Role |
+|-----------|------|
+| CubePilot Cube Orange+ with Mini Carrier Board | Premium redundancy alternative |
+| Matek H743-WING V3 | Integrated fixed-wing alternative |
+| Holybro Pixhawk 6X with Mini Baseboard | Future high-capability alternative |
+
+Do not procure the SpeedyBee F405 Wing for the MP-1 reference configuration.
+
+The physical and electrical interface matrix will be created after the complete MP-1 procurement set has been selected.
+
+---
+
 # Rejected Battery Architectures
 
 | Architecture | Status | Engineering Rationale |
@@ -253,4 +418,7 @@ Verification testing occurs after procurement to validate these selections rathe
 - Tattu G-Tech 4S 5200 mAh 35C selected as the provisional reference battery.
 - Admiral 5000, SMC HCL-HP 5200, and Ovonic 6000 retained as ranked alternatives.
 - Rejected battery architectures and compatibility constraints documented.
-- Flight controller evaluation pending.
+- Holybro Pixhawk 6C Mini selected as the provisional reference flight controller.
+- Cube Orange+, Matek H743-WING V3, and Pixhawk 6X retained as ranked alternatives.
+- SpeedyBee F405 Wing rejected for the MP-1 reference role.
+- Power module / external BEC evaluation pending.

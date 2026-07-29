@@ -46,6 +46,8 @@ Verification testing is used to validate procurement decisions after purchase, n
 | Reference | Preferred baseline component for the current MP-1 configuration. |
 | Alternative | Substitute candidate if the reference component is unavailable or unsuitable. |
 | Extended-Capacity Alternative | Optional higher-capacity candidate requiring additional mass, center-of-gravity, and flight validation. |
+| Premium Alternative | Higher-cost candidate offering additional redundancy, power-input resilience, or expansion capability. |
+| Integrated Alternative | Fixed-wing-oriented candidate that consolidates power distribution and servo power at the cost of reduced modularity. |
 
 ---
 
@@ -280,6 +282,8 @@ The Hobbywing Skywalker 50A V2 is the current MP-1 reference ESC. It provides th
 - No native telemetry
 - Final thermal margin depends on installation airflow
 - BEC loading must still be verified with the complete avionics suite
+- Battery-input connector must be installed during aircraft assembly
+- Motor connector compatibility must be confirmed during harness design
 
 Documentation Quality: **Excellent**
 
@@ -651,27 +655,286 @@ May be physically possible within the LARK airframe, but require separate center
 
 ---
 
-# Battery Verification Requirements
+# Flight Controllers
 
-The reference battery must complete the following verification steps after procurement:
+## Flight Controller Architecture Decision
 
-1. Confirm actual pack mass.
-2. Confirm physical dimensions.
-3. Confirm connector polarity.
-4. Confirm battery-tray and hatch fit.
-5. Confirm strap retention.
-6. Confirm center-of-gravity adjustment range.
-7. Measure resting cell voltages.
-8. Measure cell internal resistance with the project charger.
-9. Perform a low-power ground-system test.
-10. Measure static propulsion current with the selected propeller.
-11. Confirm ESC, wiring, and connector temperature.
-12. Conduct short-duration flight validation.
-13. Measure post-flight cell balance and remaining capacity.
-14. Establish a practical reserve threshold.
-15. Record actual cruise current and endurance.
+MP-1 requires a current-production H7-class flight controller with full ArduPlane support.
 
-The Ovonic extended-capacity candidate requires all standard tests plus dedicated launch, climb, landing, and center-of-gravity validation.
+The reference architecture prioritizes:
+
+- Mature ArduPilot support
+- Redundant inertial sensing
+- Compact fixed-wing packaging
+- Standardized and replaceable harnesses
+- Sufficient PWM, serial, CAN, GPS, receiver, telemetry, and sensor interfaces
+- Removable flight logging
+- Separation between flight-controller logic power and servo power
+- A modular external power-monitoring path
+- Future companion-computer integration through MAVLink
+
+The final physical and electrical interface matrix will be created after the complete procurement set is selected.
+
+---
+
+## Holybro Pixhawk 6C Mini
+
+### Summary
+
+The Holybro Pixhawk 6C Mini is the current MP-1 reference flight controller. It provides the best overall balance of H7 processing, sensor redundancy, interface capacity, connector standardization, compact packaging, and ecosystem maturity.
+
+### Strengths
+
+- STM32H743 processor
+- Full ArduPlane support
+- Dual IMUs
+- Temperature-controlled inertial sensors
+- Fourteen PWM outputs
+- Dual CAN buses
+- Two dedicated GPS interfaces
+- Dedicated receiver input
+- Sufficient serial connectivity for GPS, telemetry, receiver, and companion-computer integration
+- Removable microSD logging
+- Standardized JST-GH Pixhawk connector ecosystem
+- Compact installation compared with full-size Pixhawk or Cube systems
+- Conventional modular architecture that separates the autopilot from the power module
+
+### Weaknesses
+
+- Requires a separate compatible power module
+- Requires a separately defined servo-power bus
+- Only one primary analog power input
+- No Ethernet
+- Current documentation lists more than one physical hardware revision, so the exact model revision, dimensions, mass, and harness package must be confirmed before ordering
+- JST-GH avionics harnesses are not directly interchangeable with ordinary servo plugs
+
+Documentation Quality: **Excellent**
+
+Engineering Confidence: **High**
+
+Procurement Rank: **Best**
+
+Status: **Provisional**
+
+Design Role: **Reference**
+
+Recommendation:
+
+Use the Holybro Pixhawk 6C Mini as the MP-1 reference flight controller.
+
+---
+
+## CubePilot Cube Orange+ with Mini Carrier Board
+
+### Summary
+
+The Cube Orange+ with a Mini Carrier Board is the strongest premium redundancy alternative. It offers a mature ArduPilot ecosystem, triple IMUs, dual barometers, modular carrier-board architecture, and strong environmental management.
+
+### Strengths
+
+- STM32H757 processor
+- Triple IMUs
+- Dual barometers
+- Temperature-controlled sensors
+- Mature and widely supported ArduPilot platform
+- Modular flight module and carrier-board architecture
+- Multiple serial and CAN interfaces
+- Up to fourteen PWM outputs depending on carrier configuration
+- Removable microSD logging
+- Strong replacement and expansion flexibility
+- Carrier-board options can support redundant power paths
+
+### Weaknesses
+
+- Higher procurement cost
+- Larger installed assembly than the Pixhawk 6C Mini
+- Carrier-board selection becomes part of the procurement baseline
+- External power module and servo-power architecture still required
+- Wiring and mechanical integration are more complex
+- Some interface details depend on the specific carrier board rather than the flight module alone
+
+Documentation Quality: **Excellent**
+
+Engineering Confidence: **High**
+
+Procurement Rank: **Better**
+
+Status: **Provisional**
+
+Design Role: **Premium Alternative**
+
+---
+
+## Matek H743-WING V3
+
+### Summary
+
+The Matek H743-WING V3 is the strongest integrated fixed-wing alternative. It combines the flight controller, battery input, voltage/current sensing, peripheral regulation, and servo-power regulation on a single fixed-wing-oriented board.
+
+### Strengths
+
+- STM32H743 processor
+- Full ArduPlane support
+- Fixed-wing-specific layout
+- Direct 9–36 V battery input
+- Integrated voltage and current sensing
+- Integrated peripheral BEC
+- Integrated selectable servo BEC
+- Thirteen PWM outputs
+- Seven UARTs
+- CAN support
+- Removable microSD logging
+- Reduced requirement for a separate power module or servo-power regulator
+- Potentially lower total installed mass and wiring count
+
+### Weaknesses
+
+- Less sensor redundancy than Pixhawk 6C Mini, Cube Orange+, or Pixhawk 6X
+- More solder pads and mixed connector types
+- Replacement may require desoldering or harness reconstruction
+- More electrical functions are concentrated on one board
+- Integrated current sensing can be sensitive to switching noise and installation practices
+- Less standardized field-replacement ecosystem than Pixhawk hardware
+
+Documentation Quality: **Good**
+
+Engineering Confidence: **Medium–High**
+
+Procurement Rank: **Better**
+
+Status: **Provisional**
+
+Design Role: **Integrated Alternative**
+
+---
+
+## Holybro Pixhawk 6X with Mini Baseboard
+
+### Summary
+
+The Pixhawk 6X with Mini Baseboard is a technically excellent but oversized premium alternative. It exceeds the current MP-1 requirements and is better suited to a future platform that needs Ethernet, dual primary power inputs, or additional sensor redundancy.
+
+### Strengths
+
+- STM32H753 processor
+- Triple isolated IMU domains
+- Dual barometers
+- Temperature-controlled sensors
+- Sixteen PWM outputs
+- Dual CAN buses
+- Two GPS interfaces
+- Dual primary power inputs
+- Ethernet
+- Removable microSD logging
+- Excellent ArduPilot and PX4 ecosystem support
+- Strong expansion capability
+
+### Weaknesses
+
+- Higher cost
+- Larger installed volume
+- Greater mass
+- More capability than MP-1 currently needs
+- Requires an external compatible power module
+- Requires a separately defined servo-power system
+- Power-module choices may be constrained by the digital power-input architecture
+
+Documentation Quality: **Excellent**
+
+Engineering Confidence: **High**
+
+Procurement Rank: **Okay**
+
+Status: **Provisional**
+
+Design Role: **Premium Alternative**
+
+---
+
+## SpeedyBee F405 Wing
+
+### Summary
+
+The SpeedyBee F405 Wing is a compact and economical fixed-wing integration package, but it does not meet the MP-1 reference-platform objective.
+
+### Strengths
+
+- Low cost
+- Compact fixed-wing form factor
+- Integrated power distribution
+- Integrated current sensing
+- Integrated servo and peripheral power functions
+- Multiple PWM and serial interfaces
+- CAN support
+- Convenient configuration features
+
+### Weaknesses
+
+- STM32F405 processor rather than an H7-class processor
+- ArduPilot omits some features because of flash-memory limitations
+- Reduced long-term expansion headroom
+- Less sensor redundancy
+- Less appropriate as the durable autopilot foundation for Meadowlark autonomous-flight development
+
+Documentation Quality: **Good**
+
+Engineering Confidence: **Medium**
+
+Procurement Rank: **Okay**
+
+Status: **Rejected**
+
+Design Role: **Alternative**
+
+Reason for Rejection:
+
+The controller is capable of useful fixed-wing operation, but its processor, memory constraints, and reduced redundancy conflict with the MP-1 goal of establishing a durable autonomous-flight reference architecture.
+
+---
+
+# Flight Controller Integration Consequences
+
+Selecting the Pixhawk 6C Mini creates the following requirements for the remaining procurement evaluations:
+
+1. Select a compatible external power module.
+2. Define a separate servo-power bus.
+3. Determine whether the ESC BEC, an external BEC, or a dedicated servo regulator will power the servo rail.
+4. Confirm power-module voltage and current range for the 4S propulsion system.
+5. Confirm GPS and compass connector compatibility.
+6. Confirm receiver protocol and cable compatibility.
+7. Confirm telemetry-radio interface and power requirements.
+8. Confirm airspeed-sensor interface.
+9. Reserve at least one MAVLink serial interface for a future companion computer.
+10. Confirm exact Pixhawk 6C Mini hardware revision and supplied harness kit before purchase.
+11. Define vibration isolation, orientation, cooling, and service access.
+12. Complete the physical and electrical interface matrix after the full procurement set is selected.
+
+---
+
+# Flight Controller Verification Requirements
+
+The reference flight controller must complete the following verification steps after procurement:
+
+1. Confirm exact model and hardware revision.
+2. Confirm physical dimensions and mass.
+3. Confirm supplied cable and accessory set.
+4. Inspect connector keying and pin assignments.
+5. Load the approved ArduPlane firmware.
+6. Confirm boot, logging, and microSD operation.
+7. Confirm both IMUs and the barometer are detected.
+8. Confirm PWM output operation.
+9. Confirm receiver input.
+10. Confirm GPS and compass communication.
+11. Confirm telemetry communication.
+12. Confirm CAN communication.
+13. Confirm voltage and current monitoring with the selected power module.
+14. Confirm servo-rail isolation and voltage.
+15. Confirm failsafe behavior.
+16. Confirm vibration levels during propulsion ground testing.
+17. Confirm flight-controller temperature during operation.
+18. Perform manual stabilized flight testing.
+19. Perform return-to-launch and autonomous-mode verification.
+20. Archive parameters, logs, firmware version, and verification evidence.
 
 ---
 
@@ -679,13 +942,12 @@ The Ovonic extended-capacity candidate requires all standard tests plus dedicate
 
 The remaining MP-1 procurement evaluations should proceed in this order:
 
-1. Flight Controller
-2. Power Module / External BEC
-3. GPS / Compass
-4. RC Receiver
-5. Telemetry Radio
-6. Propeller
-7. Companion Computer
+1. Power Module / External BEC
+2. GPS / Compass
+3. RC Receiver
+4. Telemetry Radio
+5. Propeller
+6. Companion Computer
 
 ---
 
@@ -699,5 +961,8 @@ The remaining MP-1 procurement evaluations should proceed in this order:
 - Tattu G-Tech 4S 5200 mAh 35C with XT60 selected as the provisional reference battery.
 - Admiral 5000, SMC HCL-HP 5200, and Ovonic 6000 retained as ranked alternatives.
 - Rejected battery architectures and common-interface requirements documented.
-- Battery verification requirements added.
-- Flight controller evaluation pending.
+- Holybro Pixhawk 6C Mini selected as the provisional reference flight controller.
+- Cube Orange+, Matek H743-WING V3, and Pixhawk 6X retained as ranked alternatives.
+- SpeedyBee F405 Wing rejected for the MP-1 reference role.
+- Flight-controller integration and verification requirements added.
+- Power module / external BEC evaluation pending.
