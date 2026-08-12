@@ -1,338 +1,529 @@
 # MP-1 Components
 
-**Status:** Draft
+**Status:** Active — procurement and integration
 
 ## Purpose
 
-This document defines the hardware selected for Meadowlark Platform 1 (MP-1), records alternatives that were evaluated, identifies remaining procurement and verification work, and tracks recorded project hardware costs.
+This document is the authoritative hardware-selection and procurement-status record for Meadowlark Platform 1 (MP-1).
 
-It answers **what hardware the aircraft uses, what each major component does, and what has been purchased**.
+Design intent is documented in `design.md`.
 
-It does **not** describe:
+Assembly procedures belong in `build.md`.
 
-- System architecture (see [design.md](design.md))
-- Assembly and configuration (see [build.md](build.md))
-- Test procedures (see [testing.md](testing.md))
-- Engineering rationale and history (see [decisions.md](decisions.md))
+Verification procedures belong in `testing.md`, with actual verification evidence stored under `evidence/`.
 
 ---
 
-## Component Selection Philosophy
+# Component Lifecycle
 
-MP-1 is intended to establish a reliable, reproducible baseline aircraft.
+MP-1 uses the following component lifecycle:
 
-Components are selected according to the following priorities:
+1. **Selected** — chosen for the MP-1 baseline, but not yet ordered.
+2. **Ordered** — purchase confirmed; component not yet physically received and verified.
+3. **Received** — component physically received and inspected for identity and condition.
+4. **Verified** — component has passed the applicable integration and test requirements.
 
-1. Compatibility with ArduPlane
-2. Proven reliability
-3. Ease of replacement
-4. Availability
-5. Cost
-6. Future expandability
-
-The baseline aircraft favors mature, well-understood hardware over maximum performance.
+A purchase does not constitute verification.
 
 ---
 
-## Current Reference Configuration
+# Component Status
 
-| System | Selected Component | Selection Status | Procurement Status |
-|---|---|---|---|
-| Airframe | Flightory LARK | Reference | In fabrication |
-| Flight Controller | Holybro Pixhawk 6C Mini — Model-A revision | Selected | **Purchased** |
-| Power Module | Holybro PM02 V3 | Selected | **Purchased** |
-| GPS / Compass | Holybro M10 GPS V2 IP67 — u-blox M10, IST8310, Standard 10-pin | Selected | **Purchased** |
-| Firmware | ArduPlane | Selected | Software |
-| Motor | T-Motor F90 2806.5 1300KV | Baseline | Not recorded here |
-| ESC | Hobbywing Skywalker 50A V2 | Baseline | Not recorded here |
-| Battery | Tattu G-Tech 4S 5200 mAh | Baseline | Not recorded here |
-| Servos | Corona DS929MG | Baseline | Not recorded here |
+| Category | Selected Component | Qty | Status |
+|---|---|---:|---|
+| Airframe | Flightory LARK | 1 | In fabrication |
+| Flight Controller | Holybro Pixhawk 6C Mini | 1 | Purchased |
+| Flight-Controller Power Module | Holybro PM02 V3 | 1 | Purchased |
+| GPS / Compass | Holybro M10 GPS V2 with IST8310 compass | 1 | Purchased |
+| Battery | Spektrum SPMX50004S50H5 Smart LiPo, 5000 mAh 4S 50C IC5 | 1 | Ordered |
+| Motor | T-Motor F90 2806.5 1300KV | 1 | Ordered |
+| ESC | Hobbywing Skywalker 50A V2 | 1 | Ordered |
+| Servos | EMAX ES3059MD 12 g Digital Metal Gear | 4 purchased / 3 installed | Ordered |
+| RC Receiver | RadioMaster RP4TD ExpressLRS 2.4 GHz | 1 | Ordered |
+| Propeller | HQProp 7×4.5 2-blade | 1 set / 4 props | Ordered |
+| Telemetry Radio | Holybro SiK 915 MHz system or equivalent | — | Deferred / not selected |
+| RC Transmitter | RadioMaster ExpressLRS-compatible handheld transmitter | — | Deferred / not selected |
 
-The remaining systems are still under evaluation or awaiting final interface definition.
+---
+
+# Selected Components
+
+## Airframe
+
+**Selected:** Flightory LARK
+
+**Status:** In fabrication
+
+Reason:
+
+- Proven fixed-wing reference platform
+- Modular construction
+- Appropriate for the MP-1 baseline objective
+
+The LARK is a third-party design and its proprietary design files are not redistributed by Project Meadowlark.
 
 ---
 
 ## Flight Controller
 
-### Selected
+**Selected:** Holybro Pixhawk 6C Mini
 
-**Holybro Pixhawk 6C Mini — Model-A revision**
+**Status:** Purchased
 
-### What It Does
+Reason:
 
-The flight controller is the aircraft's central autopilot computer. It reads onboard sensors and pilot commands, runs ArduPlane, stabilizes the aircraft, commands the control surfaces and motor output, executes waypoint missions, manages failsafes such as return-to-launch, and records flight data.
+- Mature ArduPlane support
+- Suitable fixed-wing navigation and autonomous-flight capability
+- Well-documented Pixhawk ecosystem
 
-### Why We Selected It
-
-- Full ArduPilot support
-- Mature Pixhawk ecosystem
-- Reliable documentation
-- Compact size suitable for the LARK
-- Sufficient I/O for the MP-1 baseline and later expansion
-- Compatible with the selected Holybro power module and GPS architecture
-
-No companion computer is required for the MP-1 baseline.
-
-### Procurement Status
-
-**Purchased.**
-
-Purchased as a Holybro bundle with the PM02 V3 power module.
-
-Bundle price paid: **$149.98 USD** before shipping.
+Verification remains required after installation and configuration.
 
 ---
 
-## Power Module
+## Flight-Controller Power Module
 
-### Selected
+**Selected:** Holybro PM02 V3
 
-**Holybro PM02 V3**
+**Status:** Purchased
 
-### What It Does
+Role:
 
-The power module connects between the 4S flight battery and the aircraft power system. It provides regulated power to the Pixhawk and reports battery voltage and current to the flight controller so ArduPlane can monitor electrical load and battery condition.
+- Powers the Pixhawk flight-controller domain
+- Provides flight-battery voltage/current measurement
 
-It does **not** supply the servo rail in the MP-1 architecture. Servo power remains provided by the ESC's integrated BEC.
-
-### Operating Constraint
-
-For MP-1, treat **30 A continuous through the PM02 V3 supplied wiring and connectors as the conservative practical limit** unless the wiring or connector arrangement is deliberately revised and verified.
-
-This constraint must be checked against the final propeller and measured propulsion current before flight.
-
-### Why We Selected It
-
-- Native fit with the Pixhawk 6C Mini ecosystem
-- Supports the MP-1 4S battery architecture
-- Provides regulated flight-controller power
-- Provides battery voltage and current sensing
-- Avoids adding a second independent avionics regulator to the baseline aircraft
-
-### Procurement Status
-
-**Purchased.**
-
-Included in the **$149.98 USD Pixhawk 6C Mini + PM02 V3 bundle**.
-
-The individual module cost is not separated in the purchase record.
+The servo rail remains powered separately by the electronic speed controller (ESC) battery eliminator circuit (BEC).
 
 ---
 
 ## GPS / Compass
 
-### Selected
+**Selected:** Holybro M10 GPS V2 with IST8310 compass
 
-**Holybro M10 GPS V2 IP67 — u-blox M10 — IST8310 compass — Standard 10-pin**
+**Status:** Purchased
 
-### What It Does
+Role:
 
-The GPS / compass module provides the Pixhawk with position, groundspeed, altitude reference, precise time, and magnetic heading information.
+- Global Navigation Satellite System (GNSS) position
+- Navigation timing
+- Magnetic heading reference
 
-The u-blox M10 GNSS receiver supplies position and navigation data, while the integrated IST8310 compass supplies magnetic heading. Together they support waypoint navigation, return-to-launch, position-aware flight modes, and accurate flight logging.
-
-### Why We Selected It
-
-- Native standard 10-pin Pixhawk GPS1 connection
-- Integrated IST8310 compass
-- u-blox M10 multi-constellation GNSS receiver
-- RF shielding and SAW filtering for improved signal integrity in an electrically noisy aircraft environment
-- IP67 environmental protection without adding interface complexity
-- Direct fit with the Holybro / Pixhawk ecosystem
-
-### Procurement Status
-
-**Purchased.**
-
-Price paid: **$43.99 USD** before shipping.
+Final mounting location and magnetic-interference verification remain required.
 
 ---
 
-## Propulsion
+## Flight Battery
 
-### Selected Motor
+**Selected:** Spektrum SPMX50004S50H5 Smart LiPo
 
-**T-Motor F90 2806.5 1300KV**
+**Status:** Ordered
 
-### What It Does
+Baseline specifications:
 
-The motor converts electrical power from the flight battery, through the ESC, into propeller rotation and aircraft thrust.
+- 5000 mAh
+- 4S
+- 14.8 V nominal
+- 50C
+- IC5 connector
+- Spektrum Smart battery integration
 
-### Alternatives Evaluated
+Procurement:
 
-- EMAX ECO II 2807
-- FlyFishRC Flash
+- Quantity: 1
+- Product cost: $71.99
+- Handling: $12.99
+- Tax: $5.74
+- Total paid: $90.72
 
-Motor verification remains part of propulsion testing.
+Charging:
+
+- Intended charger: Spektrum S2100 Smart Charger, model SPMXC1010
+- The Spektrum Smart battery/charger combination is the MP-1 baseline charging arrangement.
+
+**Evaluated alternative:** Tattu G-Tech 5200 mAh 4S 35C XT60
+
+The Tattu remains a technically suitable lighter alternative but is no longer the selected MP-1 baseline battery.
+
+Verification required:
+
+- Confirm exact received model
+- Physical dimensions and fit
+- Aircraft connector integration
+- Battery mass
+- Center-of-gravity effect
+- Voltage under load
+- Capacity/condition
+- Smart-charger operation
+
+---
+
+## Motor
+
+**Selected:** T-Motor F90 2806.5 Long Range Motor
+
+**Variant:** 1300KV
+
+**Status:** Ordered
+
+Procurement:
+
+- Quantity: 1
+- Product cost: $29.90
+- Shipping: $6.90
+- Tax: $0.00
+- Total paid: $36.80
+
+Selection criteria:
+
+- 4S compatibility
+- Suitable performance for the LARK/MP-1 propulsion architecture
+- Efficient fixed-wing operation
+
+Verification required:
+
+- Confirm exact 1300KV variant
+- Mounting fit
+- Rotation direction
+- Propeller compatibility
+- Static current
+- Temperature
+- Vibration
+- Throttle response
 
 ---
 
 ## Electronic Speed Controller
 
-### Selected
+**Selected:** Hobbywing Skywalker 50A V2
 
-**Hobbywing Skywalker 50A V2**
+**Status:** Ordered
 
-### What It Does
+Procurement source: Amazon
 
-The ESC controls electrical power delivered to the brushless motor in response to throttle commands from the flight controller. Its integrated BEC also provides the baseline power source for the MP-1 servo rail.
+Known purchase price:
 
-### Alternatives Evaluated
+- Product: $26.80
 
-- Hobbywing Skywalker 40A V2
-- ZTW Beatles 40A
-- T-Motor AT40A
+Baseline characteristics:
 
-Selection may be revisited if testing identifies a clear requirement.
+- 50 A electronic speed controller (ESC)
+- Fixed-wing application
+- Integrated 5 V / 5 A battery eliminator circuit (BEC) for the servo rail
+
+Verification required:
+
+- Confirm exact received model
+- Connector/polarity inspection
+- BEC output voltage
+- Servo-load performance
+- Motor operation
+- Temperature
+- Full-throttle current margin
 
 ---
 
 ## Servos
 
-### Selected
+**Selected:** EMAX ES3059MD 12 g Digital Metal Gear Servo
 
-**Corona DS929MG**
+**Status:** Ordered
 
-### What They Do
+Configuration:
 
-The three primary servos convert flight-controller commands into mechanical movement of the aircraft control surfaces, providing roll, pitch, and yaw control as required by the LARK configuration.
+- Quantity purchased: 4
+- Quantity planned for aircraft: 3
+- Spare: 1
 
-### Alternatives Evaluated
+Procurement:
 
-- Hitec HS-82MG
-- EMAX ES08MD II
+- Merchandise: $27.96
+- Shipping: $8.99
+- Estimated tax: $2.96
+- Total paid: $39.91
 
-Servo performance and servo-rail loading will be verified during ground and flight testing.
+Selection criteria:
 
----
+- Digital control
+- Metal-gear construction
+- Approximately 12 g class
+- Suitable torque and speed for the LARK control surfaces
+- 4.8–6.0 V-class servo operation
+- Suitable physical envelope for the LARK installation
 
-## Battery
+**Original Flightory reference:** Corona DS929MG
 
-### Selected
+The Corona DS929MG is retained only as the original reference/comparison servo and is no longer the selected MP-1 servo.
 
-**Tattu G-Tech 4S 5200 mAh**
+Verification required before flight:
 
-### What It Does
-
-The battery is the single removable primary energy source for the MP-1 baseline aircraft. It supplies both propulsion power and, through the PM02 V3 and ESC BEC paths, flight-controller, avionics, and servo power.
-
-### Alternatives Evaluated
-
-- Admiral 5000
-- SMC 5200
-
-The baseline aircraft uses one removable 4S battery.
-
----
-
-## Procurement Cost Ledger
-
-This ledger records confirmed project purchases as they are entered into the repository. The running total represents **only purchases currently recorded here** and should not be interpreted as the complete historical project cost until earlier purchases are backfilled.
-
-### Holybro Order — Flight Controller, Power Module, and GPS
-
-| Item | Price Paid |
-|---|---:|
-| Pixhawk 6C Mini Model-A revision + PM02 V3 bundle | $149.98 |
-| M10 GPS V2 IP67 — M10 / Standard 10-pin | $43.99 |
-| Shipping | $42.20 |
-| **Order Total** | **$236.17** |
-
-**Recorded MP-1 project spend to date: $236.17 USD**
-
-Future purchases should be appended to this ledger with item cost, shipping or order-level charges where known, and a revised running total.
+- Exact model inspection
+- Dimensions and mounting fit
+- Connector type and polarity
+- Centering
+- Direction and travel
+- Gear play
+- Current draw
+- Simultaneous three-servo load
+- Servo-rail voltage stability
+- Temperature under load
 
 ---
 
-## Remaining Component Selection
+## RC Receiver
 
-The following items remain open:
+**Selected:** RadioMaster RP4TD ExpressLRS 2.4 GHz Receiver with Antennas
 
-- Propeller
-- RC receiver
-- Telemetry radio
-- Connectors
-- Wiring materials
+**Status:** Ordered
 
-These items should be selected only after confirming compatibility with the baseline configuration.
+GetFPV:
+
+- SKU: 21602
+- Quantity: 1
+- Product cost: $32.49
+
+Role:
+
+- Aircraft-side manual radio-control receiver
+- Interfaces the pilot-control link with the Pixhawk
+
+The matching handheld ExpressLRS (ELRS) transmitter is intentionally deferred until later in the build.
+
+Verification required:
+
+- Receiver identity and condition
+- Antenna installation
+- Pixhawk interface
+- Binding
+- Channel mapping
+- Failsafe behavior
+- Link-quality testing
 
 ---
 
-## Compatibility Requirements
+## Propeller
 
-All selected hardware should support:
+**Selected:** HQProp 7×4.5 2-Blade Propeller
 
+**Status:** Ordered
+
+GetFPV:
+
+- SKU: 17871
+- Quantity purchased: 1 set
+- Set quantity: 4 propellers
+- Product cost: $5.49
+
+This is the initial MP-1 test propeller, not a permanently approved propulsion configuration.
+
+Verification required:
+
+- Hub/motor compatibility
+- Correct orientation
+- Balance and condition
+- Static current
+- Thrust behavior
+- Motor and ESC temperature
+- Vibration
+
+Do not approve the propulsion combination until bench testing is complete.
+
+---
+
+# Wiring and Integration Materials
+
+The following supporting materials have been purchased for MP-1 integration.
+
+## GetFPV Order
+
+| Item | SKU | Quantity | Cost |
+|---|---:|---:|---:|
+| XT60 Power Connectors | 1100 | 5 pairs | $5.99 |
+| Silicone Wire 12 AWG — Black | 2619 | 1 m | $4.49 |
+| Silicone Wire 12 AWG — Red | 2618 | 1 m | $4.49 |
+| Silicone Wire 22 AWG — Black | 2607 | 1 m | $2.49 |
+| Silicone Wire 22 AWG — Red | 2606 | 1 m | $2.49 |
+| Male-to-Female Servo Extension Cable, twisted 22 AWG, JR style, 30 cm | 1611 | 5 | $9.49 |
+
+GetFPV order totals, including the RP4TD receiver and HQProp propellers:
+
+- Merchandise subtotal: $67.42
+- Shipping and handling: $6.99
+- Tax: $5.93
+- Grand total: $80.34
+
+## Amazon Order
+
+**BOJACK 26 AWG Flexible Silicone Wire Kit**
+
+**Status:** Ordered
+
+Contents include:
+
+- Five wire colors
+- 26 American Wire Gauge (AWG) silicone wire
+- Heat-shrink tubing
+- Mini wire stripper
+
+Product cost: $15.99
+
+The Amazon order also included the Hobbywing Skywalker 50A V2 electronic speed controller (ESC).
+
+Known merchandise subtotal for the two Amazon items: **$42.79**.
+
+Final delivered Amazon total is not recorded here unless confirmed from the completed order.
+
+---
+
+# Deferred Components
+
+The following components are intentionally **not required to begin physical assembly**.
+
+## RC Transmitter
+
+**Status:** Deferred / not selected
+
+Required before manual flight operations.
+
+Target class:
+
+- RadioMaster handheld transmitter
+- Native 2.4 GHz ExpressLRS (ELRS)
+- Compatible with the purchased RP4TD receiver
+- Sufficient switches and controls for MP-1 flight modes and pilot takeover
+
+The transmitter is the pilot's primary manual-control interface.
+
+---
+
+## Telemetry Radio
+
+**Status:** Deferred / not selected
+
+Required later for ground-station data connectivity and test monitoring, but not required to begin airframe assembly.
+
+Current candidate:
+
+- Holybro SiK Telemetry Radio V3
+- 915 MHz United States configuration
+- Approximately 100 mW class
+- Air/ground radio pair
+
+Role:
+
+- MAVLink data connection between Pixhawk and ground station
+- Mission/configuration support
+- Live aircraft status and telemetry
+
+Telemetry is not the primary manual flight-control link.
+
+Final model and procurement source remain open.
+
+---
+
+# Evaluated but Not Selected
+
+| Component | Disposition |
+|---|---|
+| Corona DS929MG servo | Original Flightory reference; replaced by EMAX ES3059MD for MP-1 procurement |
+| Tattu G-Tech 5200 mAh 4S 35C XT60 | Suitable alternative battery; replaced as baseline by Spektrum SPMX50004S50H5 |
+| Spektrum 5000 mAh 4S 30C Smart G2 hardcase | Evaluated; heavier than preferred |
+| Tattu 7000 mAh 4S 25C | Evaluated; additional mass and packaging disadvantage for MP-1 |
+
+---
+
+# Remaining Procurement
+
+No additional major hardware is required to **begin physical assembly**.
+
+The following items remain intentionally deferred:
+
+1. RadioMaster ExpressLRS-compatible handheld transmitter — required before manual flight.
+2. Holybro SiK 915 MHz telemetry radio system or equivalent — required before telemetry-dependent setup/test operations.
+
+Additional small connectors, adapters, fasteners, or harness materials should be purchased only after the physical wiring and installation layout establishes a need.
+
+An airspeed sensor remains optional and should not be procured until the test program establishes a requirement.
+
+---
+
+# Compatibility Requirements
+
+All selected MP-1 hardware should support:
+
+- One 4S flight-battery architecture
 - ArduPlane
-- 4S electrical system
-- Pixhawk-compatible interfaces
-- Standard PWM servo outputs
-- Standard RC protocols
-- GPS with integrated compass
-- MAVLink telemetry
+- Holybro Pixhawk 6C Mini
+- Manual flight
+- Stabilized flight
+- Autonomous waypoint navigation
+- Return-to-launch
+- Immediate pilot takeover
+- Manual landing
+- Reliable flight logging
 
 ---
 
-## Procurement Checklist
+# Purchase Checklist
 
-Before purchasing hardware, verify:
+Before purchasing any additional component, confirm:
 
-- Model number
-- Current manufacturer specifications
-- Electrical compatibility
-- Physical fit
+- Correct manufacturer and model number
+- Required variant
 - Connector compatibility
+- Voltage compatibility
+- Current capacity
+- Physical fit
+- Mass impact
+- Manufacturer documentation
 - Availability of replacement parts
-- Documentation availability
-- Price paid and shipping cost for the project ledger
+- Compatibility with the existing MP-1 baseline
 
-Avoid substituting components solely because they appear similar.
-
----
-
-## Verification Required
-
-Component selection and procurement do not mean a component is flight-proven.
-
-Verification includes:
-
-- Mechanical fit
-- Electrical compatibility
-- Connector and pinout verification
-- Configuration
-- Ground operation
-- Load testing where applicable
-- Flight performance
-- Reliability
-
-Verification procedures are defined in [testing.md](testing.md).
+Do not substitute a component solely because it is available.
 
 ---
 
-## Future Hardware
+# Verification Required
 
-Future hardware may include:
+Selection or purchase alone does not approve a component.
 
-- Companion computer
-- Payload systems
-- Vision hardware
-- Additional sensors
-- Redundant power
-- Alternative propulsion
+Each installed component must pass the applicable verification defined in `testing.md`.
 
-These additions should not change the baseline aircraft until the initial platform has been fully validated.
+Verification may include:
+
+- Physical inspection
+- Correct installation
+- Connector and polarity checks
+- Functional operation
+- Electrical measurements
+- Integration with adjacent systems
+- Ground testing
+- Flight validation where applicable
+
+Actual measurements and test results belong under `evidence/`, not in this document.
 
 ---
 
-## Revision Policy
+# Configuration Control
 
-This document records the current hardware baseline, procurement status, and recorded hardware cost for MP-1.
+Whenever a selected component changes:
 
-When hardware changes or new items are purchased:
+1. Update this document.
+2. Record the reason in `decisions.md` when the change is significant.
+3. Update `build.md` if installation or wiring changes.
+4. Update `testing.md` if verification requirements change.
+5. Re-test affected systems.
+6. Preserve evidence for the tested configuration.
 
-- Update the selected component and procurement status.
-- Add confirmed costs to the procurement cost ledger.
-- Move replaced hardware to the alternatives list if still relevant.
-- Record significant engineering decisions in [decisions.md](decisions.md).
-- Verify the updated configuration using the procedures in [testing.md](testing.md).
+---
 
-Specific build records and test results belong in the future `docs/platforms/mp-1/evidence/` directory once evidence is produced.
+# Relationship to Other Documents
+
+| Document | Purpose |
+|---|---|
+| `design.md` | System architecture and requirements |
+| `components.md` | Hardware selection and procurement status |
+| `build.md` | Installation and configuration |
+| `testing.md` | Verification procedures |
+| `decisions.md` | Engineering rationale |
+| `evidence/` | Actual inspections, measurements, configurations, logs, and test results |
+
+This document is the authoritative source for the MP-1 hardware baseline and component procurement status.
