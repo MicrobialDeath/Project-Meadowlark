@@ -32,16 +32,16 @@ A purchase does not constitute verification.
 | Category | Selected Component | Qty | Status |
 |---|---|---:|---|
 | Airframe | Flightory LARK | 1 | In fabrication |
-| Flight Controller | Holybro Pixhawk 6C Mini | 1 | Purchased |
-| Flight-Controller Power Module | Holybro PM02 V3 | 1 | Purchased |
-| GPS / Compass | Holybro M10 GPS V2 with IST8310 compass | 1 | Purchased |
-| Battery | Spektrum SPMX50004S50H5 Smart LiPo, 5000 mAh 4S 50C IC5 | 1 | Ordered |
-| Motor | T-Motor F90 2806.5 1300KV | 1 | Ordered |
-| ESC | Hobbywing Skywalker 50A V2 | 1 | Ordered |
-| Servos | EMAX ES3059MD 12 g Digital Metal Gear | 4 purchased / 3 installed | Ordered |
-| RC Receiver | RadioMaster RP4TD ExpressLRS 2.4 GHz | 1 | Ordered |
-| Propeller | HQProp 7×4.5 2-blade | 1 set / 4 props | Ordered |
-| Telemetry Radio | Holybro SiK 915 MHz system or equivalent | — | Deferred / not selected |
+| Flight Controller | Holybro Pixhawk 6C Mini | 1 | Received |
+| Flight-Controller Power Module | Holybro PM02 V3 | 1 | Received |
+| GPS / Compass | Holybro M10 GPS Module Standard (SKU 12040) | 1 | Received |
+| Battery | Spektrum SPMX50004S50H5 Smart LiPo, 5000 mAh 4S 50C IC5 | 1 | Received |
+| Motor | T-Motor F90 2806.5 1300KV | 1 | Ordered / in shipping |
+| ESC | Hobbywing Skywalker 50A V2 | 1 | Received |
+| Servos | EMAX ES3059MD 12 g Digital Metal Gear | 4 received / 3 planned for installation | Received |
+| RC Receiver | RadioMaster RP4TD ExpressLRS 2.4 GHz | 1 | Received |
+| Propeller | HQProp 7×4.5 2-blade | 1 set / 4 props | Received |
+| Telemetry Radio | Holybro SiK Telemetry Radio V3, 915 MHz | 1 air/ground system | Received |
 | RC Transmitter | RadioMaster ExpressLRS-compatible handheld transmitter | — | Deferred / not selected |
 
 ---
@@ -68,7 +68,7 @@ The LARK is a third-party design and its proprietary design files are not redist
 
 **Selected:** Holybro Pixhawk 6C Mini
 
-**Status:** Purchased
+**Status:** Received
 
 Reason:
 
@@ -84,7 +84,7 @@ Verification remains required after installation and configuration.
 
 **Selected:** Holybro PM02 V3
 
-**Status:** Purchased
+**Status:** Received
 
 Role:
 
@@ -97,17 +97,25 @@ The servo rail remains powered separately by the electronic speed controller (ES
 
 ## GPS / Compass
 
-**Selected:** Holybro M10 GPS V2 with IST8310 compass
+**Selected:** Holybro M10 GPS Module Standard
 
-**Status:** Purchased
+**SKU:** 12040
+
+**Status:** Received
+
+Procurement note:
+
+- The originally ordered Holybro M10 GPS V2 Standard (SKU 12086) became unavailable with an estimated four-week delay.
+- The supplier offered the in-stock Holybro M10 GPS Module Standard (SKU 12040) as a replacement.
+- The substitution was accepted for MP-1.
 
 Role:
 
 - Global Navigation Satellite System (GNSS) position
 - Navigation timing
-- Magnetic heading reference
+- Heading/navigation support as provided by the selected module and final integration
 
-Final mounting location and magnetic-interference verification remain required.
+Final mounting location and interference verification remain required.
 
 ---
 
@@ -115,7 +123,7 @@ Final mounting location and magnetic-interference verification remain required.
 
 **Selected:** Spektrum SPMX50004S50H5 Smart LiPo
 
-**Status:** Ordered
+**Status:** Received
 
 Baseline specifications:
 
@@ -162,7 +170,7 @@ Verification required:
 
 **Variant:** 1300KV
 
-**Status:** Ordered
+**Status:** Ordered / in shipping
 
 Procurement:
 
@@ -195,7 +203,7 @@ Verification required:
 
 **Selected:** Hobbywing Skywalker 50A V2
 
-**Status:** Ordered
+**Status:** Received
 
 Procurement source: Amazon
 
@@ -225,11 +233,11 @@ Verification required:
 
 **Selected:** EMAX ES3059MD 12 g Digital Metal Gear Servo
 
-**Status:** Ordered
+**Status:** Received
 
 Configuration:
 
-- Quantity purchased: 4
+- Quantity received: 4
 - Quantity planned for aircraft: 3
 - Spare: 1
 
@@ -272,7 +280,7 @@ Verification required before flight:
 
 **Selected:** RadioMaster RP4TD ExpressLRS 2.4 GHz Receiver with Antennas
 
-**Status:** Ordered
+**Status:** Received
 
 GetFPV:
 
@@ -303,7 +311,7 @@ Verification required:
 
 **Selected:** HQProp 7×4.5 2-Blade Propeller
 
-**Status:** Ordered
+**Status:** Received
 
 GetFPV:
 
@@ -328,9 +336,37 @@ Do not approve the propulsion combination until bench testing is complete.
 
 ---
 
+## Telemetry Radio
+
+**Selected:** Holybro SiK Telemetry Radio V3
+
+**Frequency:** 915 MHz United States configuration
+
+**Status:** Received
+
+Role:
+
+- MAVLink data connection between Pixhawk and ground station
+- Mission/configuration support
+- Live aircraft status and telemetry
+
+Telemetry is not the primary manual flight-control link.
+
+Verification required:
+
+- Confirm air/ground radio pair identity and condition
+- Confirm 915 MHz configuration
+- Aircraft-side Pixhawk interface
+- Ground-station connectivity
+- MAVLink communication
+- Link-quality/range testing
+- Expected aircraft behavior when telemetry is lost
+
+---
+
 # Wiring and Integration Materials
 
-The following supporting materials have been purchased for MP-1 integration.
+The following supporting materials have been received for MP-1 integration.
 
 ## GetFPV Order
 
@@ -354,7 +390,7 @@ GetFPV order totals, including the RP4TD receiver and HQProp propellers:
 
 **BOJACK 26 AWG Flexible Silicone Wire Kit**
 
-**Status:** Ordered
+**Status:** Received
 
 Contents include:
 
@@ -375,7 +411,7 @@ Final delivered Amazon total is not recorded here unless confirmed from the comp
 
 # Deferred Components
 
-The following components are intentionally **not required to begin physical assembly**.
+The following component remains intentionally deferred.
 
 ## RC Transmitter
 
@@ -387,35 +423,10 @@ Target class:
 
 - RadioMaster handheld transmitter
 - Native 2.4 GHz ExpressLRS (ELRS)
-- Compatible with the purchased RP4TD receiver
+- Compatible with the received RP4TD receiver
 - Sufficient switches and controls for MP-1 flight modes and pilot takeover
 
 The transmitter is the pilot's primary manual-control interface.
-
----
-
-## Telemetry Radio
-
-**Status:** Deferred / not selected
-
-Required later for ground-station data connectivity and test monitoring, but not required to begin airframe assembly.
-
-Current candidate:
-
-- Holybro SiK Telemetry Radio V3
-- 915 MHz United States configuration
-- Approximately 100 mW class
-- Air/ground radio pair
-
-Role:
-
-- MAVLink data connection between Pixhawk and ground station
-- Mission/configuration support
-- Live aircraft status and telemetry
-
-Telemetry is not the primary manual flight-control link.
-
-Final model and procurement source remain open.
 
 ---
 
@@ -434,10 +445,9 @@ Final model and procurement source remain open.
 
 No additional major hardware is required to **begin physical assembly**.
 
-The following items remain intentionally deferred:
+The following item remains intentionally deferred:
 
 1. RadioMaster ExpressLRS-compatible handheld transmitter — required before manual flight.
-2. Holybro SiK 915 MHz telemetry radio system or equivalent — required before telemetry-dependent setup/test operations.
 
 Additional small connectors, adapters, fasteners, or harness materials should be purchased only after the physical wiring and installation layout establishes a need.
 
