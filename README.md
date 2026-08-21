@@ -44,6 +44,7 @@ Project-Meadowlark/
 ├── CHANGELOG.md
 ├── LICENSE
 ├── docs/
+│   ├── development-infrastructure.md
 │   └── platforms/
 │       └── mp-1/
 │           ├── README.md
@@ -71,6 +72,8 @@ The MP-1 documentation set is intentionally compact:
 - [Build](docs/platforms/mp-1/build.md)
 - [Testing](docs/platforms/mp-1/testing.md)
 - [Engineering decisions](docs/platforms/mp-1/decisions.md)
+
+Project-wide development, remote-access, synchronization, and backup infrastructure is recorded separately in [Development and Data Infrastructure](docs/development-infrastructure.md).
 
 Build and test evidence will be stored under `docs/platforms/mp-1/evidence/` once records exist.
 
