@@ -42,6 +42,7 @@ A purchase does not constitute verification.
 | RC Receiver | RadioMaster RP4TD ExpressLRS 2.4 GHz | 1 | Received |
 | Propeller | HQProp 7×4.5 2-blade | 1 set / 4 props | Received |
 | Telemetry Radio | Holybro SiK Telemetry Radio V3, 915 MHz | 1 air/ground system | Received |
+| Remote ID | Ruko R111S Broadcast Remote ID Module | 1 | Ordered |
 | RC Transmitter | RadioMaster ExpressLRS-compatible handheld transmitter | — | Deferred / not selected |
 
 ---
@@ -364,6 +365,44 @@ Verification required:
 
 ---
 
+## Remote ID
+
+**Selected:** Ruko R111S Broadcast Remote ID Module
+
+**Status:** Ordered
+
+Procurement source: Amazon
+
+Role:
+
+- Provides the standalone Broadcast Remote Identification (Remote ID) capability selected for MP-1 United States compliance
+- Operates independently of the Pixhawk flight-control system
+- Uses its own Global Navigation Satellite System (GNSS) receiver and internal battery
+- Includes a recovery buzzer
+
+Baseline integration intent:
+
+- Mount inside the upper portion of the fuselage where practical
+- Keep the module's GNSS antenna oriented toward the sky
+- Avoid placing carbon-fiber reinforcement directly over or around the module
+- Keep reasonable separation from high-current motor/ESC wiring and other radio-frequency equipment
+- No Pixhawk serial connection is required for the baseline installation
+
+Verification required after receipt and before flight:
+
+- Confirm exact Ruko R111S model and physical condition
+- Record the module Remote ID serial number before discarding packaging
+- Confirm the serial number is accepted by the FAA DroneZone registration workflow for the applicable Broadcast Module Declaration of Compliance
+- Confirm charging and battery operation
+- Confirm GNSS position acquisition from the intended internal mounting location
+- Confirm Remote ID broadcast can be detected outside the fully assembled fuselage
+- Confirm the module remains securely mounted throughout expected flight loads
+- Confirm final installed mass and center-of-gravity effect
+
+The module remains **Ordered** until physically received and inspected. FAA registration and Remote ID serial-number association are required before applicable flight operations.
+
+---
+
 # Wiring and Integration Materials
 
 The following supporting materials have been received for MP-1 integration.
@@ -407,6 +446,8 @@ Known merchandise subtotal for the two Amazon items: **$42.79**.
 
 Final delivered Amazon total is not recorded here unless confirmed from the completed order.
 
+The Ruko R111S Remote ID module was ordered separately through Amazon. Purchase price and completed-order totals should be recorded only when confirmed from the order record.
+
 ---
 
 # Deferred Components
@@ -449,6 +490,8 @@ The following item remains intentionally deferred:
 
 1. RadioMaster ExpressLRS-compatible handheld transmitter — required before manual flight.
 
+The Ruko R111S Remote ID module has been ordered and is awaiting receipt and inspection.
+
 Additional small connectors, adapters, fasteners, or harness materials should be purchased only after the physical wiring and installation layout establishes a need.
 
 An airspeed sensor remains optional and should not be procured until the test program establishes a requirement.
@@ -469,6 +512,7 @@ All selected MP-1 hardware should support:
 - Immediate pilot takeover
 - Manual landing
 - Reliable flight logging
+- Required Remote ID compliance for applicable United States operations
 
 ---
 
