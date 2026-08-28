@@ -36,14 +36,15 @@ A purchase does not constitute verification.
 | Flight-Controller Power Module | Holybro PM02 V3 | 1 | Received |
 | GPS / Compass | Holybro M10 GPS Module Standard (SKU 12040) | 1 | Received |
 | Battery | Spektrum SPMX50004S50H5 Smart LiPo, 5000 mAh 4S 50C IC5 | 1 | Received |
-| Motor | T-Motor F90 2806.5 1300KV | 1 | Ordered / in shipping |
+| Motor | T-Motor F90 2806.5 1300KV | 1 | Received |
 | ESC | Hobbywing Skywalker 50A V2 | 1 | Received |
 | Servos | EMAX ES3059MD 12 g Digital Metal Gear | 4 received / 3 planned for installation | Received |
 | RC Receiver | RadioMaster RP4TD ExpressLRS 2.4 GHz | 1 | Received |
 | Propeller | HQProp 7×4.5 2-blade | 1 set / 4 props | Received |
 | Telemetry Radio | Holybro SiK Telemetry Radio V3, 915 MHz | 1 air/ground system | Received |
-| Remote ID | Ruko R111S Broadcast Remote ID Module | 1 | Ordered |
-| RC Transmitter | RadioMaster ExpressLRS-compatible handheld transmitter | — | Deferred / not selected |
+| Remote ID | Ruko R111S Broadcast Remote ID Module | 1 | Received |
+| RC Transmitter | RadioMaster TX16S MK3 ELRS | 1 | Received |
+| RC Transmitter Battery | RadioMaster 21700 5000 mAh 2S Li-ion Battery | 1 | Received |
 
 ---
 
@@ -171,7 +172,7 @@ Verification required:
 
 **Variant:** 1300KV
 
-**Status:** Ordered / in shipping
+**Status:** Received
 
 Procurement:
 
@@ -293,8 +294,7 @@ Role:
 
 - Aircraft-side manual radio-control receiver
 - Interfaces the pilot-control link with the Pixhawk
-
-The matching handheld ExpressLRS (ELRS) transmitter is intentionally deferred until later in the build.
+- Pairs with the selected RadioMaster TX16S MK3 ELRS transmitter for the MP-1 pilot-control link
 
 Verification required:
 
@@ -369,7 +369,7 @@ Verification required:
 
 **Selected:** Ruko R111S Broadcast Remote ID Module
 
-**Status:** Ordered
+**Status:** Received
 
 Procurement source: Amazon
 
@@ -399,7 +399,80 @@ Verification required after receipt and before flight:
 - Confirm the module remains securely mounted throughout expected flight loads
 - Confirm final installed mass and center-of-gravity effect
 
-The module remains **Ordered** until physically received and inspected. FAA registration and Remote ID serial-number association are required before applicable flight operations.
+FAA registration and Remote ID serial-number association are required before applicable flight operations.
+
+---
+
+## RC Transmitter
+
+**Selected:** RadioMaster TX16S MK3 ELRS
+
+**Status:** Received
+
+Procurement source: Buddy RC
+
+Role:
+
+- Primary pilot-side manual radio-control transmitter
+- Native ExpressLRS control link to the RadioMaster RP4TD receiver
+- Supports MP-1 manual flight, flight-mode selection, Return-to-Launch command, failsafe testing, and immediate pilot takeover
+- Provides a reusable transmitter platform for future Project Meadowlark aircraft and receiver configurations
+
+Baseline characteristics:
+
+- EdgeTX operating system
+- Native 2.4 GHz ExpressLRS support for the existing RP4TD receiver
+- Sub-G 900 MHz ExpressLRS capability for future compatible receivers
+- Up to 16 control channels
+- 5-inch touchscreen
+- External module expansion capability
+
+Verification required:
+
+- Confirm exact received model and configuration
+- Confirm Mode 2 control layout
+- Confirm correct United States/FCC radio configuration
+- Charge and verify transmitter battery operation
+- Update and record approved EdgeTX and ExpressLRS firmware versions as needed
+- Bind to the RP4TD receiver
+- Calibrate sticks and controls
+- Configure MP-1 model profile
+- Verify channel mapping, switches, flight modes, and failsafe behavior
+- Perform link-quality and range testing before flight
+
+---
+
+## RC Transmitter Battery
+
+**Selected:** RadioMaster 21700 5000 mAh 2S Li-ion Battery
+
+**Status:** Received
+
+Procurement source: Buddy RC
+
+Baseline specifications:
+
+- 21700 lithium-ion cell format
+- 5000 mAh
+- 2S
+- 7.4 V nominal
+- Intended for RadioMaster TX16S-series transmitters
+
+Known product cost:
+
+- $18.19
+
+Role:
+
+- Primary operating battery for the RadioMaster TX16S MK3 ELRS transmitter
+- Charged through the transmitter's supported charging system during normal use
+
+Verification required:
+
+- Confirm physical fit in transmitter battery compartment
+- Confirm connector compatibility and polarity
+- Confirm normal charge behavior
+- Confirm transmitter runtime and low-voltage warning behavior
 
 ---
 
@@ -446,28 +519,15 @@ Known merchandise subtotal for the two Amazon items: **$42.79**.
 
 Final delivered Amazon total is not recorded here unless confirmed from the completed order.
 
-The Ruko R111S Remote ID module was ordered separately through Amazon. Purchase price and completed-order totals should be recorded only when confirmed from the order record.
+The Ruko R111S Remote ID module was ordered separately through Amazon and has now been received. Purchase price and completed-order totals should be recorded only when confirmed from the order record.
 
 ---
 
 # Deferred Components
 
-The following component remains intentionally deferred.
+No major RC-control component remains intentionally deferred for the MP-1 baseline.
 
-## RC Transmitter
-
-**Status:** Deferred / not selected
-
-Required before manual flight operations.
-
-Target class:
-
-- RadioMaster handheld transmitter
-- Native 2.4 GHz ExpressLRS (ELRS)
-- Compatible with the received RP4TD receiver
-- Sufficient switches and controls for MP-1 flight modes and pilot takeover
-
-The transmitter is the pilot's primary manual-control interface.
+Future capability additions remain deferred until the baseline aircraft has been verified, including companion computing, vision systems, mission payloads, and optional additional sensors.
 
 ---
 
@@ -484,13 +544,16 @@ The transmitter is the pilot's primary manual-control interface.
 
 # Remaining Procurement
 
-No additional major hardware is required to **begin physical assembly**.
+No additional major electronic hardware is required to **begin physical assembly** or to complete the current baseline component set.
 
-The following item remains intentionally deferred:
+Remaining purchases should be limited to integration hardware established by the physical build, such as:
 
-1. RadioMaster ExpressLRS-compatible handheld transmitter — required before manual flight.
-
-The Ruko R111S Remote ID module has been ordered and is awaiting receipt and inspection.
+- Battery connector adapter or harness hardware
+- Motor/ESC connector hardware if the received components do not already mate
+- Mounting hardware
+- Fasteners
+- Control linkages
+- Cable-management materials
 
 Additional small connectors, adapters, fasteners, or harness materials should be purchased only after the physical wiring and installation layout establishes a need.
 
