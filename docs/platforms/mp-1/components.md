@@ -35,7 +35,7 @@ A purchase does not constitute verification.
 | Flight Controller | Holybro Pixhawk 6C Mini | 1 | Received |
 | Flight-Controller Power Module | Holybro PM02 V3 | 1 | Received |
 | GPS / Compass | Holybro M10 GPS Module Standard (SKU 12040) | 1 | Received |
-| Battery | Spektrum SPMX50004S50H5 Smart LiPo, 5000 mAh 4S 50C IC5 | 1 | Received |
+| Battery | Spektrum SPMX54S50H5 Smart G2 LiPo, 5000 mAh 4S 50C IC5 | 1 | Ordered |
 | Motor | T-Motor F90 2806.5 1300KV | 1 | Received |
 | ESC | Hobbywing Skywalker 50A V2 | 1 | Received |
 | Servos | EMAX ES3059MD 12 g Digital Metal Gear | 4 received / 3 planned for installation | Received |
@@ -123,9 +123,9 @@ Final mounting location and interference verification remain required.
 
 ## Flight Battery
 
-**Selected:** Spektrum SPMX50004S50H5 Smart LiPo
+**Selected:** Spektrum SPMX54S50H5 Smart G2 LiPo
 
-**Status:** Received
+**Status:** Ordered
 
 Baseline specifications:
 
@@ -134,20 +134,28 @@ Baseline specifications:
 - 14.8 V nominal
 - 50C
 - IC5 connector
-- Spektrum Smart battery integration
+- Spektrum Smart G2 battery integration
+- G2 balance-data communication through the Smart connector; no separate external balance lead is required for charging
 
 Procurement:
 
+- Source: Summit Racing
 - Quantity: 1
-- Product cost: $71.99
-- Handling: $12.99
-- Tax: $5.74
-- Total paid: $90.72
+- Ordered: September 4, 2026
+- Final product, handling, tax, and delivered total should be recorded only when confirmed from the completed order record
 
 Charging:
 
 - Intended charger: Spektrum S2100 Smart Charger, model SPMXC1010
-- The Spektrum Smart battery/charger combination is the MP-1 baseline charging arrangement.
+- S2100 charger firmware updated to OS 1.1.0.17 on September 4, 2026
+- The updated S2100 supports charging and balancing Spektrum Smart G2 batteries
+- The existing Smart IC5-to-IC3 adapter remains part of the charging path
+
+Replacement note:
+
+- The previous MP-1 baseline battery was the Spektrum SPMX50004S50H5 Smart G1 LiPo, 5000 mAh 4S 50C IC5.
+- The original battery and a same-model replacement both failed bench acceptance because the S2100 did not recognize them as connected batteries.
+- The SPMX50004S50H5 is therefore removed from the MP-1 baseline and replaced by the current SPMX54S50H5 Smart G2 battery.
 
 **Evaluated alternative:** Tattu G-Tech 5200 mAh 4S 35C XT60
 
@@ -155,14 +163,16 @@ The Tattu remains a technically suitable lighter alternative but is no longer th
 
 Verification required:
 
-- Confirm exact received model
+- Confirm exact received SPMX54S50H5 model
+- Confirm normal pack voltage on receipt
+- Confirm immediate Smart G2 recognition by the S2100
+- Confirm successful charge and balance operation on the S2100
 - Physical dimensions and fit
 - Aircraft connector integration
 - Battery mass
 - Center-of-gravity effect
 - Voltage under load
 - Capacity/condition
-- Smart-charger operation
 
 ---
 
@@ -536,7 +546,8 @@ Future capability additions remain deferred until the baseline aircraft has been
 | Component | Disposition |
 |---|---|
 | Corona DS929MG servo | Original Flightory reference; replaced by EMAX ES3059MD for MP-1 procurement |
-| Tattu G-Tech 5200 mAh 4S 35C XT60 | Suitable alternative battery; replaced as baseline by Spektrum SPMX50004S50H5 |
+| Tattu G-Tech 5200 mAh 4S 35C XT60 | Suitable alternative battery; not selected for the MP-1 baseline |
+| Spektrum SPMX50004S50H5 Smart G1 5000 mAh 4S 50C IC5 | Previous MP-1 baseline; original and same-model replacement failed bench acceptance and were replaced by SPMX54S50H5 Smart G2 |
 | Spektrum 5000 mAh 4S 30C Smart G2 hardcase | Evaluated; heavier than preferred |
 | Tattu 7000 mAh 4S 25C | Evaluated; additional mass and packaging disadvantage for MP-1 |
 
