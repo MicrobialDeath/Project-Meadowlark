@@ -35,7 +35,7 @@ A purchase does not constitute verification.
 | Flight Controller | Holybro Pixhawk 6C Mini | 1 | Received |
 | Flight-Controller Power Module | Holybro PM02 V3 | 1 | Received |
 | GPS / Compass | Holybro M10 GPS Module Standard (SKU 12040) | 1 | Received |
-| Battery | Spektrum SPMX54S50H5 Smart G2 LiPo, 5000 mAh 4S 50C IC5 | 1 | Ordered |
+| Battery | Spektrum SPMX54S50H5 Smart G2 LiPo, 5000 mAh 4S 50C IC5 | 1 | Received |
 | Motor | T-Motor F90 2806.5 1300KV | 1 | Received |
 | ESC | Hobbywing Skywalker 50A V2 | 1 | Received |
 | Servos | EMAX ES3059MD 12 g Digital Metal Gear | 4 received / 3 planned for installation | Received |
@@ -125,7 +125,7 @@ Final mounting location and interference verification remain required.
 
 **Selected:** Spektrum SPMX54S50H5 Smart G2 LiPo
 
-**Status:** Ordered
+**Status:** Received
 
 Baseline specifications:
 
@@ -142,6 +142,7 @@ Procurement:
 - Source: Summit Racing
 - Quantity: 1
 - Ordered: September 4, 2026
+- Received: September 6, 2026
 - Final product, handling, tax, and delivered total should be recorded only when confirmed from the completed order record
 
 Charging:
@@ -150,6 +151,8 @@ Charging:
 - S2100 charger firmware updated to OS 1.1.0.17 on September 4, 2026
 - The updated S2100 supports charging and balancing Spektrum Smart G2 batteries
 - The existing Smart IC5-to-IC3 adapter remains part of the charging path
+- Battery was recognized normally by the S2100 after receipt
+- Initial charge completed successfully to full charge on September 6, 2026
 
 Replacement note:
 
@@ -161,18 +164,21 @@ Replacement note:
 
 The Tattu remains a technically suitable lighter alternative but is no longer the selected MP-1 baseline battery.
 
-Verification required:
+Receipt/charging checks completed:
 
-- Confirm exact received SPMX54S50H5 model
-- Confirm normal pack voltage on receipt
-- Confirm immediate Smart G2 recognition by the S2100
-- Confirm successful charge and balance operation on the S2100
+- Exact SPMX54S50H5 model received
+- Smart G2 recognition by the S2100 confirmed
+- Successful charge and balance operation on the S2100 confirmed
+- Battery fully charged and available for MP-1 electrical integration testing
+
+Verification remaining:
+
 - Physical dimensions and fit
 - Aircraft connector integration
 - Battery mass
 - Center-of-gravity effect
 - Voltage under load
-- Capacity/condition
+- Capacity/condition under operational use
 
 ---
 
