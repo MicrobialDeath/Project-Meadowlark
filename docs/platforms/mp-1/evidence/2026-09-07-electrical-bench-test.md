@@ -32,6 +32,7 @@ Verify the Meadowlark Platform 1 (MP-1) electrical power architecture and establ
 | Battery voltage, unloaded | Approximately 16.8 V when fully charged | 16.63 V | PASS | Fully charged pack after resting; normal value |
 | Battery polarity | Correct | Positive 16.63 V with red probe on + and black probe on − | PASS | Confirms expected terminal polarity |
 | PM02 V3 input voltage | Near battery voltage | TBD | TBD | |
+| PM02 V3 output voltage, unloaded | Near battery voltage | 15.84 V | PASS | Measured several days after initial full-charge battery reading; output is consistent with present pack voltage |
 | Pixhawk supply voltage | 5 V-class regulated supply | TBD | TBD | |
 | ESC BEC output voltage | 5 V nominal | TBD | TBD | |
 | Servo rail voltage, idle | Stable near BEC nominal | TBD | TBD | |
@@ -53,6 +54,7 @@ Propeller remains removed until the propulsion-test stage explicitly authorizes 
 ## Observations / Exceptions
 
 - Initial unloaded flight-battery voltage measured 16.63 V using the TESMEN TM-510.
+- PM02 V3 unloaded output measured 15.84 V several days later, consistent with the battery having rested since the earlier full-charge measurement.
 
 ## Test Completion
 
