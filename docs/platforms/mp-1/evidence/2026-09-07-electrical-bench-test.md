@@ -37,6 +37,7 @@ Verify the Meadowlark Platform 1 (MP-1) electrical power architecture and establ
 | Pixhawk power-on / boot indication | Stable powered state with processor activity | I/O: PWR solid green, B/E flashing orange, ACT flashing blue; FMU: PWR solid green, ACT flashing blue, B/E off | PASS | Power and processor activity observed |
 | Mission Planner USB connection | Flight controller enumerates and establishes MAVLink connection | Connected successfully | PASS | Initial software-level communication with Pixhawk over USB |
 | ArduPlane 4.6.3 boot, no microSD | Mission Planner connects and identifies fixed-wing vehicle | COM6 connected; FIXED WING | PASS | Pixhawk6C target, ArduPlane 4.6.3; microSD removed. I/O PWR green, B/E off, ACT flashing blue. FMU PWR green, ACT off, B/E red flashing pattern. Despite LED pattern, MAVLink connection and fixed-wing identification confirm application is running. |
+| ArduPlane 4.6.3 boot, microSD installed | Mission Planner connects and identifies fixed-wing vehicle | Connected; FIXED WING | PASS | Same microSD card reinstalled. Board continued to boot and connect normally. FMU B/E red flashing pattern remained present. |
 | ESC BEC output voltage | 5 V nominal | TBD | TBD | |
 | Servo rail voltage, idle | Stable near BEC nominal | TBD | TBD | |
 | Servo rail voltage, three servos moving | Stable near BEC nominal | TBD | TBD | |
@@ -62,8 +63,9 @@ Propeller remains removed until the propulsion-test stage explicitly authorizes 
 - With the Pixhawk 6C Mini powered from PM02 V3 POWER1, both I/O and FMU PWR LEDs were solid green. I/O ACT flashed blue and I/O B/E flashed orange. FMU ACT flashed blue and FMU B/E remained off.
 - Mission Planner initially connected successfully to the Pixhawk over USB, confirming software-level communication and successful flight-controller boot.
 - After firmware transition testing, ArduPlane 4.6.3 on the Pixhawk6C target booted successfully with the microSD card removed. Mission Planner connected on COM6 and identified the vehicle as FIXED WING.
-- During the successful ArduPlane 4.6.3/no-microSD boot, the FMU B/E LED continued a red flashing pattern and FMU ACT remained off. Because MAVLink was live and Mission Planner identified FIXED WING, this LED pattern alone is not being treated as a boot failure.
-- The current diagnostic has two changed variables relative to the earlier failed state: ArduPlane 4.7.1 was replaced with 4.6.3, and the microSD card was removed. A controlled re-test with the same microSD card reinstalled is required to isolate whether the failure was firmware-version-related, microSD-related, or an interaction between the two.
+- Reinstalling the same microSD card did not reproduce the failure. ArduPlane 4.6.3 continued to boot and connect as FIXED WING with the card installed. This substantially reduces the likelihood that the microSD card caused the earlier failure and makes the ArduPlane 4.7.1 build or a 4.7.1-specific interaction the primary suspect.
+- During both successful ArduPlane 4.6.3 boots, the FMU B/E LED continued a red flashing pattern and FMU ACT remained off. Because MAVLink was live, Mission Planner identified FIXED WING, and the same behavior has been reported on Pixhawk 6C/6C Mini hardware under ArduPilot, this LED pattern alone is not being treated as a boot failure.
+- Current baseline recommendation: retain ArduPlane 4.6.3 on MP-1 until the 4.7.x behavior on Pixhawk 6C Mini is better understood or a later release is verified on this hardware.
 
 ## Test Completion
 
