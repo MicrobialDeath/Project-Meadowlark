@@ -42,7 +42,7 @@ Verify the Meadowlark Platform 1 (MP-1) electrical power architecture and establ
 | Post-calibration reboot / startup | Clean ArduPlane startup with FMU/IOMCU/IMU initialized | ArduPlane V4.6.3 (3fc7011a); Pixhawk6C; IOMCU 410 2003 411FC231; RCOut PWM:1-16; IMU0 fast sampling 2.0kHz/2.0kHz | PASS | Confirms application firmware, I/O MCU communication, RC output initialization, and IMU startup after reboot |
 | GPS1 acquisition / EKF3 initialization | GPS obtains usable fix; EKF3 establishes origin and becomes active | GPS bad-fix warning cleared; EKF3 IMU0/IMU1 origin set and using GPS; AHRS EKF3 active; field elevation 268 m | PASS | Previous AHRS roll/pitch and yaw inconsistency messages cleared after GPS acquisition and EKF3 initialization |
 | Compass calibration | Both detected compasses calibrate and pre-arm compass warning clears after reboot | Mag 1 and Mag 2 completed; post-reboot `Compass not calibrated` no longer present | PASS | External M10 IST8310 remains priority 1; internal Pixhawk IST8310 priority 2 |
-| ESC BEC output voltage | 5 V nominal | TBD | TBD | |
+| ESC BEC output voltage | 5 V nominal | 5.26 V | PASS | Measured between red (+) and black (−) conductors on the Skywalker ESC three-wire control/BEC lead |
 | Servo rail voltage, idle | Stable near BEC nominal | TBD | TBD | |
 | Servo rail voltage, three servos moving | Stable near BEC nominal | TBD | TBD | |
 | Pixhawk-reported battery voltage | Close to multimeter measurement | TBD | TBD | |
@@ -77,6 +77,7 @@ Propeller remains removed until the propulsion-test stage explicitly authorizes 
 - Compass setup detected two IST8310 devices: the external compass in the Holybro M10 GPS as priority 1 and the Pixhawk 6C Mini internal compass as priority 2. Mission Planner initially timed out waiting for the start-calibration command acknowledgement, but subsequent pre-arm messages confirmed `Compass calibration running`, showing the autopilot had accepted the command.
 - During onboard MagCal, both Mag 1 and Mag 2 progress bars reached full completion. Mission Planner then requested `Please reboot autopilot`, indicating the calibration data was accepted.
 - After reboot, `Compass not calibrated` no longer appeared in the pre-arm messages. The current pre-arm state is reduced to two blockers: `Waiting for RC` and `Hardware safety switch`.
+- Hobbywing Skywalker 50A V2 BEC output measured 5.26 V between the red and black conductors of the three-wire control/BEC lead, confirming normal 5 V-class regulated output before servo-rail load testing.
 - Current baseline recommendation: retain ArduPlane 4.6.3 on MP-1 until the 4.7.x behavior on Pixhawk 6C Mini is better understood or a later release is verified on this hardware.
 
 ## Test Completion
