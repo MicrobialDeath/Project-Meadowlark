@@ -45,7 +45,8 @@ Verify the Meadowlark Platform 1 (MP-1) electrical power architecture and establ
 | ESC BEC output voltage | 5 V nominal | 5.26 V | PASS | Measured between red (+) and black (−) conductors on the Skywalker ESC three-wire control/BEC lead |
 | Servo rail voltage, idle | Stable near BEC nominal | 5.24 V | PASS | Measured on an unused MAIN OUT connector with ESC/BEC on MAIN OUT 8 and one EMAX servo connected on MAIN OUT 1; entire system battery-powered |
 | Servo rail voltage, three servos moving | Stable near BEC nominal | TBD | TBD | |
-| Pixhawk-reported battery voltage | Close to multimeter measurement | 16.22 V reported vs. 16.59 V measured | REVIEW | Pixhawk/PM02 reading is 0.37 V low, about 2.2%; battery monitor calibration should be checked before flight |
+| Pixhawk-reported battery voltage, before calibration | Close to multimeter measurement | 16.22 V reported vs. 16.59 V measured | REVIEW | Pixhawk/PM02 reading was 0.37 V low, about 2.2% |
+| Pixhawk-reported battery voltage, after calibration | Match multimeter reference closely | 16.5896 V reported vs. 16.59 V measured | PASS | Mission Planner voltage divider recalculated from 18.18 to 18.59457 |
 | Independent servo motion check | All three selected servos move smoothly under external tester control | All three EMAX ES3059MD servos moved successfully on Spektrum XBC200 | PASS | Confirms servo hardware operation independently of Pixhawk output mapping |
 
 ## Propulsion Measurements
@@ -81,7 +82,10 @@ Propeller remains removed until the propulsion-test stage explicitly authorizes 
 - Hobbywing Skywalker 50A V2 BEC output measured 5.26 V between the red and black conductors of the three-wire control/BEC lead, confirming normal 5 V-class regulated output before servo-rail load testing.
 - With the Skywalker ESC three-wire control/BEC lead connected to MAIN OUT 8 and one EMAX ES3059MD servo connected to MAIN OUT 1, the shared MAIN OUT servo rail measured 5.24 V at an unused output connector while the aircraft electronics were powered from the flight battery. This confirms the ESC BEC is successfully energizing the Pixhawk servo rail with essentially no voltage drop at idle.
 - All three selected EMAX ES3059MD servos were tested independently with the Spektrum XBC200 Smart Battery Checker and Servo Driver and demonstrated normal motion. This separates servo-hardware health from later Pixhawk/ArduPlane output-path testing.
-- During the PM02/Pixhawk battery-monitor comparison, the PM02 output measured 16.59 V with the TESMEN TM-510 while Mission Planner reported Bat1 = 16.22 V, 1.4 A, 93%. The voltage indication is 0.37 V low relative to the multimeter reference, approximately 2.2%. Battery-voltage calibration should be checked before flight; the 1.4 A current indication should also be validated separately against a known-current reference before relying on it.
+- During the PM02/Pixhawk battery-monitor comparison, the PM02 output measured 16.59 V with the TESMEN TM-510 while Mission Planner initially reported 16.22 V, a 0.37 V low error of approximately 2.2%.
+- Voltage calibration was then performed in Mission Planner Battery Monitor using the 16.59 V multimeter reference. Mission Planner recalculated the voltage divider from 18.18 to 18.59457 and reported 16.589614 V, effectively matching the multimeter reference. Voltage sensing is therefore calibrated and accepted.
+- The current indication remains unverified; the present low-current bench value should not be used to calibrate amperes-per-volt. Current calibration requires a known-current reference under a more meaningful load.
+- Battery Capacity on the Mission Planner Battery Monitor page is still set to 3300 mAh and must be corrected to the selected flight battery's 5000 mAh capacity.
 - Current baseline recommendation: retain ArduPlane 4.6.3 on MP-1 until the 4.7.x behavior on Pixhawk 6C Mini is better understood or a later release is verified on this hardware.
 
 ## Test Completion
