@@ -43,7 +43,7 @@ Verify the Meadowlark Platform 1 (MP-1) electrical power architecture and establ
 | GPS1 acquisition / EKF3 initialization | GPS obtains usable fix; EKF3 establishes origin and becomes active | GPS bad-fix warning cleared; EKF3 IMU0/IMU1 origin set and using GPS; AHRS EKF3 active; field elevation 268 m | PASS | Previous AHRS roll/pitch and yaw inconsistency messages cleared after GPS acquisition and EKF3 initialization |
 | Compass calibration | Both detected compasses calibrate and pre-arm compass warning clears after reboot | Mag 1 and Mag 2 completed; post-reboot `Compass not calibrated` no longer present | PASS | External M10 IST8310 remains priority 1; internal Pixhawk IST8310 priority 2 |
 | ESC BEC output voltage | 5 V nominal | 5.26 V | PASS | Measured between red (+) and black (−) conductors on the Skywalker ESC three-wire control/BEC lead |
-| Servo rail voltage, idle | Stable near BEC nominal | TBD | TBD | |
+| Servo rail voltage, idle | Stable near BEC nominal | 5.24 V | PASS | Measured on an unused MAIN OUT connector with ESC/BEC on MAIN OUT 8 and one EMAX servo connected on MAIN OUT 1; entire system battery-powered |
 | Servo rail voltage, three servos moving | Stable near BEC nominal | TBD | TBD | |
 | Pixhawk-reported battery voltage | Close to multimeter measurement | TBD | TBD | |
 
@@ -78,6 +78,7 @@ Propeller remains removed until the propulsion-test stage explicitly authorizes 
 - During onboard MagCal, both Mag 1 and Mag 2 progress bars reached full completion. Mission Planner then requested `Please reboot autopilot`, indicating the calibration data was accepted.
 - After reboot, `Compass not calibrated` no longer appeared in the pre-arm messages. The current pre-arm state is reduced to two blockers: `Waiting for RC` and `Hardware safety switch`.
 - Hobbywing Skywalker 50A V2 BEC output measured 5.26 V between the red and black conductors of the three-wire control/BEC lead, confirming normal 5 V-class regulated output before servo-rail load testing.
+- With the Skywalker ESC three-wire control/BEC lead connected to MAIN OUT 8 and one EMAX ES3059MD servo connected to MAIN OUT 1, the shared MAIN OUT servo rail measured 5.24 V at an unused output connector while the aircraft electronics were powered from the flight battery. This confirms the ESC BEC is successfully energizing the Pixhawk servo rail with essentially no voltage drop at idle.
 - Current baseline recommendation: retain ArduPlane 4.6.3 on MP-1 until the 4.7.x behavior on Pixhawk 6C Mini is better understood or a later release is verified on this hardware.
 
 ## Test Completion
