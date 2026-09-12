@@ -60,6 +60,8 @@ Verify the Meadowlark Platform 1 (MP-1) electrical power architecture and establ
 | RP4TD ExpressLRS binding/link | Receiver binds and establishes telemetry link | TX16S reported `Telemetry connected`; RP4TD LED became solid light blue | PASS | Confirms active 2.4 GHz ExpressLRS link between TX16S MK3 and RP4TD |
 | Mission Planner RC input / calibration | CH1-CH5 detected across normal full ranges | CH1 988-2011; CH2 988-2011; CH3 988-2011; CH4 988-2011; CH5 999-2000 | PASS | Center values after calibration: CH1 1501, CH2 1500, CH4 1498; throttle low 988 |
 | TX16S-to-servo live control | Aileron, elevator, and rudder servos respond through full live command chain | All three EMAX servos moved as expected from TX16S control inputs through RP4TD and Pixhawk | PASS | Motor disconnected during RC calibration and live servo verification |
+| RC failsafe activation | Loss of transmitter link should trigger ArduPlane RC failsafe actions | `Throttle failsafe on`; short failsafe switched to CIRCLE; long failsafe switched to RTL | PASS | TX16S intentionally powered off with motor disconnected; spoken alert reported `Failsafe on, RTL` |
+| RC failsafe recovery | Restored transmitter link should clear failsafe and return to normal command availability | `Throttle failsafe off`; `RC Long Failsafe Cleared`; ELRS link restored at 500 Hz | PASS | Flight mode remained RTL after link recovery and was manually returned to MANUAL; direct servo control then resumed normally |
 
 ## Propulsion Measurements
 
@@ -91,6 +93,9 @@ Propeller remains removed until the propulsion-test stage explicitly authorizes 
 - The RP4TD entered ExpressLRS bind mode, the TX16S completed binding, reported `Telemetry connected`, and the RP4TD LED changed to solid light blue. This confirms the RF link between the TX16S MK3 and RP4TD is established.
 - Mission Planner received all five active RC channels through the RP4TD and completed radio calibration successfully. CH1-CH4 calibrated to approximately 988-2011 with centered roll/pitch/yaw values essentially at 1500; CH5 calibrated to 999-2000.
 - With the motor disconnected for safety, all three installed EMAX servos responded normally to live TX16S commands through the complete TX16S -> ExpressLRS -> RP4TD -> Pixhawk -> MAIN OUT control path.
+- With `THR_FAILSAFE=1`, intentionally powering off the TX16S triggered `Throttle failsafe on`, then `RC Short Failsafe: switched to CIRCLE`, followed by `RC Long Failsafe On: RTL`. The servos then moved autonomously as expected under ArduPlane navigation control while the motor remained disconnected.
+- Powering the TX16S back on restored the ExpressLRS link and produced `Throttle failsafe off` and `RC Long Failsafe Cleared`. ArduPlane remained in RTL after link recovery until the mode was manually changed back to MANUAL; direct TX16S servo control then resumed normally.
+- Bench GPS/EKF messages observed during the failsafe recovery included `AHRS: EKF3[1] vel error` and `RTL mode not armable`; these were associated with bench navigation state and the retained RTL mode, not with failure of the recovered RC link.
 - Current baseline recommendation: retain ArduPlane 4.6.3 on MP-1 until the 4.7.x behavior on Pixhawk 6C Mini is better understood or a later release is verified on this hardware.
 
 ## Test Completion
